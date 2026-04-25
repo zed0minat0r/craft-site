@@ -626,11 +626,91 @@ nav.scrolled .nav-cta {
 }
 
 /* ============================================
-   CUSTOM ORDERS CTA
+   PROCESS CLOSING PANEL
    ============================================ */
+.process-closing-panel {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.process-closing-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.pexels.com/photos/6046226/pexels-photo-6046226.jpeg?auto=compress&cs=tinysrgb&w=1600');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.03);
+  transition: transform 12s ease-out;
+}
+.process-closing-panel.visible .process-closing-bg {
+  transform: scale(1);
+}
+.process-closing-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(48, 40, 36, 0.62) 0%,
+    rgba(48, 40, 36, 0.55) 50%,
+    rgba(48, 40, 36, 0.68) 100%
+  );
+}
+.process-closing-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0 40px;
+}
+.process-closing-quote {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.25;
+  max-width: 900px;
+  text-shadow: 0 2px 40px rgba(48, 40, 36, 0.4);
+}
+.process-closing-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid rgba(207, 139, 103, 0.65);
+  border-radius: 50%;
+  color: var(--copper);
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  animation: arrowBob 2.5s ease-in-out infinite;
+}
+.process-closing-arrow:hover {
+  border-color: var(--copper);
+  background: rgba(207, 139, 103, 0.15);
+  transform: translateY(3px);
+  animation: none;
+}
+@keyframes arrowBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ============================================
+   CUSTOM ORDERS CTA — Forest Green
+   ============================================ */
+:root {
+  --forest: #2e3d2f;
+}
 .custom-cta {
   padding: clamp(90px, 12vw, 160px) 40px;
-  background: var(--espresso);
+  background: var(--forest);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -649,8 +729,8 @@ nav.scrolled .nav-cta {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(48,40,36,0.6) 0%, transparent 80%),
-    linear-gradient(180deg, var(--espresso) 0%, transparent 30%, transparent 70%, var(--espresso) 100%);
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(20,32,21,0.65) 0%, transparent 80%),
+    linear-gradient(180deg, var(--forest) 0%, transparent 30%, transparent 70%, var(--forest) 100%);
   pointer-events: none;
 }
 .custom-cta-inner {
@@ -1051,6 +1131,18 @@ footer {
   text-align: center;
   padding: 0 40px 28px;
 }
+.studio-pull-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--copper);
+  margin-top: 16px;
+  line-height: 1.4;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .studio-strip-wrap {
   overflow: hidden;
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
@@ -1073,12 +1165,36 @@ footer {
 }
 .studio-strip-item img {
   width: 270px;
-  height: 200px;
+  height: 300px;
   object-fit: cover;
   display: block;
   transition: transform 0.5s;
 }
-.studio-strip-item:hover img { transform: scale(1.04); }
+.studio-strip-item:hover img { transform: scale(1.05); }
+.studio-strip-hover-overlay {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 300px;
+  background: rgba(48, 40, 36, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.studio-strip-item:hover .studio-strip-hover-overlay {
+  opacity: 1;
+}
+.studio-strip-hover-overlay span {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--cream);
+  text-align: center;
+  padding: 0 16px;
+  letter-spacing: 0.04em;
+}
 .studio-strip-caption {
   display: block;
   text-align: center;
@@ -1289,9 +1405,11 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .process-panel-photo { height: 52vw; min-height: 220px; max-height: 320px; }
   .process-panel-text {
     padding: 40px 24px;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
   }
+  .process-panel-rule { margin: 0 auto; }
+  .process-panel-desc { text-align: center; }
   .process-panel-desc { max-width: 100%; }
 
   .about-inner {
@@ -1316,6 +1434,10 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 
   .testimonials-disclaimer { padding: 0 24px; }
 
+  .process-closing-content { padding: 0 24px; gap: 28px; }
+  .process-closing-quote { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+
+  .studio-pull-quote { font-size: 1.2rem; padding: 0 8px; }
   .studio-strip-header { padding: 0 24px 24px; }
   .studio-strip-wrap {
     overflow-x: auto;
@@ -1333,7 +1455,8 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
     width: 250px;
     scroll-snap-align: start;
   }
-  .studio-strip-item img { width: 250px; height: 175px; }
+  .studio-strip-item img { width: 250px; height: 220px; }
+  .studio-strip-hover-overlay { height: 220px; }
 
   .contact { padding: var(--section-pad) 20px; }
   .contact-card { padding: 32px 24px; }

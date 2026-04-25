@@ -119,6 +119,21 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   });
 });
 
+/* ---- Process closing panel zoom-in on scroll into view ---- */
+(function() {
+  var panel = document.querySelector('.process-closing-panel');
+  if (!panel) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        panel.classList.add('visible');
+        observer.unobserve(panel);
+      }
+    });
+  }, { threshold: 0.1 });
+  observer.observe(panel);
+})();
+
 /* ---- Contact form loading state ---- */
 (function() {
   var form = document.getElementById('contact-form');
