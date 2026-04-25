@@ -184,6 +184,21 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   });
 })();
 
+/* ---- Mood row glow on scroll-in ---- */
+(function() {
+  var rows = document.querySelectorAll('.mood-row');
+  if (!rows.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-glow');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  rows.forEach(function(r) { observer.observe(r); });
+})();
+
 /* ---- Shop CTA inquiry pre-selection ---- */
 (function() {
   var inquirySelect = document.getElementById('inquiry');
