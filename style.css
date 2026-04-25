@@ -139,9 +139,9 @@ nav.scrolled .nav-cta {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(48, 40, 36, 0.72) 0%,
-    rgba(48, 40, 36, 0.45) 50%,
-    rgba(136, 116, 104, 0.3) 100%
+    rgba(48, 40, 36, 0.52) 0%,
+    rgba(48, 40, 36, 0.30) 50%,
+    rgba(136, 116, 104, 0.18) 100%
   );
 }
 .hero-content {
@@ -304,6 +304,16 @@ nav.scrolled .nav-cta {
   position: relative;
   z-index: 1;
   overflow: hidden;
+}
+/* Woven linen texture overlay */
+.shop-mood::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='6' height='1' fill='%23302824'/%3E%3Crect x='6' y='6' width='6' height='1' fill='%23302824'/%3E%3Crect x='0' y='6' width='1' height='6' fill='%23302824'/%3E%3Crect x='6' y='0' width='1' height='6' fill='%23302824'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 0;
 }
 .shop-mood-header {
   text-align: center;
@@ -515,7 +525,7 @@ nav.scrolled .nav-cta {
   background: linear-gradient(180deg, var(--cashmere) 0%, #d4c3b6 50%, var(--taupe) 100%);
   position: relative;
   z-index: 1;
-  overflow: hidden;
+  /* overflow:hidden removed to let about-photo-accent corner accent show */
 }
 .about-inner {
   max-width: var(--max-w);
@@ -786,6 +796,18 @@ nav.scrolled .nav-cta {
   position: relative;
   z-index: 1;
 }
+/* Woven linen texture overlay */
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='6' height='1' fill='%23f7f2ec'/%3E%3Crect x='6' y='6' width='6' height='1' fill='%23f7f2ec'/%3E%3Crect x='0' y='6' width='1' height='6' fill='%23f7f2ec'/%3E%3Crect x='6' y='0' width='1' height='6' fill='%23f7f2ec'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+}
+.contact-trust,
+.contact-inner { position: relative; z-index: 1; }
 .contact-inner {
   max-width: 660px;
   margin: 0 auto;
@@ -983,6 +1005,63 @@ footer {
   color: rgba(189,169,157,0.55);
 }
 .footer-made span { color: var(--copper); }
+
+/* ============================================
+   STUDIO STRIP
+   ============================================ */
+.studio-strip {
+  padding: 64px 0 72px;
+  background: var(--taupe);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.studio-strip-header {
+  text-align: center;
+  padding: 0 40px 28px;
+}
+.studio-strip-wrap {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+.studio-strip-track {
+  display: flex;
+  gap: 16px;
+  padding: 0 40px 8px;
+  width: max-content;
+  animation: studio-scroll 35s linear infinite;
+}
+.studio-strip-track:hover { animation-play-state: paused; }
+.studio-strip-item {
+  flex-shrink: 0;
+  width: 270px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.studio-strip-item img {
+  width: 270px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s;
+}
+.studio-strip-item:hover img { transform: scale(1.04); }
+.studio-strip-caption {
+  display: block;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--walnut);
+  padding: 10px 0 0;
+}
+@keyframes studio-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(calc(-270px * 5 - 16px * 5)); }
+}
 
 /* ============================================
    SCROLL REVEAL
@@ -1200,6 +1279,25 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 
   .testimonials-disclaimer { padding: 0 24px; }
 
+  .studio-strip-header { padding: 0 24px 24px; }
+  .studio-strip-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .studio-strip-track {
+    padding: 0 24px 16px;
+    animation: none;
+    width: max-content;
+  }
+  .studio-strip-item {
+    width: 250px;
+    scroll-snap-align: start;
+  }
+  .studio-strip-item img { width: 250px; height: 175px; }
+
   .contact { padding: var(--section-pad) 20px; }
   .contact-card { padding: 32px 24px; }
   .form-row { grid-template-columns: 1fr; }
@@ -1254,6 +1352,10 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   }
   .hero-bg {
     transition: none !important;
+  }
+  .studio-strip-track {
+    animation: none !important;
+    overflow-x: auto;
   }
   .mood-photo img,
   .process-img-wrap img,
