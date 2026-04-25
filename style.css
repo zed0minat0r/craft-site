@@ -1581,7 +1581,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 
   .mood-time { text-align: center; }
 
-  .contact-trust { margin: 0 0 24px; }
+  .contact-trust { margin: 0 auto 24px; text-align: center; }
   .contact-trust-text { font-size: 0.85rem; }
 
   .testimonials-disclaimer { padding: 0 24px; }
@@ -1624,8 +1624,10 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .contact-card { padding: 32px 24px; }
   .form-row { grid-template-columns: 1fr; }
 
-  .footer-inner { grid-template-columns: 1fr; gap: 36px; }
-  .footer-brand-desc { max-width: 100%; }
+  .footer-inner { grid-template-columns: 1fr; gap: 36px; text-align: center; }
+  .footer-brand-desc { max-width: 100%; margin-left: auto; margin-right: auto; }
+  .footer-social { justify-content: center; }
+  .footer-links { align-items: center; }
   .footer-bottom { justify-content: center; text-align: center; }
   footer { padding: 48px 24px 28px; }
 
