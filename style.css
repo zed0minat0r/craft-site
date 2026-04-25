@@ -579,7 +579,7 @@ nav.scrolled .nav-cta {
 /* ---- Panel content: bottom-left on desktop ---- */
 .process-fp-content {
   position: absolute;
-  bottom: clamp(60px, 8vh, 100px);
+  bottom: clamp(180px, 28vh, 320px);
   left: clamp(40px, 7vw, 100px);
   max-width: 560px;
   z-index: 2;
@@ -1556,7 +1556,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .process-fp-content {
     left: 0;
     right: 0;
-    bottom: clamp(80px, 12vh, 120px);
+    bottom: clamp(220px, 38vh, 360px);
     padding: 0 24px;
     text-align: center;
     display: flex;
