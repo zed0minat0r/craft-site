@@ -119,19 +119,57 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   });
 });
 
-/* ---- Process closing panel zoom-in on scroll into view ---- */
+/* ---- Process Sticky Pin & Fade ---- */
 (function() {
-  var panel = document.querySelector('.process-closing-panel');
-  if (!panel) return;
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        panel.classList.add('visible');
-        observer.unobserve(panel);
-      }
+  var runway = document.getElementById('process-runway');
+  var panels = document.querySelectorAll('.process-fp');
+  var dots   = document.querySelectorAll('.process-dot');
+  if (!runway || !panels.length) return;
+
+  var numPanels = panels.length;
+  var currentIndex = -1;
+
+  function setPanel(idx) {
+    if (idx === currentIndex) return;
+    currentIndex = idx;
+    panels.forEach(function(p, i) {
+      p.classList.toggle('is-active', i === idx);
     });
-  }, { threshold: 0.1 });
-  observer.observe(panel);
+    dots.forEach(function(d, i) {
+      d.classList.toggle('is-active', i === idx);
+    });
+  }
+
+  function onScroll() {
+    var rect = runway.getBoundingClientRect();
+    var runwayH = runway.offsetHeight;
+    var vh = window.innerHeight;
+
+    // scrolled distance into the runway (clamped)
+    var scrolled = -rect.top;
+    if (scrolled < 0) scrolled = 0;
+    // total scroll budget = runwayH - vh (when sticky container exits)
+    var budget = runwayH - vh;
+    if (budget <= 0) { setPanel(0); return; }
+
+    var progress = scrolled / budget; // 0 → 1
+    var idx = Math.floor(progress * numPanels);
+    if (idx >= numPanels) idx = numPanels - 1;
+    setPanel(idx);
+  }
+
+  // Dot click: jump scroll to that panel's segment
+  dots.forEach(function(dot, i) {
+    dot.addEventListener('click', function() {
+      var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
+      var budget = runway.offsetHeight - window.innerHeight;
+      var target = runwayTop + (budget / numPanels) * i + 2;
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    });
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 
 /* ---- Contact form loading state ---- */

@@ -417,18 +417,18 @@ nav.scrolled .nav-cta {
 .btn-walnut:hover svg { transform: translateX(4px); }
 
 /* ============================================
-   THE PROCESS — Full-width alternating panels
+   THE PROCESS — Sticky Pin & Fade
    ============================================ */
 .process {
-  background: var(--taupe);
+  background: var(--espresso);
   position: relative;
   z-index: 1;
-  overflow: hidden;
 }
 
 .process-header-block {
   text-align: center;
   padding: var(--section-pad) 40px clamp(48px, 6vw, 80px);
+  background: var(--taupe);
   position: relative;
   z-index: 1;
 }
@@ -436,107 +436,183 @@ nav.scrolled .nav-cta {
   margin-bottom: 0;
 }
 
-/* Each step = full-width row, photo 55% / text 45% */
-.process-panel {
-  display: grid;
-  grid-template-columns: 55fr 45fr;
-  min-height: 60vh;
-  overflow: hidden;
+/* ---- Sticky runway ---- */
+.process-runway {
   position: relative;
-}
-.process-panel + .process-panel {
-  border-top: 1px solid rgba(136,116,104,0.2);
-}
-.process-panel--reverse {
-  direction: rtl;
-}
-.process-panel--reverse > * {
-  direction: ltr;
+  height: 300vh; /* scroll budget: 4 panels x 75vh each */
 }
 
-.process-panel-photo {
-  position: relative;
+.process-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
 }
-.process-panel-photo img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.process-panel:hover .process-panel-photo img {
-  transform: scale(1.04);
-}
-.process-panel-photo-overlay {
+
+/* ---- Each full-viewport panel ---- */
+.process-fp {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(48,40,36,0.18), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
   pointer-events: none;
 }
-
-.process-panel-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(48px, 7vw, 100px) clamp(40px, 6vw, 88px);
-  background: var(--cashmere);
-  position: relative;
-}
-.process-panel--reverse .process-panel-text {
-  background: var(--taupe);
+.process-fp.is-active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.process-panel-num {
+.process-fp-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.process-fp-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(48, 40, 36, 0.48) 0%,
+    rgba(48, 40, 36, 0.30) 50%,
+    rgba(48, 40, 36, 0.15) 100%
+  );
+}
+.process-fp-overlay--dark {
+  background: linear-gradient(
+    180deg,
+    rgba(48, 40, 36, 0.58) 0%,
+    rgba(48, 40, 36, 0.52) 50%,
+    rgba(48, 40, 36, 0.65) 100%
+  );
+}
+
+/* ---- Panel content: bottom-left on desktop ---- */
+.process-fp-content {
+  position: absolute;
+  bottom: clamp(60px, 8vh, 100px);
+  left: clamp(40px, 7vw, 100px);
+  max-width: 560px;
+  z-index: 2;
+}
+
+.process-fp-num {
   font-family: var(--font-display);
-  font-size: clamp(5rem, 9vw, 9rem);
+  font-size: clamp(4rem, 8vw, 8rem);
   font-weight: 700;
-  color: rgba(48,40,36,0.07);
+  color: rgba(247, 242, 236, 0.08);
   line-height: 1;
-  margin-bottom: -16px;
+  margin-bottom: -12px;
   letter-spacing: -0.03em;
 }
-.process-panel-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--copper);
-  margin-bottom: 16px;
-}
-.process-panel-title {
+
+.process-fp-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
   font-weight: 400;
-  color: var(--espresso);
+  color: var(--cream);
   line-height: 1.15;
   margin-bottom: 20px;
 }
-.process-panel-title em {
+.process-fp-title em {
   font-style: italic;
-  color: var(--walnut);
+  color: var(--copper);
 }
-.process-panel-desc {
-  font-size: 0.95rem;
-  color: var(--walnut);
+
+.process-fp-desc {
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  color: rgba(247, 242, 236, 0.82);
   line-height: 1.8;
-  max-width: 380px;
-  margin-bottom: 28px;
+  max-width: 440px;
+  font-weight: 300;
 }
-.process-panel-rule {
-  width: 40px;
-  height: 1.5px;
-  background: var(--copper);
-  margin-bottom: 14px;
-  opacity: 0.7;
+
+/* ---- Closing panel ---- */
+.process-fp--closing .process-fp-closing-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 0 40px;
+  z-index: 2;
 }
-.process-panel-note {
-  font-size: 0.78rem;
+
+.process-fp-closing-quote {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-weight: 400;
   font-style: italic;
-  color: var(--cashmere);
-  letter-spacing: 0.04em;
+  color: var(--cream);
+  line-height: 1.25;
+  max-width: 900px;
+  text-align: center;
+  text-shadow: 0 2px 40px rgba(48, 40, 36, 0.4);
 }
-.process-panel--reverse .process-panel-note {
-  color: var(--walnut);
+
+.process-fp-closing-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid rgba(207, 139, 103, 0.65);
+  border-radius: 50%;
+  color: var(--copper);
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  animation: arrowBob 2.5s ease-in-out infinite;
+}
+.process-fp-closing-arrow:hover {
+  border-color: var(--copper);
+  background: rgba(207, 139, 103, 0.15);
+  transform: translateY(3px);
+  animation: none;
+}
+@keyframes arrowBob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+/* ---- Progress dots ---- */
+.process-dots {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+.process-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(247, 242, 236, 0.35);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.process-dot::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(247, 242, 236, 0.35);
+  transition: background 0.3s, transform 0.3s;
+}
+.process-dot.is-active::after {
+  background: var(--copper);
+  transform: scale(1.4);
 }
 
 /* ============================================
@@ -625,82 +701,7 @@ nav.scrolled .nav-cta {
   margin-top: 32px;
 }
 
-/* ============================================
-   PROCESS CLOSING PANEL
-   ============================================ */
-.process-closing-panel {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.process-closing-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url('https://images.pexels.com/photos/6046226/pexels-photo-6046226.jpeg?auto=compress&cs=tinysrgb&w=1600');
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.03);
-  transition: transform 12s ease-out;
-}
-.process-closing-panel.visible .process-closing-bg {
-  transform: scale(1);
-}
-.process-closing-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(48, 40, 36, 0.62) 0%,
-    rgba(48, 40, 36, 0.55) 50%,
-    rgba(48, 40, 36, 0.68) 100%
-  );
-}
-.process-closing-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  padding: 0 40px;
-}
-.process-closing-quote {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--cream);
-  line-height: 1.25;
-  max-width: 900px;
-  text-shadow: 0 2px 40px rgba(48, 40, 36, 0.4);
-}
-.process-closing-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border: 1.5px solid rgba(207, 139, 103, 0.65);
-  border-radius: 50%;
-  color: var(--copper);
-  transition: border-color 0.3s, background 0.3s, transform 0.3s;
-  animation: arrowBob 2.5s ease-in-out infinite;
-}
-.process-closing-arrow:hover {
-  border-color: var(--copper);
-  background: rgba(207, 139, 103, 0.15);
-  transform: translateY(3px);
-  animation: none;
-}
-@keyframes arrowBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
-}
+/* arrowBob now defined in process sticky section above */
 
 /* ============================================
    CUSTOM ORDERS CTA — Forest Green
@@ -1396,21 +1397,20 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .mood-desc { max-width: 100%; }
   .btn-walnut { align-self: center; }
 
-  .process-header-block { padding: 60px 24px 0; }
-  .process-panel {
-    grid-template-columns: 1fr;
-    min-height: unset;
-  }
-  .process-panel--reverse { direction: ltr; }
-  .process-panel-photo { height: 52vw; min-height: 220px; max-height: 320px; }
-  .process-panel-text {
-    padding: 40px 24px;
-    align-items: center;
+  .process-header-block { padding: 60px 24px 40px; }
+  /* Sticky process — mobile: content centered */
+  .process-fp-content {
+    left: 0;
+    right: 0;
+    bottom: clamp(80px, 12vh, 120px);
+    padding: 0 24px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
   }
-  .process-panel-rule { margin: 0 auto; }
-  .process-panel-desc { text-align: center; }
-  .process-panel-desc { max-width: 100%; }
+  .process-fp-desc { max-width: 100%; text-align: center; }
 
   .about-inner {
     grid-template-columns: 1fr;
@@ -1434,8 +1434,8 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 
   .testimonials-disclaimer { padding: 0 24px; }
 
-  .process-closing-content { padding: 0 24px; gap: 28px; }
-  .process-closing-quote { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+  .process-fp--closing .process-fp-closing-content { padding: 0 24px; gap: 28px; }
+  .process-fp-closing-quote { font-size: clamp(1.6rem, 6vw, 2.4rem); }
 
   .studio-pull-quote { font-size: 1.2rem; padding: 0 8px; }
   .studio-strip-header { padding: 0 24px 24px; }
@@ -1518,8 +1518,10 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
     overflow-x: auto;
   }
   .mood-photo img,
-  .process-panel-photo img,
   .about-photo-frame img {
+    transition: none !important;
+  }
+  .process-fp {
     transition: none !important;
   }
 }
