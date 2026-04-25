@@ -376,17 +376,18 @@ nav.scrolled .nav-cta {
 .mood-photo {
   position: relative;
   overflow: hidden;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.mood-row.reverse .mood-photo {
-  clip-path: inset(0 0 0 100%);
+  opacity: 0;
+  filter: blur(6px);
+  transform: scale(0.96);
+  transition:
+    opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    filter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .mood-row.reveal-glow .mood-photo {
-  clip-path: inset(0 0% 0 0);
-}
-.mood-row.reverse.reveal-glow .mood-photo {
-  clip-path: inset(0 0 0 0%);
+  opacity: 1;
+  filter: blur(0px);
+  transform: scale(1);
 }
 .mood-photo img {
   width: 100%; height: 100%;
@@ -1541,10 +1542,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .shop-mood-header { padding: 0 24px 48px; text-align: center; }
   .mood-row { grid-template-columns: 1fr; min-height: unset; }
   .mood-row.reverse { direction: ltr; }
-  .mood-photo { height: 280px; clip-path: inset(0 0 100% 0); }
-  .mood-row.reverse .mood-photo { clip-path: inset(0 0 100% 0); }
-  .mood-row.reveal-glow .mood-photo { clip-path: inset(0 0 0 0); }
-  .mood-row.reverse.reveal-glow .mood-photo { clip-path: inset(0 0 0 0); }
+  .mood-photo { height: 280px; }
   .mood-text { padding: 36px 24px; align-items: center; text-align: center; }
   /* All accent bars on same side on single-column mobile */
   .mood-row.reverse .mood-text::before { left: 0; right: auto; }
