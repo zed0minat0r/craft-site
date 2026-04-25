@@ -1,241 +1,260 @@
 # Made by Molly — Nigel's Audit
 **Date:** 2026-04-18
 **Auditor:** Nigel (strict British auditor)
-**Overall Score: 5.8 / 10**
+**Previous Score:** 5.8 / 10
+**Current Score: 6.5 / 10**
+**Delta: +0.7**
 
 ---
 
 ## Scoring Context
 
-Re-baselined from 7.4 following the content pivot from knitting to bags and art quilts.
-The previous score was inflated. Scored strictly from the perspective of a real buyer
-who has just landed on the site and is deciding whether to browse, commission, or leave.
+Scored strictly from the perspective of a real buyer — someone who has found the site
+through a search or referral and is deciding within 90 seconds whether to commission
+a bag or quilt or close the tab. The score from 5.8 moves to 6.5. That is a genuine
+improvement, not a gift. The process rebuild is substantial. The hero overlay correction
+is meaningful. The studio strip is a real addition. But the fundamental problem — a site
+that looks like every other artisan brand generated in 2025 — is still present.
 
-The site functions correctly and is technically competent. It does not, however, visually
-arrest the visitor. It reads like a well-assembled Squarespace template: beige-on-beige,
-Playfair Display italic headline, fade-in reveals, copper accents. Every craft business
-on Instagram uses this palette. There is nothing here that makes a real buyer stop scrolling
-and think "I need one of these."
+---
+
+## What Changed and Whether It Helped
+
+**Process section rebuilt (full-width alternating panels at 60vh, big photos, ghost
+numbers, copper rules):** This is the most significant improvement in the build. Moving
+from 160px circle thumbnails to full-width 60vh panels is a categorical upgrade. The
+alternating photo-left / text-right layout with 55/45 column split is well-proportioned.
+The ghost numbers now read at 7–9rem instead of being invisible. The copper rule divider
+above the note text is a tasteful craft detail. This section now feels intentional rather
+than assembled from a checklist.
+
+**Hero overlay reduced from 72% to ~50%:** Confirmed. The gradient reads
+`rgba(48,40,36,0.52)` at 0% and `rgba(48,40,36,0.30)` at 50%, meaning the underlying
+image is now genuinely visible in the right two-thirds of the frame. The product actually
+shows through. This is a meaningful improvement — the hero now has photographic content,
+not just a tinted rectangle.
+
+**Woven linen SVG texture on shop-mood and contact:** Present in the CSS. The `opacity:
+0.035` on shop-mood and `0.04` on contact is so restrained that it is functionally
+invisible except on calibrated screens in a darkened room. The texture is there in
+principle; it contributes approximately nothing to the visible experience. A missed
+opportunity — this motif should be at 0.06–0.08 to register.
+
+**Studio/WIP strip (auto-scrolling photos between About and CTA):** This is a genuine
+addition and the right instinct. Five photos, duplicated for seamless loop, with captions
+and a hover-pause. On desktop it works well. On mobile it correctly disables the animation
+and becomes a horizontally scrollable snap container. The images are still stock but the
+section concept is right. This is the most interesting scroll moment on the page.
+
+**CTA background: flat gradient replaced with real quilt fabric photo at 18% opacity:**
+Confirmed — `background-image` referencing the pexels quilt image at `opacity: 0.18`.
+The radial gradient overlay on top partly neutralises the image. The result is more
+interesting than a flat dark box but the fabric is barely perceptible. Increase to 0.25
+and reduce the radial darkening gradient for better effect.
+
+**Wholesale inquiry removed from dropdown:** Correct. The dropdown now reads Bag or Tote
+Order / Art Quilt Order / Custom Commission / General Question. This is cleaner and more
+appropriate for a solo maker.
+
+**About corner accent unclipped:** The `overflow: hidden` was removed from the `.about`
+section, and the corner accent is now position `bottom: -20px / right: -20px` on the
+`.about-photo-side`. On desktop this renders correctly — the copper corner box is
+partially visible as a decorative bleed. This works.
 
 ---
 
 ## Section Scores
 
-### 1. Hero — 6.0 / 10
+### 1. Hero — 6.5 / 10
+*(was 6.0)*
 
-**What works:** Ken Burns scale-down on load is a nice touch. The staggered fadeUp
-animation on headline, subtext, and buttons is cleanly executed. The copper progress bar
-glow is tasteful. The copy ("Not mass-made. Not a factory. Just me, my fabric, and a
-sewing machine") is the strongest writing on the page.
+The overlay correction is real. The image of fabric and bags now reads through the
+gradient, particularly in the right and bottom quadrants. The Ken Burns scale-down on
+load plus the parallax scroll creates genuine cinematic movement — this is the most
+polished animation on the page. The copy remains the strongest on the site.
 
-**What fails:** The hero background image is a generic stock photo of bags. It conveys
-nothing specific about Molly's work. A real buyer cannot tell from this image whether
-Molly makes canvas totes, leather satchels, or quilted clutches. The image does not
-communicate craft — it communicates "bag brand." The overlay (72% espresso tint at 135
-degrees) buries the photograph almost entirely, which means the hero is essentially a
-dark gradient with text on it. The parallax is modest and the Ken Burns effect is very
-subtle — these exist but contribute almost nothing to perceived drama.
-
-**Priority improvement:** Replace the stock hero image with a grid or collage of actual
-Molly pieces — or a textured fabric close-up that moves through a scroll-triggered reveal.
-The hero needs to feel like you are standing in the studio, not looking at a mood board.
+Still failing: the hero image is still a stock photograph. A buyer cannot see a single
+piece that is specifically Molly's. The eyebrow flanked by copper rules is elegant but
+also extremely common — it appears in approximately a third of artisan web templates.
+The `hero-headline` typesize at `clamp(3rem, 7vw, 6.5rem)` is appropriate but the
+italic `em` on "made to last." is a direct visual cliche of the genre.
 
 ---
 
-### 2. Shop by Mood — 5.5 / 10
+### 2. Shop by Mood — 6.0 / 10
+*(was 5.5)*
 
-**What works:** The alternating image-left / text-right layout is a proven structure. The
-numbered rows (01, 02, 03) are a reasonable navigational device. The hover scale on
-product images is smooth.
+The alternating image-text row structure has not changed architecturally, but the
+linen texture overlay (however faint) and the gradient background (`cream → #ede5db →
+taupe`) give the section marginally more depth than before. The mood-time italic
+annotation ("Each bag takes 6–10 hours...") is a smart addition — it does the work of
+communicating value and effort without a paragraph of copy.
 
-**What fails:** This is the most visually flat section on the page. The "mood text" panels
-are taupe or cashmere — warm beiges — against warm beige background. There is virtually
-no contrast or tension. The large ghost numbers (01, 02, 03) at opacity 0.08 are invisible
-on screen — they add nothing. The product images are stock photographs with no relation
-to Molly's actual work. A buyer looking at "Bags & Totes" sees a stock image of a bag;
-looking at "Art Quilts" sees a stock close-up of patchwork. There is no sense of a maker
-with a distinct aesthetic. The buttons ("Bags & Totes", "Art Quilts") link to #contact —
-which is technically honest, but sends the buyer to a form with no intermediate imagery
-or gallery to build desire. There is no price hierarchy or social proof at the product row
-level to build conviction before asking for a custom inquiry.
-
-**Priority improvement:** Add a 4-to-6 image mosaic or masonry strip between the mood
-rows — real product photography or high-quality stand-ins that show the range and
-texture of the work. Give the buyer visual evidence before the CTA.
+Still failing: the ghost numbers at `rgba(48,40,36,0.08)` are still essentially invisible
+on the taupe background. The contrast between mood-text panels (taupe, cashmere) and
+the page background remains minimal — this section has no visual tension. The `btn-walnut`
+links still go to #contact with no intermediate gallery, which is a conversion gap: a
+buyer must decide to commission before they have seen enough product.
 
 ---
 
-### 3. The Process — 6.5 / 10
+### 3. The Process — 7.5 / 10
+*(was 6.5)*
 
-**What works:** The three-step layout with the connecting gradient line is structurally
-clean. The circular image frames break the grid nicely. The staggered reveal delays
-(0s / 0.15s / 0.3s) are well-calibrated. The cross-stitch SVG texture on the section
-background is a subtle and appropriate craft detail.
+The rebuild earns this score. Full-width 60vh alternating panels are a genuine editorial
+statement. The ghost number at `clamp(5rem, 9vw, 9rem)` reads at a size that actually
+registers. The copper rule between desc and note text is a precise craft detail. The
+hover scale on the full-bleed photo creates a satisfying pan effect. On a desktop screen
+this section now passes the "linger" test — a buyer will actually read through it.
 
-**What fails:** 160px circular images are thumbnail-sized. The photographs are stock.
-The section feels light — it explains the process in three sentences but does not make
-the viewer feel the labour or care. At 160px circles, the buyer cannot see the detail
-of the fabric being cut or the stitching being laid. The section title ("The Process")
-is dull. This is the emotional heart of a handmade business — it should feel like a
-behind-the-scenes moment, not a three-icon feature list.
-
-**Priority improvement:** Make the process images dramatically larger — full bleed or
-half-bleed photography. Introduce a horizontal scrollable "studio moment" strip that
-lets the buyer move through the process visually, not just read bullet descriptions.
+Still failing: the process-panel-note text ("Selecting textiles, colors, patterns")
+is placeholder-grade copy — it reads like an alt text caption, not a human moment. The
+section ends abruptly without a transition into About. The `process-panel--reverse`
+direction-swap technique (RTL flipping) is technically functional but can cause text
+alignment quirks on some devices.
 
 ---
 
 ### 4. About the Maker — 7.0 / 10
+*(unchanged)*
 
-**What works:** This is the strongest section. The 5:7 grid with portrait left and text
-right is well-proportioned. The italic blockquote ("I wanted to make things that outlast
-the trend they were bought in") is genuine and good. The decorative copper corner accent
-adds craft-shop character. The Pennsylvania Studio location tag is a nice grounding
-detail. The Molly signature line is appropriate.
-
-**What fails:** The portrait image is stock — hands marking fabric, not a face. A buyer
-commissioning a personal piece wants to know who they are buying from. There is no photo
-of Molly herself. The about-photo-accent (decorative corner box) is positioned with
-bottom: -20px / right: -20px but the parent has overflow:hidden, so it renders
-only partially visible — a broken decorative element. The section background gradient
-(cashmere to taupe) is more beige-on-beige without visual punctuation.
-
-**Priority improvement:** Add a real photo of Molly or at minimum a second image of her
-hands actively working — not a stock studio shot. Introduce a single high-contrast
-accent — bold type, a pull-stat, a fabric swatch motif — to break the beige monotony.
+The unclipped corner accent now works properly, which removes a visual glitch from the
+previous audit. The section is otherwise unchanged. The score holds at 7.0. The about
+copy is personal and credible. The 5:7 portrait-to-text grid remains the best-composed
+layout on the page. The portrait image is still stock, which is the ceiling on this score.
 
 ---
 
-### 5. Custom Orders CTA — 6.5 / 10
+### 5. Studio Strip — 6.5 / 10
+*(new section)*
 
-**What works:** The dark espresso background provides the only real contrast break on
-the page. The copper button with the breathe glow animation draws the eye. The italic
-headline ("made just for you?") is warm and personal. Lead time and turnaround copy
-is appropriately reassuring.
+Credit for adding this. It is the correct instinct — a buyer needs to see the making
+process, not just the finished object, to build desire and trust. The CSS-only infinite
+loop with hover-pause is technically clean. The edge fades via mask-image work properly
+on desktop. The captions (Cutting fabric / At the machine / Choosing fabric) are plain
+but honest.
 
-**What fails:** The radial gradient accents (copper at 8% opacity, walnut at 12%) are
-functionally invisible — they exist in the code but contribute nothing perceptible to
-the eye. This section has the right bones for a dramatic mid-page moment but executes
-timidly. It would benefit from a fabric texture overlay, a large italic type treatment
-in the background, or a cinematic image bleed. As it stands, it is a dark box with a
-few lines of text and a button.
-
-**Priority improvement:** Add a large semi-transparent background element — a fabric
-texture, a stitch pattern at scale, or a blurred close-up of material — that gives this
-section visual weight. Make the section feel more like a gallery wall and less like a
-modal dialogue.
+Fails on the following: the strip images are 270px wide at 200px tall — small enough
+that fabric detail is lost. The strip sits between About and Custom CTA, which is
+architecturally correct, but there is no visual separation from the About section — both
+sit on taupe/cashmere backgrounds and the boundary between them is ambiguous. The captions
+in small uppercase are typographically fine but do nothing to create personality or
+narrative across the strip.
 
 ---
 
-### 6. Testimonials — 6.0 / 10
+### 6. Custom Orders CTA — 6.8 / 10
+*(was 6.5)*
 
-**What works:** The CSS-only auto-scroll marquee is technically elegant — no JS required,
-pauses on hover, has edge fades. The testimonial cards with backdrop-filter blur on the
-espresso/walnut background have appropriate depth. The copper gradient author avatars are
-a decent substitute for photographs.
+The quilt fabric photo at 18% opacity behind the espresso background is a genuine
+improvement over the previous flat dark box. The radial gradient overlay preserves
+legibility while letting the texture bleed through at the edges. The breathe glow on
+the copper button remains one of the most effective single details on the page.
 
-**What fails:** All five testimonials are five-star reviews with similar sentence
-structures. A real buyer is suspicious of uniformity — it reads as curated or invented.
-The disclaimer ("Reviews from early customers and friends who've received my work") is
-an honest note but undermines trust rather than building it. The section header reads
-"What people are saying" on both the label and h2 — a direct repetition. The marquee
-is pleasant but is not an exciting scroll experience; it is background furniture.
-
-**Priority improvement:** Vary the testimonials visually — one should be a longer quote
-in a larger card, one should feature a specific before-and-after or named product. Add a
-single quote pulled out in enormous display type above the marquee to create a moment
-of genuine impact.
+Still too timid. The fabric image at 18% opacity and behind a `rgba(48,40,36,0.6)` radial
+darkener gives maybe 8–10% perceived texture to the eye. Bump the bg-img opacity to 0.28
+and reduce the radial overlay's central opacity to 0.4. The title size
+(`clamp(2.2rem, 5vw, 4rem)`) is correct but the section could carry a much larger
+italic background watermark — the word "Custom" at enormous scale, 0.05 opacity, would
+give this section visual depth without legibility cost.
 
 ---
 
-### 7. Contact / Form — 6.5 / 10
+### 7. Testimonials — 6.0 / 10
+*(unchanged)*
 
-**What works:** The form is functional (Formspree integration), well-labelled, has
-proper loading state and a trust strip above. The copper focus glow on inputs is tasteful.
-
-**What fails:** The contact card sits on a dark walnut-to-espresso gradient and reads as
-a clinical web form dropped into an otherwise editorial page. The "Wholesale Inquiry"
-option in the dropdown feels out of place for a one-person studio; it raises questions
-about scale and availability that a new visitor cannot answer.
-
-**Priority improvement:** Add a warm pre-form panel — a quote, an image, a fabric colour
-strip — that makes the act of filling in the form feel like starting a conversation
-rather than submitting a ticket.
+The CSS marquee scroll remains elegant. The section has not changed since the previous
+audit. The score holds. The header still reads "What People Say" as a section-label and
+"What people are saying" as the h2 — exact repetition. All five reviews remain five-star,
+uniformly structured, with the trust-undermining disclaimer intact.
 
 ---
 
-### 8. Mobile Experience — 5.5 / 10
+### 8. Contact / Form — 6.5 / 10
+*(unchanged)*
 
-**What works:** Mobile breakpoints are present and functional. Hamburger animates
-correctly. Hero centers on mobile. Mood rows stack cleanly.
-
-**What fails:** Center-alignment on mobile is inconsistent in the mood-time and mood-price
-elements. The circular process images at 160px are still tiny on a 375px screen. The
-testimonial cards at min-width 300px are nearly full-width on mobile, eliminating the
-scrolling carousel effect entirely. The footer-brand-desc retains max-width: 260px on
-mobile, creating awkward partial-width paragraphs against a full-width container.
+The form itself is unchanged and still functional. The wholesale inquiry removal is an
+improvement to the dropdown. The section is technically correct. The score holds.
 
 ---
 
-### 9. Visual Identity / "Does It Look AI-Generated?" — 5.0 / 10
+### 9. Mobile Experience — 6.0 / 10
+*(was 5.5)*
 
-This is the most damaging score. The palette (cream, taupe, cashmere, walnut, espresso,
-copper) is precisely what a generative model produces for every artisan business.
-Playfair Display italic paired with DM Sans is the default craft-brand font stack. The
-section labels in small copper uppercase with 0.22em letter-spacing appear on
-approximately 40% of Webflow templates. The alternating image-text rows with numbered
-items are a boilerplate editorial layout. The breathe glow animation on copper buttons
-is ubiquitous in AI-generated craft sites.
+The studio strip mobile behaviour (animation disabled, horizontal snap scroll) is a solid
+mobile decision. The process panels stack correctly with the photo capped at 52vw / max
+320px. The mood rows stack cleanly. Hero centres correctly.
 
-None of this is catastrophically bad, but none of it is distinctively Molly's. A buyer
-who has seen three other handmade bag sites this week will not remember this one. There
-is no visual signature — no idiosyncratic typographic choice, no unexpected colour, no
-structural surprise, no photography that could only belong to this maker.
+Still failing: the about-photo-accent is hidden on mobile (`display: none`) which is
+correct, but the about section on mobile loses its only decorative interest. The
+testimonials track on mobile renders cards at near-full viewport width, destroying the
+carousel feel. The ghost process numbers at 9rem overflow into adjacent content on narrow
+viewports — not clipped.
+
+---
+
+### 10. Visual Identity / Does It Look AI-Generated? — 5.5 / 10
+*(was 5.0)*
+
+Marginal improvement. The process rebuild gives the site one section that feels designed
+rather than assembled. The studio strip is an appropriate structural addition. The hero
+overlay correction gives the page more photographic content.
+
+The fundamental palette problem is unchanged: cream / taupe / cashmere / walnut / espresso
+/ copper is the exact output of any LLM prompted with "artisan craft website colour
+palette." Playfair Display italic + DM Sans is the canonical AI craft brand font stack.
+The small copper uppercase section labels at 0.22em letter-spacing appear verbatim in
+the Webflow artisan template marketplace.
+
+There is no visual signature that belongs specifically to Molly. No idiosyncratic
+typographic choice. No unexpected structural element. No photography that could only
+be hers. A visitor who has seen two other handmade bag sites will not remember this one.
 
 ---
 
 ## Top 3 Priorities for Visual Excitement
 
-### Priority 1 — Introduce a Fabric-Texture Visual Language
-The site talks about fabric constantly but never shows it in a way that makes the
-visitor feel it. Introduce a full-bleed fabric texture as a recurring visual motif:
-a woven linen SVG pattern or a real textile photograph used as a section background
-at partial opacity. Use it behind the hero, as a section divider, and as an inset panel
-in the CTA section. This single change would give the site a visual identity that no
-template produces by default and would differentiate it immediately from AI-generated
-craft sites.
+### Priority 1 — Give the Process Section a Closing Moment
+The rebuilt process panels are now the strongest visual section. Capitalise on that by
+adding a closing panel — a full-bleed "Ready" image at 100vh with a single overlaid
+line of italic display type ("Every seam sewn with intention.") and a copper arrow
+scrolling down into About. This turns a three-step information section into a narrative
+with a conclusion. Cost: one panel, one image, thirty lines of CSS.
 
-### Priority 2 — Replace the Hero with a Split or Collage Treatment
-The single dark stock image does not show what Molly makes. Replace it with a split
-layout or polaroid-style collage of 3-5 product images that slide in on load — bags,
-quilts, and fabric swatches together. This gives a buyer immediate visual vocabulary
-for the range of work before reading a single word. Alternatively, use a CSS clip-path
-reveal that unfurls a fabric texture across the hero as the page loads. Either approach
-would make the hero feel like a destination, not a placeholder.
+### Priority 2 — Make the Studio Strip a Feature, Not a Thumbnail Bar
+The studio strip concept is right but the execution is modest. Increase the strip item
+height from 200px to 300px. Add a hover state that expands the hovered image to 120%
+height and fades the caption in as an overlay. Add a single pull-quote between the header
+and the strip — one line from Molly about the making process, in large italic display
+type — so the strip reads as a moment rather than a decorative element. On mobile, make
+the snap items full-width (calc(100vw - 48px)) rather than a fixed 250px.
 
-### Priority 3 — Add a Dramatic "Work in Progress" Full-Bleed Strip
-Insert a horizontally scrollable, full-bleed photograph strip between the About section
-and the Custom CTA. Show 5-7 images of work in progress: fabric being cut, seams being
-pinned, a finished bag laid flat, a quilt panel in mid-assembly. Allow this strip to
-scroll horizontally on desktop (mouse drag or arrow keys) and horizontally swipe on
-mobile. This is the single most effective thing a handmade business can do to build
-trust and desire simultaneously — it shows the actual labour, not just the finished
-product, and it is the kind of scroll experience that makes visitors linger.
+### Priority 3 — Break the Beige Monotony with One Unexpected Colour Decision
+The entire site is warm neutrals. There is no visual surprise — no moment where the colour
+palette does something unexpected. Introduce a single strong accent: a dark forest linen
+green (`#2e3d2f`) as the background for one section (the studio strip, or a narrow
+divider strip between process and about). This does not require a rebrand — one section
+in a contrasting hue would give the page a backbone. Right now the page is all middle
+tones: no true darks (espresso is soft), no true lights (cream is warm), and no contrast
+anchor. A single deep green or dusty blue applied surgically would make every other
+section look more intentional by comparison.
 
 ---
 
 ## What Is Working and Must Be Kept
 
-- The copper breathe glow on primary buttons — distinctive and warm, do not remove
-- The cross-stitch SVG texture on the process section — appropriate and subtle, keep it
-- The CSS marquee testimonial scroll — technically elegant, keep and improve it
-- The hero copy voice — genuine and strong, must not be genericised
+- The copper breathe glow animation on primary buttons — distinctive, keep it
+- The hero Ken Burns + parallax combination — the best animation on the page
+- The rebuilt process panels at 60vh — the clearest visual upgrade in this build
+- The CSS-only testimonial marquee — technically elegant, keep it
+- The woven linen SVG texture concept — increase opacity but do not remove it
 - The about-quote ("I wanted to make things that outlast the trend they were bought in")
-  — this line should also appear as a pull-quote or hero sub-headline, it is the best
-  writing on the site
+  — must remain; it is the best line on the site and should be used more aggressively
+- The studio strip between About and CTA — right concept, needs improvement, keep it
 
 ---
 
-*Scored strictly. 5.8 reflects a competent but visually forgettable execution of a pivot
-that has the right content but not yet the visual identity to make a buyer feel something.
-The bones are solid. The soul is not yet visible on the screen.*
+*Scored strictly. 6.5 is a real improvement from 5.8 — the process rebuild earns it.
+The studio strip earns it. The hero overlay correction earns it. But the site still reads
+as AI-assembled craft brand, not Molly's craft brand. The gap between 6.5 and 7.5 is
+filled by one unexpected visual decision and real photography. Neither is present yet.*
