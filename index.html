@@ -25,7 +25,23 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact" class="nav-cta">Custom Order</a></li>
     </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+    <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">&#10005;</button>
+    <ul class="mobile-nav-links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Custom Order</a></li>
+    </ul>
+  </div>
 
   <!-- ================================================
        HERO
@@ -165,8 +181,8 @@
           <div class="process-num">02</div>
           <div class="process-img-wrap">
             <img
-              src="https://images.unsplash.com/photo-1597736091383-084fa1b69a6a?w=400&q=85&auto=format"
-              alt="Hands knitting blue wool on needles close up"
+              src="https://images.unsplash.com/photo-1605007493699-af65834f8a00?w=400&q=85&auto=format"
+              alt="Hands knitting warm beige wool on needles close up"
               loading="lazy"
             />
           </div>
@@ -399,7 +415,7 @@
             Custom orders, questions, wholesale inquiries — I read every message personally.
           </p>
         </div>
-        <form id="contact-form" onsubmit="handleSubmit(event)">
+        <form id="contact-form" action="https://formspree.io/f/xpznqkdl" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label for="name">Your Name</label>
@@ -424,6 +440,7 @@
             <label for="message">Your Message</label>
             <textarea id="message" name="message" placeholder="Tell me what you're looking for..." required></textarea>
           </div>
+          <input type="hidden" name="_next" value="https://zed0minat0r.github.io/craft-site/?submitted=1" />
           <button type="submit" class="form-submit" id="submit-btn">
             Send Message
           </button>

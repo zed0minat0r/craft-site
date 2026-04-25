@@ -65,19 +65,37 @@
 
 /* ---- Testimonials auto-scroll is CSS-only (no JS needed) ---- */
 
-/* ---- Contact Form ---- */
-function handleSubmit(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  const success = document.getElementById('form-success');
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-  setTimeout(function() {
-    btn.style.display = 'none';
-    success.style.display = 'block';
-    document.getElementById('contact-form').reset();
-  }, 1200);
-}
+/* ---- Mobile Hamburger Menu ---- */
+(function() {
+  var hamburger = document.getElementById('nav-hamburger');
+  var overlay = document.getElementById('mobile-nav-overlay');
+  var closeBtn = document.getElementById('mobile-nav-close');
+
+  function openMenu() {
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburger) hamburger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  if (overlay) {
+    overlay.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+  }
+})();
 
 /* ---- Smooth scroll for anchor links ---- */
 document.querySelectorAll('a[href^="#"]').forEach(function(link) {
