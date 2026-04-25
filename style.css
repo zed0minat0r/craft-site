@@ -139,10 +139,10 @@ nav.scrolled .nav-cta {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    135deg,
-    rgba(48, 40, 36, 0.52) 0%,
-    rgba(48, 40, 36, 0.30) 50%,
-    rgba(136, 116, 104, 0.18) 100%
+    to bottom,
+    rgba(48, 40, 36, 0.72) 0%,
+    rgba(48, 40, 36, 0.58) 50%,
+    rgba(48, 40, 36, 0.72) 100%
   );
 }
 /* Hero giant watermark for depth */
