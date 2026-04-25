@@ -7,3 +7,7 @@
 - **Scope:** 1 character changed in 1 file.
 - **AUDIT source:** Priority 3.
 - **Plan commit:** 77c56ea | Code commit: (this commit)
+
+## 2026-04-25 — Nigel (smoke test, cycle 1)
+
+- nigel — focus axis: conversion-friction, top issue: disclaimered block of five perfect ratings actively destroys trust at the testimonials section
