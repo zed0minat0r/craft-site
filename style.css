@@ -294,17 +294,6 @@ nav.scrolled .nav-cta {
   line-height: 1.2;
   color: var(--espresso);
 }
-.section-title.light { color: var(--cream); }
-
-/* ---- Gradient bleed connectors ---- */
-.bleed-down {
-  margin-bottom: -80px;
-  padding-bottom: 80px;
-}
-.bleed-up {
-  margin-top: -80px;
-  padding-top: 80px;
-}
 
 /* ============================================
    SHOP BY MOOD
@@ -787,23 +776,6 @@ nav.scrolled .nav-cta {
   font-size: 0.75rem;
   color: var(--cashmere);
   margin-top: 2px;
-}
-.testimonials-dots {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-top: 32px;
-}
-.t-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(247,242,236,0.25);
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-}
-.t-dot.active {
-  background: var(--copper);
-  transform: scale(1.4);
 }
 
 /* ============================================
