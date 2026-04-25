@@ -1327,7 +1327,7 @@ footer {
 }
 @keyframes studio-scroll {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(calc(-270px * 5 - 20px * 4)); }
+  100% { transform: translateX(calc(-270px * 5 - 20px * 5)); }
 }
 
 /* ============================================
