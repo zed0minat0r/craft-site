@@ -294,6 +294,25 @@ nav.scrolled .nav-cta {
   pointer-events: none;
   z-index: 3;
 }
+/* Hero product inset */
+.hero-product-inset {
+  position: absolute;
+  bottom: 100px;
+  right: clamp(40px, 8vw, 100px);
+  z-index: 4;
+  width: clamp(200px, 22vw, 260px);
+  border: 3px solid var(--copper);
+  box-shadow: 0 8px 40px rgba(48,40,36,0.45), 0 0 0 6px rgba(207,139,103,0.15);
+  border-radius: 3px;
+  overflow: hidden;
+  animation: fadeUp 1s 1.2s both;
+}
+.hero-product-inset img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 /* ============================================
    SECTION SHARED
@@ -1281,18 +1300,11 @@ footer {
   letter-spacing: 0.04em;
 }
 .studio-strip-caption {
-  display: block;
-  text-align: center;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(247, 242, 236, 0.55);
-  padding: 10px 0 0;
+  display: none;
 }
 @keyframes studio-scroll {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(calc(-270px * 5 - 16px * 5)); }
+  100% { transform: translateX(calc(-270px * 5 - 20px * 5)); }
 }
 
 /* ============================================
@@ -1456,11 +1468,14 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 }
 
 .testimonials-disclaimer {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--cashmere);
   font-style: italic;
-  margin-top: 10px;
-  opacity: 0.8;
+  text-align: center;
+  margin: 20px auto 0;
+  max-width: 400px;
+  opacity: 0.7;
+  padding: 0 24px;
 }
 
 /* ============================================
@@ -1479,6 +1494,12 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .hero-eyebrow::before, .hero-eyebrow::after { width: 16px; }
   .hero-sub { max-width: 100%; margin-left: auto; margin-right: auto; }
   .hero-actions { justify-content: center; }
+  .hero-product-inset {
+    bottom: 80px;
+    right: 50%;
+    transform: translateX(50%);
+    width: 180px;
+  }
 
   .shop-mood-header { padding: 0 24px 48px; text-align: center; }
   .mood-row { grid-template-columns: 1fr; min-height: unset; }
@@ -1548,7 +1569,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   }
   .studio-strip-item img { width: 100%; height: 260px; }
   .studio-strip-hover-overlay { height: 260px; }
-  .studio-strip-caption { color: rgba(247, 242, 236, 0.55); }
+  .studio-strip-caption { display: none; }
 
   /* Suppress large watermarks on mobile to avoid overflow artifacts */
   .hero::before { display: none; }
