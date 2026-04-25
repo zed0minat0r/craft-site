@@ -1,102 +1,115 @@
 # AUDIT: Made by Molly — Nigel's Strict Assessment
 **Auditor:** Nigel (British Standards, Real-User Perspective)
 **Date:** 2026-04-18
-**Previous Score:** 6.8
+**Previous Score:** 7.2
 **URL:** https://zed0minat0r.github.io/craft-site/
 
 ---
 
-## OVERALL SCORE: 7.2 / 10
-**Delta: +0.4 from 6.8**
+## OVERALL SCORE: 7.4 / 10
+**Delta: +0.2 from 7.2**
 
-A meaningful improvement cycle. The changes this round are smaller in ambition than previous cycles, but they are the right kind of small: they close funnel gaps rather than add decoration. The pricing anchors, inquiry pre-selection, select chevron, and contact copy are all legitimate quality-of-life improvements that a real buyer would notice. That earns the bump.
+A modest but honest bump. The nine changes claimed for this cycle are all present in the code and all correctly implemented. The problem is that most of them operate below the threshold of what a real buyer consciously notices: the time disclosures are a pleasant detail, the yarn brand names add mild credibility, the footer tap targets are invisible unless something was broken before. The shipping/returns trust block is the most useful addition — a buyer on the verge of contacting a stranger about a $85 purchase wants exactly that kind of reassurance.
 
-The ceiling is now clearly in view. This site cannot break 7.5 without real proof that Molly exists — a genuine photograph, a real testimonial, or a wired social account. Every cycle that improves the polish without addressing authenticity is one that narrows the gap between this score and the structural limit.
+The site has now reached a genuine code ceiling for the decorative layer. Every pixel-level improvement from here yields diminishing returns. The authenticity gap — no real face, no verified testimonials, no wired social presence — has not narrowed. A buyer who pauses and looks critically will still see a polished AI-generated storefront. That structural gap is the reason this score cannot reach 7.8 or higher without client content.
 
 ---
 
 ## WHAT CHANGED AND HOW IT SCORES
 
-### Copy de-templating across 6 sections
-The hero sub is now: "Not mass-made. Not a factory. Just me, my needles, and a lot of good yarn — from my living room to yours." This is considerably better than whatever generic language preceded it. The about-section body copy is warm and specific. The contact sub-line — "Tell me what you're dreaming up. I read every message myself and usually reply same day." — is exactly right for a solo maker's contact form. The custom CTA sub now reads: "Most of my favorites have been custom orders. Someone sends me a photo, a color swatch, a vague idea — and we figure it out from there." Genuine voice. Real improvement across the board.
+### Time disclosures on shop rows
+"Each throw takes 12-15 hours of hand knitting" / "Each piece takes 4-8 hours of careful work" / "Each baby blanket takes 8-10 hours of hand knitting" — all three rows confirmed in HTML. These are implemented as `.mood-time` (italic, walnut-coloured, 13px). They are styled appropriately: small enough not to compete with the headline, present enough to register. On mobile the class correctly gets `text-align: center`. The copy is honest and differentiating — a buyer comparing handmade vs. machine-made goods responds to this. Small but genuine.
 
-### Shop CTAs now pre-select inquiry type
-The data-inquiry attributes are present on all three shop row buttons. The JS reads them on click and sets the inquiry select value after a 600ms scroll delay. This is correct and properly implemented. Blankets and Baby Collection both map to "custom"; Scarves and Hats map to "gift." The "gift" pre-selection for the Scarves row is a nice logical touch. The 600ms delay is sensible.
+### Shipping/returns trust block
+The `.contact-trust` block sits above the contact card: "Custom orders ship within 3-4 weeks via USPS Priority Mail. If you're not happy with what arrives, message me — I'll make it right. I stand behind every piece I make." This is exactly the right copy in exactly the right place. A buyer filling in a custom enquiry form has one question: will I be protected if something goes wrong? This line answers it. The styling (taupe text, subtle border, semi-transparent background) is appropriately low-key. Correct placement, correct tone, correctly styled.
 
-### Select dropdown chevron fixed
-The select element now has `appearance: none` plus a background-image SVG chevron at right 14px, walnut-coloured, matching the form palette. This was a genuine visual bug — the previous stripped select had no affordance indicator. Now resolved correctly.
+### Broken social links removed
+Instagram and Pinterest icons gone from the footer. Only the email icon (linking to #contact) remains. This is the correct decision. An icon that goes nowhere actively damages credibility. The email-only footer is honest and functional. Confirmed.
 
-### Process connector at top: 140px
-The previous audit recommended 140px as the accurate centre-threading position. It is now exactly 140px. The connector threads cleanly through the circular image wraps. This is a cosmetic fix but a correct one.
+### Yarn brands in descriptions
+Merino, alpaca, cashmere-blend, organic cotton, bamboo — all woven into the three shop row descriptions. This is the kind of material specificity that converts a browsing buyer into an enquiring one. "Cashmere-blend yarns" and "hypoallergenic organic cotton and bamboo" for baby items are appropriate and persuasive. Confirmed. Small improvement.
 
-### Mobile about location tag fixed
-`left: 16px` on mobile (previously `left: 0`). The tag no longer bleeds into or over the photo frame edge on narrow viewports. Small, clean fix.
+### Testimonials disclaimer
+"Reviews from early customers and friends who've received my work." Present and styled correctly as `.testimonials-disclaimer` (italic, small, cashmere-coloured). This is a responsible addition. A discerning buyer sees the disclaimer and gives the benefit of the doubt; without it they smell fabrication immediately. It doesn't fix the problem but it mitigates it appropriately. Confirmed.
 
-### Pricing anchors on shop rows
-$85 (Blankets), $45 (Scarves & Hats), $55 (Baby Collection) are all present with "Starting from" labels in copper. These were the single most-requested item from the last audit's Priority 3. Implemented correctly. A buyer can now gauge whether this is within budget before clicking through.
+### Footer tap targets (mobile)
+`.footer-links a` and `.contact-email-fallback a` both have `display: inline-flex; align-items: center; min-height: 44px; padding: 4px 0;` in the mobile media query. Nine links, all at 44px minimum touch height. Correct. Confirmed.
 
-### Dead CSS removed and overflow fixes
-Claimed 28 lines removed. Cannot fully verify line count but the CSS is 1202 lines with no orphaned dot-nav or unused utility classes detectable. Overflow: hidden is correctly applied on shop-mood and about sections. Clean.
+### Submit button loading state
+`form-submit:disabled` in CSS (walnut background, cursor: not-allowed, no transform, opacity 0.7). JS sets `btn.disabled = true` and `btn.textContent = 'Sending...'` on form submit. Clean implementation. Confirmed.
+
+### Hero eyebrow lines resized for mobile
+`@media (max-width: 768px)`: `.hero-eyebrow::before, .hero-eyebrow::after { width: 16px; }` — previously 28px. The proportional issue flagged in the last audit is resolved. Confirmed.
+
+### Dead CSS cleaned
+No orphaned classes detectable. CSS is 1264 lines with every class accounted for. The vestigial empty `{}` at `.about-text-side` noted in the previous audit — no longer present. Confirmed clean.
 
 ---
 
 ## SECTION SCORES
 
 ### 1. Hero — 7.2 / 10
-Up from 7.0. The de-templated hero sub ("Not mass-made. Not a factory...") is genuinely better copy. Everything else is unchanged: Ken Burns, parallax, gradient, breathe animation on CTA all working as before. Still Unsplash stock.
+Unchanged from last audit. Ken Burns on load, parallax on scroll, gradient overlay, breathe animation on CTA, reduced-motion handling all correct. The eyebrow lines are now proportional on mobile. Still Unsplash stock. The copy is strong. Nothing moved either direction.
 
-### 2. Shop by Mood — 7.0 / 10
-Up from 6.5. The pricing anchors are the most significant functional improvement this cycle. A buyer can now see $85 for throws, $45 for scarves, $55 for baby items before committing to inquiry. The inquiry pre-selection adds a small but real funnel improvement. The layout remains strong. The three mood descriptions are appropriately specific. Still no material differentiation between sections beyond copy — all three go to the same contact form.
+### 2. Shop by Mood — 7.3 / 10
+Up from 7.0. The time disclosures add a layer of authenticity that most handmade craft sites lack — specifying 12-15 hours for a throw is the kind of detail a machine-made competitor cannot credibly claim. The yarn brand names (merino, alpaca, cashmere-blend) give a buyer language to evaluate the product. Pricing anchors remain. Inquiry pre-selection remains. This section is now working hard.
 
 ### 3. Process Strip — 7.0 / 10
-No change from 7.0. Connector now threads correctly at 140px. Warm-toned images. Cross-stitch texture. "Usually with a podcast on and a dog at my feet" remains the best line on the page.
+Unchanged. No claimed changes here. The connector threads correctly at 140px. The cross-stitch texture, the circular images, and the three-step copy ("usually with a podcast on and a dog at my feet") remain the most characterful section of the site.
 
 ### 4. About the Maker — 7.2 / 10
-No change. The body copy is now clearly from a real person's voice and holds up well. Still no face. The about photo shows hands, not Molly. This section cannot score above 7.5 without a portrait.
+Unchanged. Voice is warm and specific. Still no face. A buyer who reads "I make things with my hands" and then sees a stock photo of someone else's hands will register the disconnect, even if they cannot articulate it. This section has reached its ceiling without a portrait.
 
 ### 5. Custom Orders CTA — 7.2 / 10
-Up from 7.0. The sub-copy ("Most of my favorites have been custom orders...") is more personal than whatever preceded it. Functionally identical to the previous build otherwise. The lead time and reply commitment line ("3-4 weeks · I reply within 24 hours") remains a strong trust signal.
+Unchanged. Lead time (3-4 weeks), 24-hour reply commitment, custom colors welcome — all present. Dark espresso background with copper accents reads correctly as a high-intent conversion section. Nothing new, nothing broken.
 
 ### 6. Testimonials — 5.8 / 10
-No change. Still five fabricated five-star reviews. The marquee scroll is technically well-executed and the hover-pause behaviour is correct. The cards look polished. The content is the problem, not the execution. No real person wrote these. A discerning buyer sees through this within seconds. Duplicate cards have aria-hidden="true" — that detail remains correct.
+Unchanged. Disclaimer improves the section marginally but does not change the fundamental problem: five reviews from five different Pennsylvania cities, all five stars, all coherent and warm, arriving in an era when any buyer who has encountered AI-generated content will recognise the pattern. The marquee scroll is technically correct, the hover-pause works, the aria-hidden on duplicates is correct. The execution remains excellent. The content remains a liability.
 
-### 7. Contact Form — 7.5 / 10
-No change. Formspree endpoint live. Email fallback present. Inquiry pre-selection now wired from shop CTAs. Chevron on select is visually resolved. The form is functional, clear, and appropriately minimal. One minor gap: no loading state on the submit button after clicking — the user gets no feedback that the form is processing, only the hidden success div appearing after completion. Low priority.
+### 7. Contact Form — 7.6 / 10
+Up from 7.5. The trust block above the form is a genuine improvement. Shipping method (USPS Priority Mail), timeline (3-4 weeks), and satisfaction guarantee in one sentence is exactly what a first-time buyer needs before submitting. The loading state on submit is now confirmed working. The Formspree endpoint is live. Email fallback is present. The form is as good as it can be without a real backend.
 
-### 8. Mobile UX at 375px — 7.2 / 10
-Up from 7.0. The location tag fix is confirmed at `left: 16px`. Form row goes to single column correctly. Mobile nav overlay is correctly implemented. The about-section in single column with centered text alignment works. A minor remaining issue: the hero eyebrow on mobile centers correctly (`justify-content: center`) but the decorative lines on either side of "Handmade in Pennsylvania" are 28px each, which on very small screens looks proportionally too wide relative to the text. Cosmetic, not blocking.
+### 8. Mobile UX at 375px — 7.3 / 10
+Up from 7.2. Footer tap targets at 44px. Hero eyebrow lines proportional. Trust block centred correctly on mobile. Mood-time centred on mobile. The site stacks cleanly and nothing is broken. One remaining observation: the about-section on mobile has `text-align: center` for the text side, which means the blockquote and about-body paragraphs are centre-aligned. For a personal narrative, centre-aligned paragraphs are harder to read than left-aligned. This is a minor legibility issue, not a blocking one.
 
 ### 9. Typography — 7.5 / 10
-No change. Playfair Display / DM Sans pairing remains correct. Font sizes above 12px for primary content throughout. Clamp sizing on major headings is good responsive practice.
+Unchanged. Playfair Display / DM Sans pairing correct. Clamp sizing on all major headings. Font weights appropriate throughout. No regressions.
 
 ### 10. Colour Palette — 7.8 / 10
-No change. The cashmere-taupe-espresso-copper system is internally consistent throughout every section. No palette violations introduced.
+Unchanged. Cream-taupe-cashmere-walnut-espresso-copper system internally consistent across every section. No violations.
 
 ### 11. Scroll Animations — 7.8 / 10
-No change. Reduced-motion coverage remains thorough. IntersectionObserver threshold at 0.12 with -40px rootMargin is a sensible configuration. Parallax correctly gated.
+Unchanged. Reduced-motion coverage thorough. IntersectionObserver config sensible. Parallax correctly gated. All animations have appropriate timing.
 
-### 12. Overall Authenticity — 5.8 / 10
-Up fractionally from 5.5. The copy is now warm enough that it reads as a real person's voice. The process description is charming. The contact sub-line is exactly what a solo maker would write. These are real improvements. But without a face, without real testimonials, and without wired social links, this remains an AI-generated storefront wearing a convincing costume. A buyer who pauses at the testimonials section will lose confidence. A buyer who clicks the Instagram icon and hits a # will lose confidence.
+### 12. Overall Authenticity — 5.9 / 10
+Fractional improvement from 5.8. The yarn brand names, time disclosures, and testimonials disclaimer all move the needle slightly toward "real business." The shipping/returns language is the most authentic element added this cycle. The gap between "polished AI-generated storefront" and "real maker's business" remains. It cannot close without a photograph, real testimonials, or a wired social presence.
 
 ---
 
 ## TOP 3 PRIORITIES
 
 ### Priority 1 — A real photograph of Molly
-Not hands. Her face. Even a casual, unpolished phone photo is more persuasive than the finest Unsplash lifestyle imagery. The about section has everything right — the voice, the warmth, the quote, the signature — and then shows a stock image. One real portrait transforms "a polished AI storefront" into "a real person's business." This is the highest-leverage change remaining and has been Priority 1 since audit 1. It remains Priority 1.
+This has been Priority 1 since audit 1. It remains Priority 1. The about section has everything correct: the quote, the voice, the body copy, the signature. It then shows a stock photo of someone else's hands. One authentic portrait — even a phone photo, even slightly out of focus — converts this site from "a beautiful template" into "a real person's business." No code change can substitute for this. It is the single highest-leverage action remaining.
 
-### Priority 2 — Replace at least two fabricated testimonials with real ones
-If Molly has sold one item and received any positive feedback — a text, an email reply, a comment — use it. Two real testimonials at four stars with imperfect sentences are more convincing than five fabricated five-star cards. Consider reducing the marquee to three cards if only two or three real reviews exist. Quality of social proof matters more than quantity.
+### Priority 2 — Replace fabricated testimonials with real ones
+If Molly has sold a single item and received any positive response — a text, a return email, a social comment — that content belongs here. Two authentic four-star reviews with natural imperfections are significantly more credible than five identical five-star cards from different Pennsylvania cities. Reducing the marquee to real reviews, even three, even short, is worth more than any further polish cycle. The disclaimer helps but it does not fix the root issue.
 
-### Priority 3 — Wire the social media links
-The Instagram and Pinterest links in the footer both go to "#". If real accounts exist, link them. If they do not exist yet, consider removing the icons or replacing with a different trust signal (e.g., a Etsy link, a Google review count). An icon that goes nowhere signals to the buyer that this is a template, not a live business. A wired Instagram with even 12 posts of real knitting is vastly more credible than a broken social icon.
+### Priority 3 — Wire a real social or commerce link
+The footer now correctly shows only the email icon. The next step is connecting at least one external proof of existence: an active Instagram account with real photos of Molly's work, an Etsy shop link, a Google review page, or similar. Even a single wired account with twelve posts transforms the site's credibility signal from "this could be anyone" to "this is a real business." This is a client action, not a code action — but it is the third most important thing this site needs.
+
+---
+
+## CEILING ASSESSMENT
+
+The code ceiling has been genuinely reached. Every meaningful improvement in the decorative and structural layer has been made: the colour system is tight, the typography is correct, the animations are appropriate and accessibility-compliant, the mobile layout stacks cleanly, the form is functional, the copy is warm and specific, the pricing and trust signals are in place. Further coding cycles will yield changes smaller than a real user can perceive.
+
+The remaining gap between the current score (7.4) and a competitive score (8.0+) is entirely an authenticity gap. It requires client content: a photograph, real testimonials, a wired social or commerce account. None of these are code problems. A builder agent cannot solve them. The site is ready to receive that content — the infrastructure, the layout, the tone, and the trust signals are all in place. The bottleneck is now on the client side.
 
 ---
 
 ## SECONDARY NOTES
 
-- Submit button has no loading or disabled state during form submission. Consider adding a visual indicator to prevent double-submit and confirm that something is happening.
-- Hero eyebrow decorative lines (28px each) are slightly wide relative to text on very narrow mobile viewports. Reducing to 16-20px on mobile would improve proportion.
-- Baby Collection CTA uses data-inquiry="custom" which is sensible given the dropdown options available, but a future improvement could add a "Baby Collection" inquiry option to the dropdown so pre-selection is more specific.
-- The `about-text-side` class has an empty CSS rule `{}` at line 567 — vestigial, harmless, but tidy to remove.
-- The process connector (`top: 140px`) is now correctly positioned. This is resolved.
+- About section on mobile: `text-align: center` on the text side makes multi-paragraph body copy harder to read. Left-aligning body paragraphs on mobile while keeping headings and the quote centered would improve legibility without touching the design.
+- The contact form has no character count indicator on the message textarea. For a custom-order enquiry, a buyer may wonder how much detail is expected. A small "Tell me what you're looking for..." placeholder is present and is sufficient — this is genuinely minor.
+- All footer links point to internal anchors. Wholesale (#contact) is listed as a footer link — if Molly does not offer wholesale, this option should be removed from the contact dropdown and the footer to avoid wasting inquiry slots on non-viable leads.
+- The baby collection CTA uses `data-inquiry="custom"` which pre-selects "Custom Order" in the contact form. A dedicated "Baby Collection" option in the dropdown would route baby enquiries more specifically — this is a nice-to-have for a future cycle if enquiry volume justifies it.
