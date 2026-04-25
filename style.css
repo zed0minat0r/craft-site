@@ -77,6 +77,9 @@ nav.scrolled {
   letter-spacing: 0.02em;
   color: var(--cream);
   transition: color 0.4s;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
 }
 nav.scrolled .nav-logo { color: var(--espresso); }
 .nav-links {
@@ -311,6 +314,7 @@ nav.scrolled .nav-cta {
   background: linear-gradient(180deg, var(--cream) 0%, #ede5db 40%, var(--taupe) 100%);
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 .shop-mood-header {
   text-align: center;
@@ -375,7 +379,20 @@ nav.scrolled .nav-cta {
   color: var(--walnut);
   line-height: 1.7;
   max-width: 340px;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
+}
+.mood-price {
+  font-size: 0.8125rem;
+  color: var(--copper);
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+.mood-price span {
+  font-weight: 400;
+  opacity: 0.85;
+}
+.mood-price strong {
+  font-weight: 600;
 }
 .btn-walnut {
   display: inline-flex;
@@ -509,6 +526,7 @@ nav.scrolled .nav-cta {
   background: linear-gradient(180deg, var(--cashmere) 0%, #d4c3b6 50%, var(--taupe) 100%);
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 .about-inner {
   max-width: var(--max-w);
@@ -931,7 +949,7 @@ footer {
   gap: 14px;
 }
 .social-link {
-  width: 36px; height: 36px;
+  width: 44px; height: 44px;
   border: 1px solid rgba(247,242,236,0.15);
   border-radius: 2px;
   display: flex;
