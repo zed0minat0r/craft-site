@@ -16,6 +16,7 @@
   --copper:   #cf8b67;
   --copper-glow: rgba(207, 139, 103, 0.45);
   --copper-soft: rgba(207, 139, 103, 0.15);
+  --forest: #2e3d2f;
 
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body:    'DM Sans', system-ui, sans-serif;
@@ -753,14 +754,9 @@ nav.scrolled .nav-cta {
   margin-top: 32px;
 }
 
-/* arrowBob now defined in process sticky section above */
-
 /* ============================================
    CUSTOM ORDERS CTA — Forest Green
    ============================================ */
-:root {
-  --forest: #2e3d2f;
-}
 .custom-cta {
   padding: clamp(90px, 12vw, 160px) 40px;
   background: var(--forest);
@@ -1309,7 +1305,6 @@ footer {
 .reveal.from-bottom { transform: translateY(40px); }
 .reveal.from-left   { transform: translateX(-40px); }
 .reveal.from-right  { transform: translateX(40px); }
-.reveal.from-fade   { transform: none; }
 .reveal.visible {
   opacity: 1;
   transform: none;
