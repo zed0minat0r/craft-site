@@ -1523,10 +1523,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .hero-sub { max-width: 100%; margin-left: auto; margin-right: auto; }
   .hero-actions { justify-content: center; }
   .hero-product-inset {
-    bottom: 80px;
-    right: 50%;
-    transform: translateX(50%);
-    width: 180px;
+    display: none;
   }
 
   .shop-mood-header { padding: 0 24px 48px; text-align: center; }
