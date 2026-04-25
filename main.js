@@ -118,3 +118,29 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     }
   });
 });
+
+/* ---- Shop CTA inquiry pre-selection ---- */
+(function() {
+  var inquirySelect = document.getElementById('inquiry');
+  if (!inquirySelect) return;
+
+  // Pre-select if a shop CTA with data-inquiry was clicked
+  document.querySelectorAll('[data-inquiry]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var val = this.getAttribute('data-inquiry');
+      if (val && inquirySelect) {
+        // Set after scroll animation completes
+        setTimeout(function() {
+          inquirySelect.value = val;
+        }, 600);
+      }
+    });
+  });
+
+  // Also handle ?inquiry= query param on page load
+  var params = new URLSearchParams(window.location.search);
+  var preselect = params.get('inquiry');
+  if (preselect) {
+    inquirySelect.value = preselect;
+  }
+})();
