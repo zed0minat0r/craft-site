@@ -564,7 +564,6 @@ nav.scrolled .nav-cta {
   padding: 10px 18px;
   border-radius: 2px;
 }
-.about-text-side {}
 .about-quote {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.5vw, 2rem);
@@ -892,6 +891,13 @@ nav.scrolled .nav-cta {
   box-shadow: 0 8px 30px var(--copper-glow);
   transform: translateY(-1px);
 }
+.form-submit:disabled {
+  background: var(--walnut);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
 
 /* ============================================
    FOOTER
@@ -1152,6 +1158,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 
   .hero-content { padding: 0 24px; padding-top: 80px; text-align: center; }
   .hero-eyebrow { justify-content: center; }
+  .hero-eyebrow::before, .hero-eyebrow::after { width: 16px; }
   .hero-sub { max-width: 100%; margin-left: auto; margin-right: auto; }
   .hero-actions { justify-content: center; }
 

@@ -119,6 +119,18 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   });
 });
 
+/* ---- Contact form loading state ---- */
+(function() {
+  var form = document.getElementById('contact-form');
+  var btn = document.getElementById('submit-btn');
+  if (!form || !btn) return;
+
+  form.addEventListener('submit', function() {
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+  });
+})();
+
 /* ---- Shop CTA inquiry pre-selection ---- */
 (function() {
   var inquirySelect = document.getElementById('inquiry');
