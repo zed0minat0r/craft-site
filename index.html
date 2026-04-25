@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" />
 </head>
 <body>
 
@@ -69,7 +70,7 @@
       <img
         src="https://images.pexels.com/photos/15337117/pexels-photo-15337117.jpeg?auto=compress&cs=tinysrgb&w=500"
         alt="Handmade patchwork art quilt — Made by Molly"
-        loading="eager"
+        loading="lazy"
       />
     </div>
     <div class="hero-scroll-hint">
@@ -224,7 +225,7 @@
         </div>
 
         <!-- Progress dots -->
-        <div class="process-dots" aria-hidden="true">
+        <div class="process-dots" role="tablist" aria-label="Process panels">
           <button class="process-dot is-active" data-panel="0" aria-label="Panel 1"></button>
           <button class="process-dot" data-panel="1" aria-label="Panel 2"></button>
           <button class="process-dot" data-panel="2" aria-label="Panel 3"></button>

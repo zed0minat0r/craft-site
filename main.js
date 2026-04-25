@@ -37,12 +37,12 @@
     window.addEventListener('load', function() {
       heroBg.classList.add('loaded');
     });
-    // subtle parallax — disabled for reduced-motion users
+    // subtle parallax via CSS variable so Ken Burns scale is unaffected
     if (!reducedMotion) {
       window.addEventListener('scroll', function() {
         const y = window.scrollY;
         if (y < window.innerHeight * 1.5) {
-          heroBg.style.transform = 'scale(1) translateY(' + (y * 0.25) + 'px)';
+          heroBg.style.setProperty('--parallax-y', (y * 0.25) + 'px');
         }
       }, { passive: true });
     }
@@ -83,6 +83,7 @@
   function openMenu() {
     hamburger.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.classList.add('nav-hidden');
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -91,6 +92,7 @@
   function closeMenu() {
     hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.classList.remove('nav-hidden');
     overlay.classList.remove('open');
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
@@ -109,7 +111,14 @@
 /* ---- Smooth scroll for anchor links ---- */
 document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   link.addEventListener('click', function(e) {
-    const target = document.querySelector(this.getAttribute('href'));
+    var href = this.getAttribute('href');
+    // Skip bare "#" (logo) — let it scroll to top explicitly
+    if (href === '#' || href === '') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    var target = document.querySelector(href);
     if (target) {
       e.preventDefault();
       const offset = 80;
@@ -172,19 +181,41 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   onScroll();
 })();
 
-/* ---- Contact form loading state ---- */
+/* ---- Contact form loading state + success on ?submitted=1 ---- */
 (function() {
   var form = document.getElementById('contact-form');
   var btn = document.getElementById('submit-btn');
+  var successDiv = document.getElementById('form-success');
+
+  // Show success message if Formspree redirected back with ?submitted=1
+  if (successDiv) {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('submitted') === '1') {
+      successDiv.style.display = 'block';
+      // Scroll to the success message
+      successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Clean up the URL so refreshing doesn't re-show the message
+      history.replaceState(null, '', window.location.pathname);
+    }
+  }
+
   if (!form || !btn) return;
 
   form.addEventListener('submit', function() {
     btn.disabled = true;
     btn.textContent = 'Sending...';
+    // Safety reset: re-enable button after 12s in case of network error
+    setTimeout(function() {
+      if (btn.disabled) {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    }, 12000);
   });
 })();
 
 /* ---- Mood row glow on scroll-in ---- */
+/* threshold + rootMargin match the .reveal observer so they fire together */
 (function() {
   var rows = document.querySelectorAll('.mood-row');
   if (!rows.length) return;
@@ -195,7 +226,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   rows.forEach(function(r) { observer.observe(r); });
 })();
 
