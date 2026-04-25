@@ -63,66 +63,7 @@
   reveals.forEach(function(el) { observer.observe(el); });
 })();
 
-/* ---- Testimonials Drag Carousel ---- */
-(function() {
-  const wrap = document.getElementById('testimonials-wrap');
-  const track = document.getElementById('testimonials-track');
-  const dots = document.querySelectorAll('.t-dot');
-  if (!wrap || !track) return;
-
-  let isDragging = false;
-  let startX = 0;
-  let scrollLeft = 0;
-
-  wrap.addEventListener('mousedown', function(e) {
-    isDragging = true;
-    startX = e.pageX - wrap.getBoundingClientRect().left;
-    scrollLeft = wrap.scrollLeft;
-    wrap.style.cursor = 'grabbing';
-  });
-  window.addEventListener('mouseup', function() {
-    isDragging = false;
-    wrap.style.cursor = 'grab';
-  });
-  wrap.addEventListener('mousemove', function(e) {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - wrap.getBoundingClientRect().left;
-    const walk = (x - startX) * 1.2;
-    wrap.scrollLeft = scrollLeft - walk;
-  });
-
-  // Touch support
-  let touchStartX = 0;
-  let touchScrollLeft = 0;
-  wrap.addEventListener('touchstart', function(e) {
-    touchStartX = e.touches[0].pageX;
-    touchScrollLeft = wrap.scrollLeft;
-  }, { passive: true });
-  wrap.addEventListener('touchmove', function(e) {
-    const x = e.touches[0].pageX;
-    const walk = (touchStartX - x) * 1.2;
-    wrap.scrollLeft = touchScrollLeft + walk;
-  }, { passive: true });
-
-  // Update active dot on scroll
-  function updateDots() {
-    const cardW = track.children[0] ? track.children[0].offsetWidth + 24 : 300;
-    const activeIdx = Math.round(wrap.scrollLeft / cardW);
-    dots.forEach(function(d, i) {
-      d.classList.toggle('active', i === activeIdx);
-    });
-  }
-  wrap.addEventListener('scroll', updateDots, { passive: true });
-
-  // Dot click navigation
-  dots.forEach(function(dot, i) {
-    dot.addEventListener('click', function() {
-      const cardW = track.children[0] ? track.children[0].offsetWidth + 24 : 300;
-      wrap.scrollTo({ left: i * cardW, behavior: 'smooth' });
-    });
-  });
-})();
+/* ---- Testimonials auto-scroll is CSS-only (no JS needed) ---- */
 
 /* ---- Contact Form ---- */
 function handleSubmit(e) {
