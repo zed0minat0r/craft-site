@@ -31,18 +31,21 @@
 /* ---- Hero parallax / bg load ---- */
 (function() {
   const heroBg = document.getElementById('hero-bg');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (heroBg) {
-    // trigger Ken Burns after load
+    // trigger Ken Burns after load (skip if reduced motion)
     window.addEventListener('load', function() {
       heroBg.classList.add('loaded');
     });
-    // subtle parallax
-    window.addEventListener('scroll', function() {
-      const y = window.scrollY;
-      if (y < window.innerHeight * 1.5) {
-        heroBg.style.transform = 'scale(1) translateY(' + (y * 0.25) + 'px)';
-      }
-    }, { passive: true });
+    // subtle parallax — disabled for reduced-motion users
+    if (!reducedMotion) {
+      window.addEventListener('scroll', function() {
+        const y = window.scrollY;
+        if (y < window.innerHeight * 1.5) {
+          heroBg.style.transform = 'scale(1) translateY(' + (y * 0.25) + 'px)';
+        }
+      }, { passive: true });
+    }
   }
 })();
 
@@ -50,6 +53,12 @@
 (function() {
   const reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
+
+  // If user prefers reduced motion, show all elements immediately
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+    return;
+  }
 
   const observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
