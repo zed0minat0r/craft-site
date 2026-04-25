@@ -1,115 +1,241 @@
-# AUDIT: Made by Molly — Nigel's Strict Assessment
-**Auditor:** Nigel (British Standards, Real-User Perspective)
+# Made by Molly — Nigel's Audit
 **Date:** 2026-04-18
-**Previous Score:** 7.2
-**URL:** https://zed0minat0r.github.io/craft-site/
+**Auditor:** Nigel (strict British auditor)
+**Overall Score: 5.8 / 10**
 
 ---
 
-## OVERALL SCORE: 7.4 / 10
-**Delta: +0.2 from 7.2**
+## Scoring Context
 
-A modest but honest bump. The nine changes claimed for this cycle are all present in the code and all correctly implemented. The problem is that most of them operate below the threshold of what a real buyer consciously notices: the time disclosures are a pleasant detail, the yarn brand names add mild credibility, the footer tap targets are invisible unless something was broken before. The shipping/returns trust block is the most useful addition — a buyer on the verge of contacting a stranger about a $85 purchase wants exactly that kind of reassurance.
+Re-baselined from 7.4 following the content pivot from knitting to bags and art quilts.
+The previous score was inflated. Scored strictly from the perspective of a real buyer
+who has just landed on the site and is deciding whether to browse, commission, or leave.
 
-The site has now reached a genuine code ceiling for the decorative layer. Every pixel-level improvement from here yields diminishing returns. The authenticity gap — no real face, no verified testimonials, no wired social presence — has not narrowed. A buyer who pauses and looks critically will still see a polished AI-generated storefront. That structural gap is the reason this score cannot reach 7.8 or higher without client content.
-
----
-
-## WHAT CHANGED AND HOW IT SCORES
-
-### Time disclosures on shop rows
-"Each throw takes 12-15 hours of hand knitting" / "Each piece takes 4-8 hours of careful work" / "Each baby blanket takes 8-10 hours of hand knitting" — all three rows confirmed in HTML. These are implemented as `.mood-time` (italic, walnut-coloured, 13px). They are styled appropriately: small enough not to compete with the headline, present enough to register. On mobile the class correctly gets `text-align: center`. The copy is honest and differentiating — a buyer comparing handmade vs. machine-made goods responds to this. Small but genuine.
-
-### Shipping/returns trust block
-The `.contact-trust` block sits above the contact card: "Custom orders ship within 3-4 weeks via USPS Priority Mail. If you're not happy with what arrives, message me — I'll make it right. I stand behind every piece I make." This is exactly the right copy in exactly the right place. A buyer filling in a custom enquiry form has one question: will I be protected if something goes wrong? This line answers it. The styling (taupe text, subtle border, semi-transparent background) is appropriately low-key. Correct placement, correct tone, correctly styled.
-
-### Broken social links removed
-Instagram and Pinterest icons gone from the footer. Only the email icon (linking to #contact) remains. This is the correct decision. An icon that goes nowhere actively damages credibility. The email-only footer is honest and functional. Confirmed.
-
-### Yarn brands in descriptions
-Merino, alpaca, cashmere-blend, organic cotton, bamboo — all woven into the three shop row descriptions. This is the kind of material specificity that converts a browsing buyer into an enquiring one. "Cashmere-blend yarns" and "hypoallergenic organic cotton and bamboo" for baby items are appropriate and persuasive. Confirmed. Small improvement.
-
-### Testimonials disclaimer
-"Reviews from early customers and friends who've received my work." Present and styled correctly as `.testimonials-disclaimer` (italic, small, cashmere-coloured). This is a responsible addition. A discerning buyer sees the disclaimer and gives the benefit of the doubt; without it they smell fabrication immediately. It doesn't fix the problem but it mitigates it appropriately. Confirmed.
-
-### Footer tap targets (mobile)
-`.footer-links a` and `.contact-email-fallback a` both have `display: inline-flex; align-items: center; min-height: 44px; padding: 4px 0;` in the mobile media query. Nine links, all at 44px minimum touch height. Correct. Confirmed.
-
-### Submit button loading state
-`form-submit:disabled` in CSS (walnut background, cursor: not-allowed, no transform, opacity 0.7). JS sets `btn.disabled = true` and `btn.textContent = 'Sending...'` on form submit. Clean implementation. Confirmed.
-
-### Hero eyebrow lines resized for mobile
-`@media (max-width: 768px)`: `.hero-eyebrow::before, .hero-eyebrow::after { width: 16px; }` — previously 28px. The proportional issue flagged in the last audit is resolved. Confirmed.
-
-### Dead CSS cleaned
-No orphaned classes detectable. CSS is 1264 lines with every class accounted for. The vestigial empty `{}` at `.about-text-side` noted in the previous audit — no longer present. Confirmed clean.
+The site functions correctly and is technically competent. It does not, however, visually
+arrest the visitor. It reads like a well-assembled Squarespace template: beige-on-beige,
+Playfair Display italic headline, fade-in reveals, copper accents. Every craft business
+on Instagram uses this palette. There is nothing here that makes a real buyer stop scrolling
+and think "I need one of these."
 
 ---
 
-## SECTION SCORES
+## Section Scores
 
-### 1. Hero — 7.2 / 10
-Unchanged from last audit. Ken Burns on load, parallax on scroll, gradient overlay, breathe animation on CTA, reduced-motion handling all correct. The eyebrow lines are now proportional on mobile. Still Unsplash stock. The copy is strong. Nothing moved either direction.
+### 1. Hero — 6.0 / 10
 
-### 2. Shop by Mood — 7.3 / 10
-Up from 7.0. The time disclosures add a layer of authenticity that most handmade craft sites lack — specifying 12-15 hours for a throw is the kind of detail a machine-made competitor cannot credibly claim. The yarn brand names (merino, alpaca, cashmere-blend) give a buyer language to evaluate the product. Pricing anchors remain. Inquiry pre-selection remains. This section is now working hard.
+**What works:** Ken Burns scale-down on load is a nice touch. The staggered fadeUp
+animation on headline, subtext, and buttons is cleanly executed. The copper progress bar
+glow is tasteful. The copy ("Not mass-made. Not a factory. Just me, my fabric, and a
+sewing machine") is the strongest writing on the page.
 
-### 3. Process Strip — 7.0 / 10
-Unchanged. No claimed changes here. The connector threads correctly at 140px. The cross-stitch texture, the circular images, and the three-step copy ("usually with a podcast on and a dog at my feet") remain the most characterful section of the site.
+**What fails:** The hero background image is a generic stock photo of bags. It conveys
+nothing specific about Molly's work. A real buyer cannot tell from this image whether
+Molly makes canvas totes, leather satchels, or quilted clutches. The image does not
+communicate craft — it communicates "bag brand." The overlay (72% espresso tint at 135
+degrees) buries the photograph almost entirely, which means the hero is essentially a
+dark gradient with text on it. The parallax is modest and the Ken Burns effect is very
+subtle — these exist but contribute almost nothing to perceived drama.
 
-### 4. About the Maker — 7.2 / 10
-Unchanged. Voice is warm and specific. Still no face. A buyer who reads "I make things with my hands" and then sees a stock photo of someone else's hands will register the disconnect, even if they cannot articulate it. This section has reached its ceiling without a portrait.
-
-### 5. Custom Orders CTA — 7.2 / 10
-Unchanged. Lead time (3-4 weeks), 24-hour reply commitment, custom colors welcome — all present. Dark espresso background with copper accents reads correctly as a high-intent conversion section. Nothing new, nothing broken.
-
-### 6. Testimonials — 5.8 / 10
-Unchanged. Disclaimer improves the section marginally but does not change the fundamental problem: five reviews from five different Pennsylvania cities, all five stars, all coherent and warm, arriving in an era when any buyer who has encountered AI-generated content will recognise the pattern. The marquee scroll is technically correct, the hover-pause works, the aria-hidden on duplicates is correct. The execution remains excellent. The content remains a liability.
-
-### 7. Contact Form — 7.6 / 10
-Up from 7.5. The trust block above the form is a genuine improvement. Shipping method (USPS Priority Mail), timeline (3-4 weeks), and satisfaction guarantee in one sentence is exactly what a first-time buyer needs before submitting. The loading state on submit is now confirmed working. The Formspree endpoint is live. Email fallback is present. The form is as good as it can be without a real backend.
-
-### 8. Mobile UX at 375px — 7.3 / 10
-Up from 7.2. Footer tap targets at 44px. Hero eyebrow lines proportional. Trust block centred correctly on mobile. Mood-time centred on mobile. The site stacks cleanly and nothing is broken. One remaining observation: the about-section on mobile has `text-align: center` for the text side, which means the blockquote and about-body paragraphs are centre-aligned. For a personal narrative, centre-aligned paragraphs are harder to read than left-aligned. This is a minor legibility issue, not a blocking one.
-
-### 9. Typography — 7.5 / 10
-Unchanged. Playfair Display / DM Sans pairing correct. Clamp sizing on all major headings. Font weights appropriate throughout. No regressions.
-
-### 10. Colour Palette — 7.8 / 10
-Unchanged. Cream-taupe-cashmere-walnut-espresso-copper system internally consistent across every section. No violations.
-
-### 11. Scroll Animations — 7.8 / 10
-Unchanged. Reduced-motion coverage thorough. IntersectionObserver config sensible. Parallax correctly gated. All animations have appropriate timing.
-
-### 12. Overall Authenticity — 5.9 / 10
-Fractional improvement from 5.8. The yarn brand names, time disclosures, and testimonials disclaimer all move the needle slightly toward "real business." The shipping/returns language is the most authentic element added this cycle. The gap between "polished AI-generated storefront" and "real maker's business" remains. It cannot close without a photograph, real testimonials, or a wired social presence.
+**Priority improvement:** Replace the stock hero image with a grid or collage of actual
+Molly pieces — or a textured fabric close-up that moves through a scroll-triggered reveal.
+The hero needs to feel like you are standing in the studio, not looking at a mood board.
 
 ---
 
-## TOP 3 PRIORITIES
+### 2. Shop by Mood — 5.5 / 10
 
-### Priority 1 — A real photograph of Molly
-This has been Priority 1 since audit 1. It remains Priority 1. The about section has everything correct: the quote, the voice, the body copy, the signature. It then shows a stock photo of someone else's hands. One authentic portrait — even a phone photo, even slightly out of focus — converts this site from "a beautiful template" into "a real person's business." No code change can substitute for this. It is the single highest-leverage action remaining.
+**What works:** The alternating image-left / text-right layout is a proven structure. The
+numbered rows (01, 02, 03) are a reasonable navigational device. The hover scale on
+product images is smooth.
 
-### Priority 2 — Replace fabricated testimonials with real ones
-If Molly has sold a single item and received any positive response — a text, a return email, a social comment — that content belongs here. Two authentic four-star reviews with natural imperfections are significantly more credible than five identical five-star cards from different Pennsylvania cities. Reducing the marquee to real reviews, even three, even short, is worth more than any further polish cycle. The disclaimer helps but it does not fix the root issue.
+**What fails:** This is the most visually flat section on the page. The "mood text" panels
+are taupe or cashmere — warm beiges — against warm beige background. There is virtually
+no contrast or tension. The large ghost numbers (01, 02, 03) at opacity 0.08 are invisible
+on screen — they add nothing. The product images are stock photographs with no relation
+to Molly's actual work. A buyer looking at "Bags & Totes" sees a stock image of a bag;
+looking at "Art Quilts" sees a stock close-up of patchwork. There is no sense of a maker
+with a distinct aesthetic. The buttons ("Bags & Totes", "Art Quilts") link to #contact —
+which is technically honest, but sends the buyer to a form with no intermediate imagery
+or gallery to build desire. There is no price hierarchy or social proof at the product row
+level to build conviction before asking for a custom inquiry.
 
-### Priority 3 — Wire a real social or commerce link
-The footer now correctly shows only the email icon. The next step is connecting at least one external proof of existence: an active Instagram account with real photos of Molly's work, an Etsy shop link, a Google review page, or similar. Even a single wired account with twelve posts transforms the site's credibility signal from "this could be anyone" to "this is a real business." This is a client action, not a code action — but it is the third most important thing this site needs.
+**Priority improvement:** Add a 4-to-6 image mosaic or masonry strip between the mood
+rows — real product photography or high-quality stand-ins that show the range and
+texture of the work. Give the buyer visual evidence before the CTA.
 
 ---
 
-## CEILING ASSESSMENT
+### 3. The Process — 6.5 / 10
 
-The code ceiling has been genuinely reached. Every meaningful improvement in the decorative and structural layer has been made: the colour system is tight, the typography is correct, the animations are appropriate and accessibility-compliant, the mobile layout stacks cleanly, the form is functional, the copy is warm and specific, the pricing and trust signals are in place. Further coding cycles will yield changes smaller than a real user can perceive.
+**What works:** The three-step layout with the connecting gradient line is structurally
+clean. The circular image frames break the grid nicely. The staggered reveal delays
+(0s / 0.15s / 0.3s) are well-calibrated. The cross-stitch SVG texture on the section
+background is a subtle and appropriate craft detail.
 
-The remaining gap between the current score (7.4) and a competitive score (8.0+) is entirely an authenticity gap. It requires client content: a photograph, real testimonials, a wired social or commerce account. None of these are code problems. A builder agent cannot solve them. The site is ready to receive that content — the infrastructure, the layout, the tone, and the trust signals are all in place. The bottleneck is now on the client side.
+**What fails:** 160px circular images are thumbnail-sized. The photographs are stock.
+The section feels light — it explains the process in three sentences but does not make
+the viewer feel the labour or care. At 160px circles, the buyer cannot see the detail
+of the fabric being cut or the stitching being laid. The section title ("The Process")
+is dull. This is the emotional heart of a handmade business — it should feel like a
+behind-the-scenes moment, not a three-icon feature list.
+
+**Priority improvement:** Make the process images dramatically larger — full bleed or
+half-bleed photography. Introduce a horizontal scrollable "studio moment" strip that
+lets the buyer move through the process visually, not just read bullet descriptions.
 
 ---
 
-## SECONDARY NOTES
+### 4. About the Maker — 7.0 / 10
 
-- About section on mobile: `text-align: center` on the text side makes multi-paragraph body copy harder to read. Left-aligning body paragraphs on mobile while keeping headings and the quote centered would improve legibility without touching the design.
-- The contact form has no character count indicator on the message textarea. For a custom-order enquiry, a buyer may wonder how much detail is expected. A small "Tell me what you're looking for..." placeholder is present and is sufficient — this is genuinely minor.
-- All footer links point to internal anchors. Wholesale (#contact) is listed as a footer link — if Molly does not offer wholesale, this option should be removed from the contact dropdown and the footer to avoid wasting inquiry slots on non-viable leads.
-- The baby collection CTA uses `data-inquiry="custom"` which pre-selects "Custom Order" in the contact form. A dedicated "Baby Collection" option in the dropdown would route baby enquiries more specifically — this is a nice-to-have for a future cycle if enquiry volume justifies it.
+**What works:** This is the strongest section. The 5:7 grid with portrait left and text
+right is well-proportioned. The italic blockquote ("I wanted to make things that outlast
+the trend they were bought in") is genuine and good. The decorative copper corner accent
+adds craft-shop character. The Pennsylvania Studio location tag is a nice grounding
+detail. The Molly signature line is appropriate.
+
+**What fails:** The portrait image is stock — hands marking fabric, not a face. A buyer
+commissioning a personal piece wants to know who they are buying from. There is no photo
+of Molly herself. The about-photo-accent (decorative corner box) is positioned with
+bottom: -20px / right: -20px but the parent has overflow:hidden, so it renders
+only partially visible — a broken decorative element. The section background gradient
+(cashmere to taupe) is more beige-on-beige without visual punctuation.
+
+**Priority improvement:** Add a real photo of Molly or at minimum a second image of her
+hands actively working — not a stock studio shot. Introduce a single high-contrast
+accent — bold type, a pull-stat, a fabric swatch motif — to break the beige monotony.
+
+---
+
+### 5. Custom Orders CTA — 6.5 / 10
+
+**What works:** The dark espresso background provides the only real contrast break on
+the page. The copper button with the breathe glow animation draws the eye. The italic
+headline ("made just for you?") is warm and personal. Lead time and turnaround copy
+is appropriately reassuring.
+
+**What fails:** The radial gradient accents (copper at 8% opacity, walnut at 12%) are
+functionally invisible — they exist in the code but contribute nothing perceptible to
+the eye. This section has the right bones for a dramatic mid-page moment but executes
+timidly. It would benefit from a fabric texture overlay, a large italic type treatment
+in the background, or a cinematic image bleed. As it stands, it is a dark box with a
+few lines of text and a button.
+
+**Priority improvement:** Add a large semi-transparent background element — a fabric
+texture, a stitch pattern at scale, or a blurred close-up of material — that gives this
+section visual weight. Make the section feel more like a gallery wall and less like a
+modal dialogue.
+
+---
+
+### 6. Testimonials — 6.0 / 10
+
+**What works:** The CSS-only auto-scroll marquee is technically elegant — no JS required,
+pauses on hover, has edge fades. The testimonial cards with backdrop-filter blur on the
+espresso/walnut background have appropriate depth. The copper gradient author avatars are
+a decent substitute for photographs.
+
+**What fails:** All five testimonials are five-star reviews with similar sentence
+structures. A real buyer is suspicious of uniformity — it reads as curated or invented.
+The disclaimer ("Reviews from early customers and friends who've received my work") is
+an honest note but undermines trust rather than building it. The section header reads
+"What people are saying" on both the label and h2 — a direct repetition. The marquee
+is pleasant but is not an exciting scroll experience; it is background furniture.
+
+**Priority improvement:** Vary the testimonials visually — one should be a longer quote
+in a larger card, one should feature a specific before-and-after or named product. Add a
+single quote pulled out in enormous display type above the marquee to create a moment
+of genuine impact.
+
+---
+
+### 7. Contact / Form — 6.5 / 10
+
+**What works:** The form is functional (Formspree integration), well-labelled, has
+proper loading state and a trust strip above. The copper focus glow on inputs is tasteful.
+
+**What fails:** The contact card sits on a dark walnut-to-espresso gradient and reads as
+a clinical web form dropped into an otherwise editorial page. The "Wholesale Inquiry"
+option in the dropdown feels out of place for a one-person studio; it raises questions
+about scale and availability that a new visitor cannot answer.
+
+**Priority improvement:** Add a warm pre-form panel — a quote, an image, a fabric colour
+strip — that makes the act of filling in the form feel like starting a conversation
+rather than submitting a ticket.
+
+---
+
+### 8. Mobile Experience — 5.5 / 10
+
+**What works:** Mobile breakpoints are present and functional. Hamburger animates
+correctly. Hero centers on mobile. Mood rows stack cleanly.
+
+**What fails:** Center-alignment on mobile is inconsistent in the mood-time and mood-price
+elements. The circular process images at 160px are still tiny on a 375px screen. The
+testimonial cards at min-width 300px are nearly full-width on mobile, eliminating the
+scrolling carousel effect entirely. The footer-brand-desc retains max-width: 260px on
+mobile, creating awkward partial-width paragraphs against a full-width container.
+
+---
+
+### 9. Visual Identity / "Does It Look AI-Generated?" — 5.0 / 10
+
+This is the most damaging score. The palette (cream, taupe, cashmere, walnut, espresso,
+copper) is precisely what a generative model produces for every artisan business.
+Playfair Display italic paired with DM Sans is the default craft-brand font stack. The
+section labels in small copper uppercase with 0.22em letter-spacing appear on
+approximately 40% of Webflow templates. The alternating image-text rows with numbered
+items are a boilerplate editorial layout. The breathe glow animation on copper buttons
+is ubiquitous in AI-generated craft sites.
+
+None of this is catastrophically bad, but none of it is distinctively Molly's. A buyer
+who has seen three other handmade bag sites this week will not remember this one. There
+is no visual signature — no idiosyncratic typographic choice, no unexpected colour, no
+structural surprise, no photography that could only belong to this maker.
+
+---
+
+## Top 3 Priorities for Visual Excitement
+
+### Priority 1 — Introduce a Fabric-Texture Visual Language
+The site talks about fabric constantly but never shows it in a way that makes the
+visitor feel it. Introduce a full-bleed fabric texture as a recurring visual motif:
+a woven linen SVG pattern or a real textile photograph used as a section background
+at partial opacity. Use it behind the hero, as a section divider, and as an inset panel
+in the CTA section. This single change would give the site a visual identity that no
+template produces by default and would differentiate it immediately from AI-generated
+craft sites.
+
+### Priority 2 — Replace the Hero with a Split or Collage Treatment
+The single dark stock image does not show what Molly makes. Replace it with a split
+layout or polaroid-style collage of 3-5 product images that slide in on load — bags,
+quilts, and fabric swatches together. This gives a buyer immediate visual vocabulary
+for the range of work before reading a single word. Alternatively, use a CSS clip-path
+reveal that unfurls a fabric texture across the hero as the page loads. Either approach
+would make the hero feel like a destination, not a placeholder.
+
+### Priority 3 — Add a Dramatic "Work in Progress" Full-Bleed Strip
+Insert a horizontally scrollable, full-bleed photograph strip between the About section
+and the Custom CTA. Show 5-7 images of work in progress: fabric being cut, seams being
+pinned, a finished bag laid flat, a quilt panel in mid-assembly. Allow this strip to
+scroll horizontally on desktop (mouse drag or arrow keys) and horizontally swipe on
+mobile. This is the single most effective thing a handmade business can do to build
+trust and desire simultaneously — it shows the actual labour, not just the finished
+product, and it is the kind of scroll experience that makes visitors linger.
+
+---
+
+## What Is Working and Must Be Kept
+
+- The copper breathe glow on primary buttons — distinctive and warm, do not remove
+- The cross-stitch SVG texture on the process section — appropriate and subtle, keep it
+- The CSS marquee testimonial scroll — technically elegant, keep and improve it
+- The hero copy voice — genuine and strong, must not be genericised
+- The about-quote ("I wanted to make things that outlast the trend they were bought in")
+  — this line should also appear as a pull-quote or hero sub-headline, it is the best
+  writing on the site
+
+---
+
+*Scored strictly. 5.8 reflects a competent but visually forgettable execution of a pivot
+that has the right content but not yet the visual identity to make a buyer feel something.
+The bones are solid. The soul is not yet visible on the screen.*
