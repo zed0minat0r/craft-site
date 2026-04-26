@@ -213,3 +213,20 @@
 
 **Files:** index.html, style.css, main.js, BUGS.md
 2026-04-26 11:00 accessibility — focus: ARIA/focus-rings/contrast, top issue: no visible focus states on any button/nav/dot outside form inputs, fixed: 4
+
+## 2026-04-26 — Nigel (cycle 5)
+
+2026-04-26 01:53 nigel — focus axis: conversion-friction, top issue: pexels-7998221 unchanged and still score ceiling at 7.5; testimonial mobile touch UX + contact card trust-note relocation earned +0.1 to 7.4
+
+**Delta from cycle 4:** 7.3 → 7.4 (+0.1)
+
+**What moved the score:**
+- Testimonials: mobile touch UX (pause-on-touchstart via animationPlayState + computed-matrix hold, swipe >=50px nudge, 5 dot indicators, 4s auto-resume via negative animationDelay); section score 7.0 → 7.3 — genuine friction relief for mobile buyers at the trust section
+- Contact: trust note relocated from external box to copper-ruled blockquote inside card as emotional close; directive textarea placeholder resolves blank-page paralysis; section score 7.5 → 7.7
+- Mobile UX holistic: testimonial touch UX + dot centering; 7.1 → 7.2
+- A11y pass (main landmark, process dot ARIA, focus-visible, disclaimer contrast): quality floor raised, not reflected in conversion-friction sub-scores — invisible to sighted 30-second buyer scan
+
+**Top 3 — Cycle 6:**
+1. P1 CRITICAL: Real photography (pexels-7998221 unchanged — hard ceiling at 7.5, will not cross without it)
+2. P2 BRAND DECISION: Copper section-label contrast BUGS #27 (2.50:1 fails WCAG AA — needs user input to darken copper, increase size, or accept as conscious brand choice)
+3. P3 MEDIUM: Performance pass (Lighthouse LCP/CLS after cursor trail + testimonial animation additions) + razor pass through style.css for orphaned rules from removed elements
