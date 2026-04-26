@@ -1,26 +1,41 @@
-# PLAN — Cycle 2, Builder
+# PLAN — Cycle 3, Builder
 
-**One-liner:** Verify and document BUGS.md #1/#2/#3 — all three critical/high fixes already shipped in commit 62e166c.
+**One-liner:** Fix Bug #5 (hamburger z-index over overlay), verify Bug #13 already resolved, update price ranges on all three mood rows.
 
 ## What and Why
 
-BUGS.md was written against commit 858d612. Commit 62e166c (a prior Builder pass) already
-shipped all three fixes:
-- Bug #1 (CRITICAL): smooth-scroll `href="#"` guard — main.js line 116
-- Bug #2 (CRITICAL): `?submitted=1` → `#form-success` reveal — main.js lines 210-219
-- Bug #3 (HIGH): Ken Burns parallax — CSS variable `--parallax-y` in main.js line 45, style.css line 142
+### Bug #5: Hamburger z-index stacks above overlay
+- `.nav-hamburger` z-index 1001 sits above `.mobile-nav-overlay` z-index 999.
+- JS already adds `.nav-hidden` (opacity:0, pointer-events:none) but opacity transition can flash briefly.
+- Fix: raise `.mobile-nav-overlay` to z-index 1002 so it definitively covers the hamburger.
+- File: `style.css` line 1411
 
-No code changes needed this cycle. Work = audit + changelog entry.
+### Bug #13: reveal-glow fires before reveal (already fixed in HEAD)
+- main.js line 249: reveal-glow observer already uses `{ threshold: 0.12, rootMargin: '0px 0px -40px 0px' }` — matches .reveal. Race condition eliminated.
+- Action: verify in code, then mark closed in BUGS.md with note.
+
+### AUDIT P2: Price ranges on mood rows
+- Row 1 (Bags, 6–10 hours): `$75` → `$75–$220`
+- Row 2 (Quilts): note BUGS.md says "15–30 hours" in actual HTML, AGENT-PLAN says "40–80 hours". Will match what's in HTML.
+  - `$120` → `$120–$480`
+- Row 3 (Custom commissions): `$95` → `$95+`
+- File: `index.html` lines 108, 133, 158
+- Must inherit existing `.mood-price` styling — no new component.
 
 ## Files Touched
 
-- None (all fixes already in HEAD)
+- `style.css` — 1 edit (overlay z-index)
+- `index.html` — 3 edits (price text)
+- `BUGS.md` — mark #5 and #13 closed
+- `CHANGELOG-AGENT.md` — append entry
 
 ## Expected Diff
 
-None to code. Changelog entry appended to CHANGELOG-AGENT.md.
+4 surgical edits total across 2 source files.
 
 ## Success Criterion
 
-Console clean on logo click, form success state visible on `?submitted=1`, hero Ken Burns
-scale preserved on first scroll. All verified against current HEAD.
+- Hamburger not visible over open nav overlay at 375px.
+- No reveal-glow race condition observable.
+- All three mood rows show price ranges.
+- BUGS.md #5 and #13 marked closed.
