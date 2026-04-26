@@ -29,8 +29,7 @@
 /* scroll-behavior intentionally omitted — JS smooth scroll handles all anchors */
 
 html {
-  overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: clip;
 }
 
 body {
@@ -39,9 +38,7 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.65;
-  overflow-x: hidden;
-  max-width: 100vw;
-  position: relative;
+  overflow-x: clip;
 }
 
 img { display: block; max-width: 100%; height: auto; }
@@ -795,6 +792,9 @@ nav.scrolled .nav-cta {
   font-style: italic;
   color: var(--espresso);
   margin-top: 32px;
+}
+.about-cta-wrap {
+  margin-top: 36px;
 }
 
 /* ============================================
