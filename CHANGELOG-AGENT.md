@@ -471,3 +471,7 @@
 ## 2026-04-26 — Nigel (cycle 9)
 
 2026-04-26 08:45 nigel — focus axis: conversion-friction, top issue: photography ceiling holds at 7.5; contact success state is a genuine funnel close (Contact 7.7→8.0) but pexels-7998221 in About + Process unchanged
+
+## 2026-04-25 — Coordinator (cycle 10 dispatch)
+
+2026-04-25 coordinator — scheduled: Pixel, Performance, Spark, Nigel, focus: a11y floor compliance + perf verification + funnel-symmetry close (sub-13px text fix .about-location-tag/.testimonial-source + cycle 9 post-push Lighthouse re-run + Contact sending/loading state Frame B + re-score), forbidden: Studio Strip, Hero Ken Burns, Mood rows visual, About section visual (font-size only), Process panels visual, Custom CTA, Cursor trail, Contact card visual, Contact textarea, Testimonial carousel mechanics, Header/nav, Footer, Section-label sizing, Success state (cycle 9 freeze). Score 7.5 held 3 cycles. Cycle 10 is NOT a no-op — three concrete real-value items qualify (Pixel cycle 9 explicitly flagged the sub-13px elements; Performance cycle 9 explicitly noted CSS-min/rAF fixes need post-push verification; sending state is symmetric funnel gap to the just-designed success state). If cycle 10 score holds at 7.5 for a 4th consecutive cycle, cycle 11 should auto-pause and prompt photography decision. Builder/Refiner/Razor/QA/Scout/Accessibility intentionally skipped — rationale in AGENT-PLAN.md.
