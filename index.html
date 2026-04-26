@@ -11,6 +11,8 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/playfair-display-normal-latin.woff2" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/playfair-display-italic-latin.woff2" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/dm-sans-latin.woff2" />
+  <!-- Preload desktop LCP image (hero inset, above-fold on desktop only) -->
+  <link rel="preload" as="image" media="(min-width: 769px)" href="https://images.pexels.com/photos/15337117/pexels-photo-15337117.jpeg?auto=compress&cs=tinysrgb&w=500" />
   <style>
     /* Self-hosted font-face declarations — latin subset only (English content) */
     /* DM Sans — all weights share the same latin woff2 file */
@@ -107,7 +109,7 @@
         <img
           src="https://images.pexels.com/photos/15337117/pexels-photo-15337117.jpeg?auto=compress&cs=tinysrgb&w=500"
           alt="Handmade patchwork art quilt — Made by Molly"
-          loading="lazy"
+          fetchpriority="high"
           width="500"
           height="600"
         />
