@@ -89,3 +89,7 @@
 - **Molly signature:** Size raised 1.6rem → 2.1rem, `margin-top` 32px → 44px. More presence as a personal anchor without changing content.
 - **About quote:** Size tightened `clamp(1.5rem, 2.5vw, 2rem)` → `clamp(1.45rem, 2.3vw, 1.9rem)`, `line-height` 1.45 → 1.5. Slightly quieter quote lets the signature land harder.
 - **Section label hierarchy:** `.about-text-side .section-label` gets `letter-spacing: 0.25em` (up from 0.22em) and `margin-bottom: 22px` (up from 14px) for more breathing room above the quote.
+
+## 2026-04-25 — Scout (cycle 3)
+
+2026-04-25 15:00 scout — research angle: wow-interaction candidates (cursor trail / telescope zoom / scrollytelling / ambient sound / grain-reveal), 5 candidates cataloged, recommendation: copper-glow cursor trail (S effort, 10/10 palette fit), runner-up: layered telescope zoom (M effort, 9/10 fit), SCOUT.md written
