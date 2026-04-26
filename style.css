@@ -1018,7 +1018,6 @@ nav.scrolled .nav-cta {
   pointer-events: none;
   z-index: 0;
 }
-.contact-trust,
 .contact-inner { position: relative; z-index: 1; }
 .contact-inner {
   max-width: 660px;
@@ -1032,9 +1031,31 @@ nav.scrolled .nav-cta {
   box-shadow:
     0 0 0 0 var(--copper-soft),
     0 32px 80px rgba(48,40,36,0.35);
+  position: relative;
+}
+/* L-bracket corner marks — same family as About-section treatment, different positions */
+.contact-card::before,
+.contact-card::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: rgba(207,139,103,0.55);
+  border-style: solid;
+  pointer-events: none;
+}
+.contact-card::before {
+  top: 14px;
+  left: 14px;
+  border-width: 1.5px 0 0 1.5px;
+}
+.contact-card::after {
+  bottom: 14px;
+  right: 14px;
+  border-width: 0 1.5px 1.5px 0;
 }
 .contact-header {
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 .contact-header .section-label { margin-bottom: 10px; }
 .contact-header .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); }
@@ -1064,13 +1085,13 @@ nav.scrolled .nav-cta {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 18px;
+  gap: 4px;
+  margin-bottom: 20px;
 }
 .form-group label {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--walnut);
 }
@@ -1480,7 +1501,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 .mobile-nav-links a:hover { color: var(--copper); }
 
 /* ============================================
-   NEW CLASSES — mood-time, contact-trust, testimonials-disclaimer
+   NEW CLASSES — mood-time, contact-trust-pull, testimonials-disclaimer
    ============================================ */
 .mood-time {
   font-size: 13px;
@@ -1490,19 +1511,18 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   line-height: 1.5;
 }
 
-.contact-trust {
-  max-width: 660px;
-  margin: 0 auto 24px;
-  text-align: center;
-}
-.contact-trust-text {
-  font-size: 0.875rem;
-  color: var(--taupe);
-  line-height: 1.7;
-  padding: 16px 24px;
-  border: 1px solid rgba(247,242,236,0.2);
-  border-radius: 4px;
-  background: rgba(247,242,236,0.06);
+/* Contact trust pull-quote — emotional anchor inside card, replaces external trust block */
+.contact-trust-pull {
+  margin: 32px 0 0;
+  padding: 20px 0 0 20px;
+  border-top: 1px solid rgba(207,139,103,0.2);
+  border-left: 2px solid rgba(207,139,103,0.6);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(0.88rem, 1.2vw, 0.95rem);
+  line-height: 1.65;
+  color: var(--walnut);
+  quotes: none;
 }
 
 /* Testimonial dot indicators — mobile only, hidden on desktop */
@@ -1612,9 +1632,6 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 
   .mood-time { text-align: center; }
 
-  .contact-trust { margin: 0 auto 24px; text-align: center; }
-  .contact-trust-text { font-size: 0.85rem; }
-
   .testimonials-disclaimer { padding: 0 24px; }
 
 
@@ -1651,8 +1668,12 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .contact { padding: var(--section-pad) 20px; }
   .contact-card { padding: 32px 24px; }
   .form-row { grid-template-columns: 1fr; }
-  /* Bug #22: stagger contact trust strip + form card reveals on mobile — 0.2s offset prevents double-stutter */
+  /* Bug #22: stagger contact form card reveal on mobile — 0.2s offset prevents double-stutter */
   .contact-inner.reveal { transition-delay: 0.2s; }
+  /* Corner brackets shrink on tight padding */
+  .contact-card::before { top: 10px; left: 10px; width: 16px; height: 16px; }
+  .contact-card::after { bottom: 10px; right: 10px; width: 16px; height: 16px; }
+  .contact-trust-pull { font-size: 0.875rem; padding: 18px 0 0 16px; }
 
   .footer-inner { grid-template-columns: 1fr; gap: 36px; text-align: center; }
   .footer-brand-desc { max-width: 100%; margin-left: auto; margin-right: auto; }
