@@ -133,3 +133,7 @@
 ## 2026-04-26 — Builder (cycle 4)
 
 2026-04-26 builder — AUDIT P2: re-labeled 3 "via Etsy" + 1 "via Instagram" pills to "past commission client" across primary + duplicate testimonial cards (index.html lines 407/449/470/505/515/520); removed pill border from .testimonial-source in style.css (lines 1005-1016); AUDIT P3: replaced "Bags, quilts & commissions welcome" with "Hand-finished in Pennsylvania" (index.html line 378); SCOUT Candidate C: copper-glow cursor trail shipped as new file js/cursor-trail.js (42 lines, pointer:fine + prefers-reduced-motion guards, rgba(207,139,103) decay 0.025/frame), loaded via defer script tag at end of body (index.html line 632). AUDIT source: AGENT-PLAN.md cycle 4 Agent 1. SCOUT source: SCOUT.md Candidate C. (per PLAN.md)
+
+## 2026-04-26 — Spark (cycle 4)
+
+2026-04-26 spark — Frame B: Custom CTA spacing hierarchy + watermark removal, ref SCOUT Finding 4 (warm trust block clarity pattern), replaced ::before "Custom" ghost watermark (Nigel cycle 3 flag). eyebrow letter-spacing 0.22em→0.25em + margin 20→24px; title margin 20→28px; body font-weight 300→400 + size 1rem→1.0625rem + line-height 1.7 + margin 24→36px; trust strip gap 12→16px + margin 40→48px + opacity 0.85→0.9; watermark ::before rule removed entirely (18-line block + mobile suppressor line). Content count: 3 trust items, 1 headline, 1 body, 1 CTA — unchanged.
