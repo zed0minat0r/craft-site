@@ -893,14 +893,14 @@ nav.scrolled .nav-cta {
 .testimonials .section-label { color: var(--copper); }
 .testimonials-track-wrap {
   overflow: hidden;
-  padding-bottom: 20px;
+  padding: 0 0 20px;
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 .testimonials-track {
   display: flex;
   gap: 24px;
-  padding: 0 40px 12px;
+  padding: 0 0 12px;
   width: max-content;
   animation: testimonial-scroll 50s linear infinite;
 }
@@ -925,10 +925,15 @@ nav.scrolled .nav-cta {
   background: rgba(247,242,236,0.1);
   border-color: rgba(207,139,103,0.3);
 }
+.testimonial-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 .testimonial-stars {
   display: flex;
   gap: 4px;
-  margin-bottom: 20px;
 }
 .star { color: var(--copper); font-size: 1rem; }
 .testimonial-quote {
@@ -969,13 +974,15 @@ nav.scrolled .nav-cta {
 }
 .testimonial-source {
   display: inline-block;
-  margin-top: 6px;
-  font-size: 0.7rem;
+  font-size: 0.675rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--copper);
-  opacity: 0.85;
+  opacity: 0.75;
+  border: 1px solid rgba(207,139,103,0.3);
+  border-radius: 2px;
+  padding: 2px 6px;
 }
 .star.star--empty {
   color: var(--cashmere);
@@ -1489,13 +1496,13 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 }
 
 .testimonials-disclaimer {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--cashmere);
   font-style: italic;
   text-align: center;
-  margin: 20px auto 0;
-  max-width: 400px;
-  opacity: 0.7;
+  margin: 16px auto 0;
+  max-width: 360px;
+  opacity: 0.45;
   padding: 0 24px;
 }
 
@@ -1557,7 +1564,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .custom-cta-title { font-size: 2rem; }
 
   .testimonials-header { padding: 0 24px 48px; text-align: center; }
-  .testimonials-track { padding: 0 24px 12px; }
+  .testimonials-track { padding: 0 0 12px; }
 
   .mood-time { text-align: center; }
 

@@ -24,3 +24,13 @@
 - **Bug #3 (HIGH):** Hero Ken Burns parallax — parallax writes CSS variable `--parallax-y` (main.js line 45); style.css line 142 composes `scale(1.05) translateY(var(--parallax-y))`. No inline transform overwrite. Source: BUGS.md #3.
 - **No code changes shipped** — all fixes already in HEAD. Changelog entry and PLAN.md only.
 - 2026-04-25 11:00 builder — verified BUGS.md #1/#2/#3 already fixed in 62e166c; no regressions found (per PLAN.md)
+
+## 2026-04-25 — Spark (cycle 2)
+
+- 2026-04-25 spark — Frame B: source-label-to-stars pairing, ref SCOUT Finding 7 (Etsy review count as social proof stamp), replaced orphaned footer attribution
+- **What changed:**
+  - HTML: Wrapped `testimonial-stars` + `testimonial-source` in new `.testimonial-rating-row` (flex, space-between) on all 10 cards (5 primary + 5 loop duplicates). Source label now sits flush-right at the top of each card, paired with the star row — reads as a verification stamp, not a disclaimer.
+  - CSS: Added `.testimonial-rating-row` rule (flex, align-items: center, space-between, margin-bottom: 20px). Removed `margin-bottom` from `.testimonial-stars` (it now lives on the row). Updated `.testimonial-source` — removed `margin-top: 6px` (no longer relevant), added a subtle copper border-radius pill (`border: 1px solid rgba(207,139,103,0.3)`, `padding: 2px 6px`) so the badge reads as a stamp rather than plain text.
+  - CSS: `.testimonials-disclaimer` softened from `opacity: 0.7 / font-size: 0.8125rem` to `opacity: 0.45 / font-size: 0.75rem` — present for honesty, visually receded so it does not compete with card content.
+  - Bug #12 fix: `.testimonials-track` padding changed from `0 40px 12px` to `0 0 12px`. The left 40px padding was creating width asymmetry on the `max-content` track, causing the `translateX(-50%)` seamless loop to jump on narrow (375px) viewports. Removed in both desktop and mobile media query overrides.
+- **Replaced:** The author-block source label (bottom of card, below name/location) was removed and replaced by the top-of-card rating-row version. No net addition — one label per card, repositioned.
