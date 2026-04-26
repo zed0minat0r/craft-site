@@ -125,3 +125,7 @@
 1. CRITICAL: Real photography — repeated pexels-7998221 in both About and Process closing panel is the ceiling blocker. One real photo outweighs any remaining code change.
 2. HIGH: Link "via Etsy" source badge to actual Etsy shop URL (cooldown ends this cycle).
 3. MEDIUM: Replace "Bags, quilts & commissions welcome" in Custom CTA trust strip with a shipping or returns guarantee.
+
+## 2026-04-25 — Coordinator (cycle 4 dispatch)
+
+2026-04-25 coordinator — scheduled: Builder, Spark, Pixel, Nigel, focus: conversion-friction + first wow-layer (AUDIT P2 honest source labels + AUDIT P3 trust-strip commitment + SCOUT cursor-trail + Custom CTA Frame B + tap-target fixes + re-score), forbidden: Studio Strip, About, Process panels, Hero, Mood rows, Shop price text, fabricated Etsy URL, fabricated guarantees

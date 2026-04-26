@@ -1,161 +1,142 @@
-# AGENT-PLAN — Cycle 3
+# AGENT-PLAN — Cycle 4
 
-**Coordinator dispatch:** 2026-04-25
-**Site:** https://zed0minat0r.github.io/craft-site/
-**Current score:** 7.0 / 10 (focus axis: conversion-friction)
-**Cycle theme:** Close two open bugs + AUDIT P2 (price upper bounds), refine the long-untouched About section, and run the never-yet-run Scout pass to source the next "wow" moment.
-
-**Rationale (one line):** Score below the 8.5 polish-only gate so build agents are eligible; Studio Strip / Testimonials / Mood rows / Hero are all on cooldown so attention rotates to Bug #5 + #13, the Shop section price ranges (AUDIT P2), and the deferred About section; Scout has never run and the user has explicitly asked for the next exciting feature; Nigel closes the cycle to re-score conversion-friction.
+**Coordinator:** dispatched 2026-04-25
+**Project:** Made by Molly (craft-site)
+**Live:** https://zed0minat0r.github.io/craft-site/
+**Last score:** 7.2 (cycle 3) — trajectory 6.8 → 7.0 → 7.2 (+0.2 each cycle)
+**Focus axis:** conversion-friction + first "wow" interaction layer
+**Forbidden sections this cycle:** Studio Strip · About section · Process panels · Hero (Ken Burns / parallax) · Mood rows visual+animation · Shop section price text
 
 ---
 
-## Execution order
+## Dispatch Decision
 
-### 1. Builder — Bug #5, Bug #13, AUDIT Priority 2 (shop price upper bounds)
+Score is 7.2 — under the 8.5 polish gate, so full agent slate runs. AUDIT P1 (real photography) cannot be fixed in code — explicitly excluded from agent scope. AUDIT P2 (Etsy badge) and P3 (trust strip line) are both code-eligible and form the Builder spine. SCOUT's recommended copper-glow cursor trail is the cycle's first "wow" candidate and fits Builder's budget after the P2/P3 work — added as the second Builder task. Spark refines the Custom CTA frame on a Frame B pass. Pixel runs the standard mobile alignment + accessibility-tap-target sweep. Nigel re-scores at the end.
 
-**Why this agent now:** Two open bugs from prior cycles live squarely in Builder's lane: Bug #5 (hamburger z-index 1001 stacks above mobile nav overlay z-index 999 — visible glitch when overlay opens) and Bug #13 (`reveal-glow` 20% threshold can fire before `.reveal` 12% threshold + -40px rootMargin on `.mood-text`, so children animate while parent is still opacity:0 on mobile). Both are surgical. AUDIT cycle 2 Priority 2 (price range ambiguity in Shop) is the highest-leverage non-photography conversion change available — Nigel called single-anchor "starting from $75" a stop signal rather than a proceed signal. Adding upper bounds is two-line copy plus light layout.
+**Rationale (one line):** Builder ships AUDIT P2/P3 + SCOUT's cursor trail wow-moment, Spark refines Custom CTA Frame B, Pixel sweeps mobile + tap targets including the new cursor-trail desktop guard, Nigel re-scores stricter against the photography ceiling.
+
+---
+
+## Agent 1 — Builder
+
+**Why now:** Cycle 4 has two concrete, code-eligible AUDIT priorities (P2 testimonial badge, P3 Custom CTA trust strip) plus SCOUT's cycle-4 recommendation (copper-glow cursor trail). All three fit one Builder pass.
 
 **Specific instructions:**
-- Fix BUGS.md #5: lower `.nav-hamburger` z-index when the mobile nav overlay is open, OR raise the overlay above 1001. Hamburger should not be visible over the open full-screen menu. Verify at 375px in Chrome and Safari.
-- Fix BUGS.md #13: align `.reveal` and `.reveal-glow` IntersectionObserver triggers so the parent text is guaranteed visible before the child stagger fires. Either match thresholds, or add a class gate so `.reveal-glow` waits on `.reveal` parent. Test slow-scroll at 375px on a real-feel viewport.
-- AUDIT P2: add upper bounds to all three mood-row price labels in `index.html`. Currently single anchors ($75 bags, $120 quilts, $95 custom). Replace with believable plausible ranges, e.g. "Bags from $75–$220", "Quilts from $120–$650", "Commissions from $95+". Match the existing `.mood-price` typography. The ranges must align with the time disclosures already shown ("6–10 hours", "40–80 hours") — do not invent absurd upper bounds.
-- Do NOT touch testimonials, mood-row layout/animation, hero, studio strip, process panels, or footer this cycle.
+1. **AUDIT P2 — Testimonial source badges.** The user does NOT have a known live Etsy shop. Do NOT fabricate a URL. Re-label every "via Etsy" pill to honest plain text — pick one of: "past commission client" / "from Etsy customer" / "from Instagram DM" / "direct order" — and match each card to its actual source story already in the testimonial copy. Remove the pill border treatment if relabeling makes it read as plain attribution rather than verification. The four cards labeled "via Etsy" and the one labeled "via Instagram" both need an honesty pass — Instagram label can stay if the user has a real Instagram (check footer/contact for handle; if none, soften that one too).
+2. **AUDIT P3 — Custom CTA trust strip third item.** Replace "Bags, quilts & commissions welcome" with a credible artisan-brand commitment. Approved options (pick one): "Ships within 2 weeks of order confirmation" / "Hand-finished in Pennsylvania" / "Every piece backed by a satisfaction guarantee". Do NOT invent specific shipping windows, return windows, or legal terms beyond these patterns.
+3. **SCOUT recommendation — Copper-glow cursor trail.** Implement Candidate C from SCOUT.md exactly: ~40 lines vanilla JS, canvas overlay, `pointer-events:none`, `z-index: 9999`, particle decay 0.025/frame, copper rgba(207,139,103, life * 0.35). Wrap entire init in `if (window.matchMedia('(pointer:fine)').matches) { ... }` — desktop only. Add `prefers-reduced-motion` guard that skips the effect entirely. New file `js/cursor-trail.js` loaded via `<script defer src="js/cursor-trail.js"></script>` at end of body — do not bury it inside main.js.
 
-**Memory guardrails:**
-- No fabricated content / no invented SKU specifics. Price ranges only — no fake product names, no fake order counts.
-- Cream / espresso / copper artisan identity. New price text must inherit existing `.mood-price` styling.
-- Apps must NOT look AI-generated — break Claude defaults; do not add a generic price-range badge component.
-- No dev / template-marketplace content — this is a maker brand selling to gift buyers.
-- Respectful tone in changelog and commit messages.
+**Memory guardrails (MUST respect):**
+- No fabricated URLs / no fake Etsy link / no invented testimonial sources.
+- No fabricated guarantees with specific legal terms (refund windows, lifetime warranty, etc.).
+- Apps must NOT look AI-generated — cursor trail must use the cream/espresso/copper palette, not generic blue/white sparkle.
+- Simplicity over polish — replace the trust-strip line, do not add a fourth item.
+
+**Forbidden:** Studio Strip · About section · Process panels · Hero · Mood rows · Shop price text. Do not add new sections.
 
 **Exit criteria:**
-- Bug #5 verified fixed; hamburger no longer visible over open nav overlay at 375px.
-- Bug #13 verified fixed; no parent-invisible / child-animating race observable on mobile slow-scroll.
-- All three mood rows display price ranges with believable upper bounds.
-- One commit prefixed `builder cycle 3:` referencing BUGS.md / AUDIT.md sources.
-- BUGS.md updated to mark #5 and #13 closed with verification line.
+- AUDIT P2 cleared: every source label is honest (links to real platform OR is plain past-tense attribution; no implied verification without href).
+- AUDIT P3 cleared: trust-strip third item replaced with one of the approved commitment lines.
+- Cursor trail ships and is visible on desktop pointer:fine, invisible on touch + prefers-reduced-motion.
+- BUGS.md updated only if Builder closes anything in passing.
 
 ---
 
-### 2. Spark — About section Frame B refinement
+## Agent 2 — Spark (Frame B)
 
-**Why this agent now:** About section was deferred from cycle 1 and has not been touched in cycles 1 or 2. Nigel cycle 2 confirmed the Custom Order CTA is present and correctly wired (`data-inquiry="custom"`). The remaining lift is visual / typographic — the photo frame, the "Pennsylvania Studio" tag, the signature, and the heading hierarchy. The repeated `pexels-7998221` image with the Process panel is AUDIT P1 and Spark cannot fix that without a real photo from the user, but Spark CAN refine the surrounding frame so the section reads as deliberately designed even with a stock image.
+**Why now:** Custom CTA section has not been touched since cycle 1. Builder is replacing the trust-strip third item (one line, content). Spark refines the surrounding Custom CTA frame on a Frame B pass — typography, spacing, visual hierarchy of the existing trust strip + headline + body — without adding new elements.
 
 **Specific instructions:**
-- Frame B mode only. Spark Frame B keeps content count. About currently has: section eyebrow + photo + studio tag + headline + 2 paragraphs + signature + CTA. Frame B output must keep all of that — no stripping.
-- Eligible refinements (pick a coherent set, do not do all):
-  - Photo frame copper accent: tighten or rework as a corner-only accent or a subtle inner shadow to anchor the stock image more deliberately.
-  - "Pennsylvania Studio" tag: currently a corner badge. Could become a confident horizontal strip below the photo OR a serif-italic caption — pick ONE direction.
-  - Molly signature: refine size, weight, or position to add a stronger personal anchor.
-  - Section eyebrow / headline hierarchy: tighten leading and size relationships between section label, headline, and body paragraphs.
-- DO NOT touch: hero, mood rows, testimonials, studio strip, process panels, footer, contact form.
-- DO NOT add a new section or component. Refine within the existing About markup only.
-- If you add a treatment, replace or remove an equivalent — no piling on (simplicity-over-polish memory rule).
-- Center-alignment must hold on mobile 375px and 414px.
+- Frame B refinement of the Custom CTA section ONLY (forest-green contrast block, headline "Most of my favorites have been custom work", body copy, trust strip, CTA button).
+- Refine: spacing between headline and body, trust-strip iconography spacing, button weight, watermark "Custom" treatment (Nigel cycle 3 noted it competes on tablets — quiet it OR remove it; do not add a replacement).
+- The watermark is the one element you may REMOVE without replacing — it's identified as competing for attention. Removing decorative noise honors simplicity-over-polish.
+- Frame B keeps content count: do NOT strip the trust strip from 3 items to 2. Builder is replacing the third item's text — Spark refines its visual treatment.
 
-**Memory guardrails:**
-- Apps must NOT look AI-generated — break Claude default patterns. Cream / espresso / copper identity. About is a personal section; treatment should feel hand-set, not templated.
-- Spark must replace/remove when adding — Frame B keeps content count, never strips.
-- No ghost numbers / large faded background numerals — do NOT add 01/02-style watermarks here.
-- No dev / template-marketplace content — this is a maker brand.
-- Pixel-alignment center on mobile.
-- No fabricated content — do not invent biographical details for Molly.
-- Nigel rule binds Spark too: never recommend or implement removing glows, animations, or effects.
+**Memory guardrails (MUST respect):**
+- Frame B keeps content count — three trust-strip items stay three.
+- Spark must replace/remove when adding — if you add anything new, identify what comes out.
+- No ghost numbers / large faded background numerals anywhere.
+- Apps must NOT look AI-generated — keep the artisan cream/espresso/copper system, not generic SaaS gradients.
+- Nigel never recommends removing glows/animations/effects — Spark may remove ONLY the over-large "Custom" watermark per Nigel's own cycle-3 note, nothing else.
+
+**Forbidden:** Studio Strip · About section · Process panels · Hero · Mood rows · Shop section · Testimonials (Builder owns this cycle). Do not add new sections. Do not touch typography globals.
 
 **Exit criteria:**
-- One Frame B commit prefixed `spark cycle 3 — Frame B: <change>`.
-- About section visibly more deliberate without losing CTA / signature / tag / paragraphs.
-- No regression at 375px / 414px alignment.
-- Changelog entry naming what was replaced when something was added.
+- Custom CTA section reads tighter visually but content count unchanged (still 3 trust items, still 1 headline, still 1 body, still 1 CTA).
+- Tablet watermark "Custom" no longer competes with the headline (quieted or removed cleanly).
+- Diff is bounded to Custom CTA selectors in style.css + at most 1 HTML change.
 
 ---
 
-### 3. Scout — competitor research for the next "wow" moment
+## Agent 3 — Pixel
 
-**Why this agent now:** Has never run in cycles 1 or 2. User has explicitly asked for exciting features they haven't seen yet — horizontal scroll-lock was the right instinct and is already shipped in the Process panels. Score of 7.0 will not push past 8.0 on layout / copy refinement alone; the next leap requires a distinctive interaction. Scout's job is to find candidate "wow" moments from the artisan / craft / textile / single-maker website space, evaluate each against the cream/espresso/copper identity, and recommend ONE concrete next-cycle implementation candidate.
+**Why now:** Builder is shipping a desktop-only cursor canvas + replacing copy in two sections. Pixel must verify (a) the cursor canvas does not regress mobile, (b) the relabeled testimonial badges still center-align at 375px and 414px, (c) tap targets stay at 44px after Custom CTA Frame B refinement.
 
 **Specific instructions:**
-- Research targets: artisan textile makers, indie quilt brands, single-maker leather goods sites, slow-fashion editorial sites, craft documentary microsites. Look for sites with a 7.5+ feel.
-- Catalog 3–5 candidate "wow" moments. For each: site name + URL, the interaction in one sentence, why it works, estimated implementation cost (S/M/L), and fit score (1–10) against cream/espresso/copper artisan identity.
-- Explicitly evaluate the three candidates the user has already named, side-by-side with anything you find:
-  - Material / process scrollytelling on a signature piece (a single bag from raw fabric to finished object, scroll-tied)
-  - Ambient sound toggle (sewing machine, scissors, fabric rustle — opt-in, persistent)
-  - Copper-glow cursor trail (desktop-only, subtle, tied to copper accent palette)
-- Output: one explicit recommendation with rationale, plus a runner-up.
-- Write findings to `SCOUT.md` (replace prior content if present). Do NOT modify `index.html`, `style.css`, or `main.js`. Scout researches only.
+1. **Mobile center-alignment audit at 375px AND 414px** (mandatory per memory) on:
+   - Testimonials cards after Builder's relabel — source badge alignment in the rating-row flex.
+   - Custom CTA section after Spark's Frame B — trust strip horizontal centering, CTA button centering, headline centering.
+   - Footer (cycle eligible — has not been audited).
+   - Contact form trust strip and form card vertical rhythm (BUGS.md #22 noted double-stutter on mobile reveals — diagnose if visible).
+2. **Tap target sweep** — confirm `.btn-walnut` (BUGS.md #9, currently ~41px) and `.nav-cta` (BUGS.md #10, currently ~37px) — fix both to min-height 44px. These are persistent accessibility bugs.
+3. **Cursor trail desktop-only verification** — confirm `pointer:fine` guard works: at 375px the canvas element should not paint, no console errors, no event listener leaks.
+4. **prefers-reduced-motion** — verify cursor trail respects the user setting; verify the existing reveal animations also respect it (spot check, do not refactor).
 
-**Memory guardrails:**
-- User wants exciting features they haven't seen yet — bias toward novel, not template-typical.
-- Apps must NOT look AI-generated — pick something that breaks Claude's default scroll-section pattern.
-- Horizontal scroll-lock is already in use — pick a complement, not a duplicate.
-- Simplicity over polish — if a candidate is complex, justify the lift; if it would replace an existing weaker section, name what it replaces.
-- Cream / espresso / copper identity must hold; no chrome / neon / cyber moodboard.
-- No fabricated examples — every cited site must be a real public URL.
+**Memory guardrails (MUST respect):**
+- Pixel always audits center-alignment on mobile at 375px AND 414px — both viewports, not one.
+- No content removal — only alignment / tap-target / spacing fixes.
+- Apps must NOT look AI-generated — do not introduce generic Material/Tailwind tap-target patterns.
+
+**Forbidden:** Studio Strip · About · Process panels · Hero · Mood rows · Shop price layout · Testimonial copy edits (Builder owns content). No new sections. No CSS variable redefinitions.
 
 **Exit criteria:**
-- `SCOUT.md` written with 3–5 candidates and one explicit recommendation + runner-up.
-- One commit prefixed `scout cycle 3:` with research summary in commit body.
-- No code files modified.
+- Both BUGS.md #9 and #10 closed (44px min-height confirmed).
+- Mobile alignment sweep documented in changelog with each section verified at 375px + 414px.
+- Cursor trail confirmed inactive on mobile + reduced-motion.
 
 ---
 
-### 4. Nigel — re-audit conversion-friction, set cycle 4 priorities
+## Agent 4 — Nigel
 
-**Why this agent now:** Conversion-friction axis continues. Cycle 2 closed at 7.0 with Priority 2 (shop price ranges) and Priority 3 (testimonial linkage) deferred. Builder cycle 3 ships price ranges. Spark cycle 3 refines About. Scout produces the next-cycle direction. Nigel re-scores the whole site and sets cycle 4 priorities.
+**Why now:** Cycle close. Three code changes (Builder P2/P3 + Spark Frame B) plus the cursor-trail wow-moment plus Pixel tap-target fixes. Nigel re-scores from a real buyer's perspective.
 
 **Specific instructions:**
-- Re-score conversion-friction axis only. Do not jump axes mid-loop.
-- Score from a real prospective buyer's perspective. Read the rubric anchors at the top of the prior AUDIT.md.
-- Stock-photo artisan site without verified social proof sits 5.5–7.5. DO NOT inflate above 7.5 without real photography or verifiable review volume.
-- If price-range fix moved the Shop sub-score, reflect that. If About refinement actually shifted the section, reflect that. If a change did not move the conversion needle, say so plainly.
-- Update top-3 priorities for cycle 4. Photography is still the ceiling — keep it surfaced. If Builder closed P2 and Spark improved About, the next priority list should reflect what is now most blocking.
-- Append one row to the Audit History table.
-- Update `AUDIT.md` overall verdict, section scores, and priority list. Replace prior cycle's content where appropriate but keep audit history intact.
-- Append the new score to `SCORES.log`.
+- Re-audit conversion-friction axis. Score from a prospective buyer landing cold on the live URL.
+- The score ceiling remains photography. P1 did not move this cycle (and was not in scope). Do NOT inflate the score above 7.5 just because cosmetic refinements landed. The repeated `pexels-7998221` is still in About and Process closing panel — that ceiling has not lifted.
+- Acknowledge the cursor trail as a genuine new experience layer — it is the first "wow" moment shipped this project. Score its delight value, but do not let it inflate the conversion-friction axis (it does not directly reduce friction; it is brand presence).
+- Update AUDIT.md with cycle 4 entry, top-3 priorities for cycle 5, and updated section scores.
+- Append SCORES.log line.
 
-**Memory guardrails:**
-- Score stricter — do not inflate above 7.5 without real photography or verifiable review volume.
-- Nigel never recommends removing glows / animations / effects — only add or improve.
-- No ghost numbers on approach pillars — do not request that treatment as a fix.
-- No fabricated data / no fake testimonials / no invented matchups in any priority recommendation.
-- Respectful tone — never blame the user for blockers; frame as collaborative needs.
-- No dev / template-marketplace content suggestions.
+**Memory guardrails (MUST respect):**
+- Nigel scores stricter — new-ish artisan site sits 5.5–7.5. Do not move past 7.5 without real photography movement.
+- Nigel never recommends removing glows / animations / effects — only addition or improvement. The cursor trail counts as a new effect; if it lands well, say so. If it does not, suggest tuning (decay rate, color, density), not removal.
+- Score from a real buyer's perspective, not a designer's.
+- Respectful tone — never blame the user for missing photography. Frame as "next unlock," not "blocker the user has not delivered."
+
+**Forbidden:** Do not edit code. Do not touch agent files except AUDIT.md / SCORES.log / CHANGELOG-AGENT.md.
 
 **Exit criteria:**
-- `AUDIT.md` updated with cycle 3 score, section scores, priority list, and history row.
-- `SCORES.log` appended with `YYYY-MM-DD HH:MM <score> conversion-friction`.
-- One commit prefixed `nigel cycle 3:` with score delta in subject line.
+- AUDIT.md cycle 4 entry written with top-3 cycle 5 priorities.
+- SCORES.log appended.
+- Score delta justified with specific buyer-perspective reasoning, not vibes.
 
 ---
 
-## Forbidden this cycle (cooldown)
+## Cooldowns Enforced
 
-- **Studio Strip** — Builder touched cycle 1, give it air.
-- **Testimonials section** — Spark touched cycle 2, must settle.
-- **Mood rows visual / animation** — Pixel + cycles 1 and 2 touched. Builder may add price-range copy text (in scope) but must NOT change layout, animation, or hover behavior.
-- **Hero Ken Burns / parallax** — Builder cycle 2 ratified, stable.
-- New section creation (Spark Frame A blocked).
-- Testimonial copy edits.
-- Photography swaps without user-supplied real images (Scout may recommend, no agent ships).
+| Section | Last touched | Cooldown until |
+|---|---|---|
+| Studio Strip | cycle 1 | cycle 5 |
+| About | cycle 3 (Spark) | cycle 5 |
+| Process panels | cycle 3 (Pixel hotfix) | cycle 5 |
+| Hero | cycle 2 ratified | cycle 5 |
+| Mood rows visual / animation | cycle 2 (Pixel) | cycle 5 |
+| Shop section price text | cycle 3 (Builder) | cycle 6 |
 
-## Site-wide guardrails (every agent)
+---
 
-- Cream / espresso / copper artisan identity. Apps must NOT look AI-generated.
-- No fabricated content / no fake testimonials / no invented data.
-- Pixel-alignment center on mobile at 375px and 414px.
-- No dev / template-marketplace content (sells to businesses / buyers, not developers).
-- Respectful tone in all changelog and commit messages.
-- Live link in any user-facing text: https://zed0minat0r.github.io/craft-site/
+## Notes for Cycle 5+
 
-## Convergence safeguards
-
-- Hard cap 30 tool calls per agent.
-- If Builder ships nothing because all targets verified already in HEAD, log "no-op verified" and pass cycle to Spark unblocked.
-- If Spark Frame B output is structurally identical to current HEAD, abort Spark cycle and let Scout + Nigel run.
-- Coordinator next cycle will check that AUDIT priorities have actually moved — if cycle 3 closes with same top-3 as cycle 2, escalate to a different focus axis (e.g., visual identity) for cycle 4.
-
-## State concerns to flag to user
-
-- AUDIT P1 (real photography) cannot be addressed by agents — requires a real photo of Molly or a finished product. Score ceiling holds at ~7.5 until that lands.
-- AUDIT P3 (testimonial Etsy link) deferred to cycle 4 because testimonials are on cooldown this cycle.
-- Scout output sets the cycle 4 "wow" candidate; user should weigh in before Builder picks it up.
+- AUDIT P1 (real photography) remains the top blocker. Until the user supplies one original photo of Molly or a finished product, no code change can break 7.5 cleanly.
+- SCOUT runner-up (Layered Telescope Zoom) is the next "wow" candidate after cursor trail proves stable. Cycle 6 candidate.
+- Bug sweep candidate cycle: BUGS.md still has 17+ open including 2 mediums (#11 process-dots aria-hidden, #15 dual smooth-scroll) and the long-tail lows. Schedule a Razor pass cycle 6.
