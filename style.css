@@ -967,6 +967,20 @@ nav.scrolled .nav-cta {
   color: var(--cashmere);
   margin-top: 2px;
 }
+.testimonial-source {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copper);
+  opacity: 0.85;
+}
+.star.star--empty {
+  color: var(--cashmere);
+  opacity: 0.45;
+}
 
 /* ============================================
    CONTACT
