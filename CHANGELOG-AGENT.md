@@ -93,3 +93,20 @@
 ## 2026-04-25 — Scout (cycle 3)
 
 2026-04-25 15:00 scout — research angle: wow-interaction candidates (cursor trail / telescope zoom / scrollytelling / ambient sound / grain-reveal), 5 candidates cataloged, recommendation: copper-glow cursor trail (S effort, 10/10 palette fit), runner-up: layered telescope zoom (M effort, 9/10 fit), SCOUT.md written
+
+## 2026-04-25 — Pixel (cycle 3 hotfix)
+
+**Diagnosed: vertical centering drift across all 4 panels**
+- Root cause: `.process-fp-content` used `position: absolute; bottom: clamp(180px, 28vh, 320px)`, anchoring text from the bottom. Each panel's text block has a different height (Panel 3 shortest, Panel 4 longest). With a fixed bottom anchor, the *top edge* of the text block sits at a different Y on every panel — creating the appearance of misaligned content even though bottom offset is identical.
+- Fix: Changed desktop rule to `top: 50%; transform: translateY(-50%)`. Text block's center is now exactly viewport center on all 4 panels. Mobile override updated identically (was `bottom: clamp(220px, 38vh, 360px)`, now `top: 50%; transform: translateY(-50%)`).
+
+**Diagnosed: text readability**
+- Root cause #1: `.process-fp-desc` was `font-weight: 300` — too light for text over a photo overlay.
+- Root cause #2: Desc color `rgba(247,242,236,0.82)` — 82% opacity cream is marginal contrast over a semi-transparent dark overlay on varying-brightness photos.
+- Root cause #3: `.process-fp-overlay` gradient bottomed out at 15% opacity at 100% position — nearly transparent at the edges where text can appear.
+- Root cause #4: `font-size: clamp(0.9rem, 1.4vw, 1.05rem)` — 0.9rem floor was too small.
+- Fix: Bumped desc to `font-weight: 400`, color `rgba(247,242,236,0.96)`, font-size floor to `clamp(1rem, 1.5vw, 1.1rem)`, line-height 1.8→1.9. Overlay gradient bottom stop raised from 15%→30% opacity (better contrast backing behind text).
+
+**Files:** style.css lines 568-576 (overlay), 588-595 (fp-content desktop), 620-626 (fp-desc), 1581-1592 (fp-content mobile)
+
+2026-04-25 pixel — How It's Made panels: vertical center fixed (bottom anchor → top:50%/translateY(-50%) all 4 panels), readability fixed (weight 300→400, opacity 0.82→0.96, overlay floor 15%→30%)
