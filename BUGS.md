@@ -1,7 +1,7 @@
 # Bug Report — Made by Molly
-**Tested:** 2026-04-25 at 375px mobile + 1440px desktop
-**Branch:** main (latest: commit 858d612)
-**Total bugs:** 17 (2 Critical, 6 High, 8 Medium, 7 Low)
+**Tested:** 2026-04-26 at 375px + 1440px (latest: cycle 5 a11y pass)
+**Branch:** main
+**Total bugs:** 23 open (9 closed: #5/#9/#10/#11/#13/#15/#18/#22/#24/#25/#26, 4 new: #24–#27)
 
 ---
 
@@ -72,10 +72,10 @@
 - Selector: `.nav-cta` / `style.css` line 105
 - **Fix (cycle 4, Pixel):** `min-height: 44px` confirmed present with `display: inline-flex; align-items: center`. Tap target at 44px. Verified in CSS audit at 375px + 414px.
 
-**11. `process-dots` container has `aria-hidden="true"` but wraps interactive buttons**
+**11. ~~`process-dots` container has `aria-hidden="true"` but wraps interactive buttons~~ CLOSED**
 - Section: Process (sticky pin)
-- Selector: `.process-dots[aria-hidden="true"]` / `index.html` line 227
-- The four dot buttons are functional interactive controls (clicking them jumps to a panel). The container div has `aria-hidden="true"` which hides the buttons from all assistive technology. Screen reader users have no access to process panel navigation. The dots should either be properly labelled and not hidden, or the section should have an accessible alternative.
+- Selector: `.process-dots` / `index.html` line 231
+- **Fix (cycle 5, Pixel):** Container already had `role="tablist"` and `aria-label` from a prior pass (no `aria-hidden` present). Updated dot button labels from generic "Panel 1" → "Step 1: Choose the Fabric" etc. Added `role="tab"` and `aria-selected="true/false"` to each button. JS `setActiveDot` updated to toggle `aria-selected` dynamically. index.html lines 232-236, main.js line 147-149.
 
 **12. Testimonial auto-scroll loop is not seamless on mobile viewports**
 - Section: Testimonials
@@ -138,3 +138,27 @@
 - Section: Studio Strip header
 - Selector: `.studio-pull-quote` / `style.css` line 1255
 - Minor CSS redundancy. The `margin-left/right: auto` on an inline element inside a centered parent has no effect. Harmless but noisy.
+
+**24. No `<main>` landmark — page content not wrapped in semantic main element (WCAG 2.4.1) CLOSED**
+- Section: Global
+- Selector: `body` / `index.html`
+- All sections between `<nav>` and `<footer>` were direct children of `<body>` with no `<main>` wrapper. Screen readers depend on landmark navigation. WCAG 2.4.1 (bypass blocks) requires at least one landmark to skip to main content.
+- **Fix (cycle 5, Pixel):** Added `<main id="main-content">` wrapping all sections between nav and footer. index.html lines 47-599.
+
+**25. No visible focus rings on any interactive elements except form inputs (WCAG 2.4.7) CLOSED**
+- Section: Global
+- Selectors: `.process-dot`, `.nav-logo`, `.nav-links a`, `.nav-cta`, `.btn-copper`, `.btn-walnut`, `.btn-copper-lg`, `.form-submit`, `.footer-links a`, `.social-link`
+- Only form inputs had a custom focus style. All other interactive elements had no `:focus-visible` rule, relying on browser defaults that may be suppressed. Keyboard users cannot see focus position on buttons, nav links, or process dots.
+- **Fix (cycle 5, Pixel):** Added global `:focus-visible` block with copper outline (2px solid --copper, offset 3px). Process dots get cream outline for contrast on dark overlay. style.css (new block before FOOTER section).
+
+**26. Testimonials disclaimer contrast fails WCAG AA — 2.45:1 at opacity 0.45 (MEDIUM) CLOSED**
+- Section: Testimonials
+- Selector: `.testimonials-disclaimer` / `style.css` line 1550
+- Disclaimer text (`--cashmere` at opacity 0.45 over espresso/walnut gradient) renders at ~2.45:1 contrast — fails WCAG AA minimum 4.5:1 for 12px text. Spark cycle 2 intentionally reduced opacity from 0.7 to 0.45 for visual recession, but crossed the contrast threshold.
+- **Fix (cycle 5, Pixel):** Raised opacity from 0.45 → 0.8, yielding ~4.64:1 contrast. Text is visually recessed enough (cashmere is a muted tone) while meeting WCAG AA. style.css line 1557.
+
+**27. Section-label copper on cream background: 2.50:1 — contrast failure for small text (LOW, OPEN)**
+- Section: Multiple (Shop, Process header, About, Contact, Studio Strip header)
+- Selector: `.section-label` / `style.css` line 328
+- `.section-label` uses `--copper` (#cf8b67) on `--cream` (#f7f2ec) background. Contrast is 2.50:1 — fails WCAG AA 4.5:1 for 12.8px (0.8rem) text. These are uppercase, letter-spaced labels; WCAG large text (3:1) threshold requires 18pt or 14pt bold. At 0.8rem ~12.8px bold they don't qualify as large text.
+- NOTE: Copper on cream is a core brand identity element appearing across all sections. Changing it would require a brand-level decision. Documented here for next design cycle — consider darkening copper label color slightly (e.g. #b87040) for light backgrounds only.

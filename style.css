@@ -1155,6 +1155,60 @@ nav.scrolled .nav-cta {
 }
 
 /* ============================================
+   ACCESSIBILITY — Global Focus Styles (WCAG 2.1 AA)
+   ============================================ */
+
+/* Suppress default outline only when custom focus is defined */
+:focus:not(:focus-visible) { outline: none; }
+
+/* Visible focus ring for keyboard navigation — copper themed */
+:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Process dots: focus ring uses cream on dark process overlay */
+.process-dot:focus-visible {
+  outline: 2px solid rgba(247, 242, 236, 0.9);
+  outline-offset: 2px;
+}
+
+/* Nav links and logo */
+.nav-logo:focus-visible,
+.nav-links a:focus-visible,
+.nav-cta:focus-visible,
+.mobile-nav-links a:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Buttons (copper, walnut, submit) */
+.btn-copper:focus-visible,
+.btn-copper-lg:focus-visible,
+.btn-walnut:focus-visible,
+.form-submit:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--copper-soft);
+}
+
+/* Footer links */
+.footer-links a:focus-visible,
+.social-link:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Testimonial dots: aria-hidden so focus never reaches them, but defensively styled */
+.testimonial-dot:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 2px;
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 footer {
@@ -1554,7 +1608,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   text-align: center;
   margin: 16px auto 0;
   max-width: 360px;
-  opacity: 0.45;
+  opacity: 0.8;
   padding: 0 24px;
 }
 

@@ -146,6 +146,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     currentIndex = idx;
     dots.forEach(function(d, i) {
       d.classList.toggle('is-active', i === idx);
+      d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
     });
   }
 

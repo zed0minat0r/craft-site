@@ -187,3 +187,29 @@
 ## 2026-04-26 — Spark (cycle 5)
 
 2026-04-26 spark — Frame B: Contact form card editorial pass — trust note relocated from external box above card to copper-ruled pull-quote inside card as emotional close, L-bracket corner marks added to card frame (same family as About-section, different corner positions/size), label-to-input gap 6→4px + label letter-spacing 0.1→0.09em tightened, contact-header margin-bottom 36→40px, ref SCOUT Finding 4 (warm trust block clarity pattern), replaced external .contact-trust border-box (removed entirely, content promoted into card)
+
+## 2026-04-26 — Accessibility (cycle 5)
+
+**Axe-core:** Manual audit (no headless browser available). WCAG 2.1 AA target.
+
+**Violations found:**
+1. No `<main>` landmark — all page content between nav and footer had no main wrapper (WCAG 2.4.1). CRITICAL.
+2. Process dots labelled "Panel 1–4" — non-descriptive aria-labels; missing `role="tab"` / `aria-selected`; BUGS.md #11. HIGH.
+3. No visible focus rings on any interactive elements except form inputs — process dots, nav links, all buttons (WCAG 2.4.7). HIGH.
+4. Testimonials disclaimer at opacity 0.45: 2.45:1 contrast ratio — fails WCAG AA 4.5:1 for 12px text (WCAG 1.4.3). MEDIUM.
+5. Copper section-labels on cream background: 2.50:1 — fails AA for small text (0.8rem). Brand identity constraint — documented only (BUGS.md #27). LOW.
+6. Hero inset image `loading="eager"` on mobile hidden element (BUGS.md #4, pre-existing). LOW.
+
+**Fixes applied (3):**
+1. **`<main>` landmark:** Added `<main id="main-content">` wrapping all sections. index.html.
+2. **Process dots ARIA:** `role="tab"` + descriptive `aria-label` ("Step 1: Choose the Fabric" etc.) + `aria-selected` toggled dynamically in JS `setActiveDot()`. index.html lines 232-236, main.js lines 147-149. BUGS.md #11 CLOSED.
+3. **Testimonials disclaimer contrast:** Raised opacity 0.45 → 0.8 (contrast 2.45:1 → 4.64:1, passes WCAG AA). style.css line 1557. BUGS.md #26 CLOSED.
+4. **Global focus-visible styles:** Added copper-themed `:focus-visible` rules for all interactive elements (process dots use cream outline on dark overlay). style.css (new block). BUGS.md #25 CLOSED.
+
+**Mobile alignment sweep (375px + 414px):**
+- Testimonial dot indicators: `justify-content: center; margin: 0 auto` confirmed — centered.
+- Textarea placeholder: no visual rhythm disruption — placeholder is single-line hint within existing 120px min-height field.
+- Contact card (Spark cycle 5): `contact-inner max-width:660px margin:0 auto`, mobile padding `32px 24px`, blockquote pull-quote left-aligned within card (correct for quote treatment) — aligned.
+
+**Files:** index.html, style.css, main.js, BUGS.md
+2026-04-26 11:00 accessibility — focus: ARIA/focus-rings/contrast, top issue: no visible focus states on any button/nav/dot outside form inputs, fixed: 4
