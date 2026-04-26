@@ -1,7 +1,7 @@
 # Bug Report — Made by Molly
-**Tested:** 2026-04-26 at 375px + 1440px (latest: cycle 5 a11y pass)
+**Tested:** 2026-04-26 at 375px + 414px + 768px + 1440px (latest: cycle 6 QA Playwright pass)
 **Branch:** main
-**Total bugs:** 21 open (11 closed: #4/#5/#9/#10/#11/#13/#15/#16/#18/#22/#24/#25/#26)
+**Total bugs:** 19 open (15 closed: #4/#5/#6/#7/#9/#10/#11/#13/#15/#16/#18/#22/#24/#25/#26)
 
 ---
 
@@ -41,17 +41,15 @@
 - **Fix (cycle 3):** Raised `.mobile-nav-overlay` z-index from 999 to 1002 in style.css. Overlay now sits definitively above the hamburger button. The existing `.nav-hidden` opacity:0 treatment on hamburger is now backed by a stacking-order guarantee.
 - **Verified:** style.css updated; overlay z-index 1002 confirmed in HEAD. At 375px the overlay covers the full screen including the nav layer.
 
-**6. Studio strip scroll loop has a 20px visible jump on every cycle**
+**6. ~~Studio strip scroll loop has a 20px visible jump on every cycle~~ CLOSED — original bug description was wrong**
 - Section: Studio Strip
-- Selector: `@keyframes studio-scroll` / `style.css` line 1317
-- The seamless loop animation translates `calc(-270px * 5 - 20px * 5) = -1450px`. The flex `gap: 20px` applies between items only (4 gaps for 5 items), so the true first-set width is `5×270 + 4×20 = 1430px`. The animation overshoots by 20px (one extra gap), creating a visible 20px jump each time the loop resets.
-- Fix: Change to `calc(-270px * 5 - 20px * 4)` = `-1430px`.
+- Selector: `@keyframes studio-scroll` / `style.css` line 1399
+- **Definitive measurement (QA cycle 6):** Playwright measured item[0]→item[5] (first duplicate) offset = **1450px** at 1440px viewport. The current formula `calc(-270px * 5 - 20px * 5) = -1450px` matches exactly. Builder cycle 1 (`*5`) is **CORRECT**. The original BUGS.md claim (`*4` = -1430px) was wrong — flex `gap` applies between ALL adjacent items including item[5]→dup[1], so 5 items require 5 gaps for the loop boundary. Zero jump. **Closing as no-fix-needed.**
 
-**7. Studio strip hover captions are completely invisible on mobile/touch**
+**7. ~~Studio strip hover captions are completely invisible on mobile/touch~~ CLOSED — silently fixed**
 - Section: Studio Strip
-- Selector: `.studio-strip-hover-overlay` / `style.css` line 1289
-- The photo captions ("Cutting the pattern", "At the sewing machine", etc.) are shown exclusively on CSS `:hover`. Touch devices never trigger hover states. On mobile the strip is in manual-scroll mode and the captions are permanently opacity:0. There is no touch fallback — the captions always hidden.
-- Reproduce: At 375px, scroll the studio strip. No captions ever appear.
+- Selector: `.studio-strip-hover-overlay` / `style.css` line 1393
+- **Verified closed (QA cycle 6):** `@media (hover: none) { .studio-strip-hover-overlay { opacity: 1; } }` was added to style.css (present at line 1393–1398). On touch devices (`hover:none`) the overlay is always visible (opacity:1). Captions display unconditionally on mobile. Not logged in any prior changelog entry — silent fix. Closing now.
 
 **8. Mobile mood-row wipe-in direction is backwards — images drop in from top instead of rising up**
 - Section: Shop by Mood (all three rows)
@@ -77,10 +75,10 @@
 - Selector: `.process-dots` / `index.html` line 231
 - **Fix (cycle 5, Pixel):** Container already had `role="tablist"` and `aria-label` from a prior pass (no `aria-hidden` present). Updated dot button labels from generic "Panel 1" → "Step 1: Choose the Fabric" etc. Added `role="tab"` and `aria-selected="true/false"` to each button. JS `setActiveDot` updated to toggle `aria-selected` dynamically. index.html lines 232-236, main.js line 147-149.
 
-**12. Testimonial auto-scroll loop is not seamless on mobile viewports**
+**12. Testimonial auto-scroll loop has a 12px jump on every cycle — all viewports**
 - Section: Testimonials
-- Selector: `.testimonials-track` / `style.css` line 929
-- The loop uses `translateX(-50%)` on a `width: max-content` track with 10 cards (5 + 5 duplicates). The card width is `clamp(300px, 35vw, 440px)`. At 375px: `35vw = 131.25px`, clamped to 300px. For -50% to create a seamless loop, the total track width must be exactly double the first 5 cards. With flex gap 24px: 5-card block = `5×300 + 4×24 = 1596px`. Total track with padding = not exactly 2× the 5-card block due to padding asymmetry. A visible jump occurs on loop reset on narrow viewports.
+- Selector: `@keyframes testimonial-scroll` / `style.css` line 925
+- **Definitive measurement (QA cycle 6):** Playwright measured card[0]→card[5] (first duplicate) offset = **1620px** at 375px viewport (cardWidth=300, gap=24, 5*300+5*24=1620). Track scrollWidth=3216px, halfWidth=1608px. `translateX(-50%)` = -1608px but the card block is 1620px wide — **12px short each loop**. Same discrepancy holds at 1440px (cardWidth=440, 5*440+5*24=2320, halfWidth=2308, diff=12px). The fix that removed track `padding: 0 40px` (Spark cycle 2) corrected the asymmetry but left the half-pixel math unresolved: 10-item flex with 9 gaps has no exact midpoint at a card boundary. Fix: add `padding-right: 24px` to track (making scrollWidth=3240, halfWidth=1620=exact block) OR replace `-50%` with a fixed-pixel `translateX(-1620px)` at 375px.
 
 **13. ~~`reveal-glow` observer fires at 20% threshold; `reveal` fires at 12% with -40px root margin — race condition on mobile~~ CLOSED**
 - Section: Shop by Mood
@@ -164,3 +162,11 @@
 - Selector: `.section-label` / `style.css` line 328
 - `.section-label` uses `--copper` (#cf8b67) on `--cream` (#f7f2ec) background. Contrast is 2.50:1 — fails WCAG AA 4.5:1 for 12.8px (0.8rem) text. These are uppercase, letter-spaced labels; WCAG large text (3:1) threshold requires 18pt or 14pt bold. At 0.8rem ~12.8px bold they don't qualify as large text.
 - NOTE: Copper on cream is a core brand identity element appearing across all sections. Changing it would require a brand-level decision. Documented here for next design cycle — consider darkening copper label color slightly (e.g. #b87040) for light backgrounds only.
+
+**28. Testimonial loop seam: `translateX(-50%)` undershoots by 12px — affects all viewports (MEDIUM, OPEN)**
+- Section: Testimonials
+- Selector: `@keyframes testimonial-scroll` / `style.css` line 925
+- **Found:** QA cycle 6 Playwright measurement.
+- With 10 flex cards and `gap: 24px`, the track `scrollWidth = 3216px` (9 gaps × 24px + 10 × 300px). `translateX(-50%)` = -1608px. But the actual offset from card[0] to card[5] (first duplicate) is **1620px** (5 card-widths + 5 gaps between them, including the gap before the duplicate). The animation falls 12px short of the loop boundary every cycle — creating a 12px stutter visible on all viewports.
+- At 1440px: same 12px discrepancy (card=440px, 5×440+5×24=2320, halfW=2308).
+- Fix (Builder): add `padding-right: 24px` to `.testimonials-track` (making scrollWidth=3240, halfWidth=1620 = exact match). Alternatively, use `translateX(calc(-1620px))` for 375px card size with a CSS custom property per breakpoint.

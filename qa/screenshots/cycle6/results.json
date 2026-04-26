@@ -1,0 +1,416 @@
+[
+  {
+    "viewport": "375",
+    "scenario": "Page load + hero screenshot",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "375",
+    "scenario": "Console errors at load",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Hero Ken Burns scale after 1px scroll",
+    "status": "PASS",
+    "notes": "inline: \"\""
+  },
+  {
+    "viewport": "375",
+    "scenario": "Scroll to shop section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "375",
+    "scenario": "Scroll to process section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "375",
+    "scenario": "Scroll to studio section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "375",
+    "scenario": "Scroll to testimonials section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "375",
+    "scenario": "Scroll to contact section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "375",
+    "scenario": "Mobile nav overlay z-index above hamburger (Bug #5)",
+    "status": "PASS",
+    "notes": "overlay z:1002 > hamburger z:1001"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Testimonial track loop seamlessness (Bug #12)",
+    "status": "FAIL",
+    "notes": "cardW=300px gap=24px trackScrollW=3216px halfW=1608px 4gaps=1596px 5gaps=1620px diff=12.0px paddingLeft=0px cards=10"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Testimonial dots container on mobile",
+    "status": "PASS",
+    "notes": "present=true visible=true"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Form ?submitted=1 reveals #form-success (Bug #2)",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "375",
+    "scenario": "Cursor trail canvas absent on mobile",
+    "status": "FAIL",
+    "notes": "canvas element found on touch viewport"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: Hero content",
+    "status": "PASS",
+    "notes": "center"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: Custom CTA",
+    "status": "PASS",
+    "notes": "center"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: Footer inner",
+    "status": "PASS",
+    "notes": "center"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: Contact inner",
+    "status": "FAIL",
+    "notes": "text-align=start"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #19 duplicate studio strip items on mobile",
+    "status": "OPEN",
+    "notes": "total=10 hidden=5 animation=none"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #20 form button safety reset (12s timeout)",
+    "status": "PASS",
+    "notes": "btn=\"\n            Send Message\n          \" disabled=false — 12s reset confirmed in main.js"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Horizontal overflow (body)",
+    "status": "FAIL",
+    "notes": "body.scrollWidth=391 > viewport=375"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Console errors — full session",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Page load + hero screenshot",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "414",
+    "scenario": "Console errors at load",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Hero Ken Burns scale after 1px scroll",
+    "status": "PASS",
+    "notes": "inline: \"\""
+  },
+  {
+    "viewport": "414",
+    "scenario": "Scroll to shop section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "414",
+    "scenario": "Scroll to process section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "414",
+    "scenario": "Scroll to studio section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "414",
+    "scenario": "Scroll to testimonials section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "414",
+    "scenario": "Scroll to contact section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "414",
+    "scenario": "Mobile nav overlay z-index above hamburger (Bug #5)",
+    "status": "PASS",
+    "notes": "overlay z:1002 > hamburger z:1001"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Testimonial track loop seamlessness (Bug #12)",
+    "status": "FAIL",
+    "notes": "cardW=300px gap=24px trackScrollW=3216px halfW=1608px 4gaps=1596px 5gaps=1620px diff=12.0px paddingLeft=0px cards=10"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Testimonial dots container on mobile",
+    "status": "PASS",
+    "notes": "present=true visible=true"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Cursor trail canvas absent on mobile",
+    "status": "FAIL",
+    "notes": "canvas element found on touch viewport"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: Hero content",
+    "status": "PASS",
+    "notes": "center"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: Custom CTA",
+    "status": "PASS",
+    "notes": "center"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: Footer inner",
+    "status": "PASS",
+    "notes": "center"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: Contact inner",
+    "status": "FAIL",
+    "notes": "text-align=start"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Horizontal overflow (body)",
+    "status": "FAIL",
+    "notes": "body.scrollWidth=430 > viewport=414"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Console errors — full session",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Page load + hero screenshot",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "768",
+    "scenario": "Console errors at load",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Hero Ken Burns scale after 1px scroll",
+    "status": "PASS",
+    "notes": "inline: \"\""
+  },
+  {
+    "viewport": "768",
+    "scenario": "Scroll to shop section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "768",
+    "scenario": "Scroll to process section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "768",
+    "scenario": "Scroll to studio section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "768",
+    "scenario": "Scroll to testimonials section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "768",
+    "scenario": "Scroll to contact section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "768",
+    "scenario": "Mobile nav overlay z-index above hamburger (Bug #5)",
+    "status": "PASS",
+    "notes": "overlay z:1002 > hamburger z:1001"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Testimonial track loop seamlessness (Bug #12)",
+    "status": "FAIL",
+    "notes": "cardW=300px gap=24px trackScrollW=3216px halfW=1608px 4gaps=1596px 5gaps=1620px diff=12.0px paddingLeft=0px cards=10"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Testimonial dots container on mobile",
+    "status": "PASS",
+    "notes": "present=true visible=true"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Process panels text centered (Pixel cycle3 hotfix)",
+    "status": "FAIL",
+    "notes": "P1:top=512px | P2:top=512px | P3:top=512px | P4:top=512px"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Cursor trail canvas absent on mobile",
+    "status": "FAIL",
+    "notes": "canvas element found on touch viewport"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Horizontal overflow (body)",
+    "status": "FAIL",
+    "notes": "body.scrollWidth=784 > viewport=768"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Console errors — full session",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Page load + hero screenshot",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Console errors at load",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Hero Ken Burns scale after 1px scroll",
+    "status": "PASS",
+    "notes": "inline: \"\""
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Scroll to shop section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Scroll to process section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Scroll to studio section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Scroll to testimonials section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Scroll to contact section",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Bug #6 studio strip loop math — definitive measurement",
+    "status": "INFO",
+    "notes": "item0→dup0 offset=1450px | needed translateX=-1450px | item=270px gap=20px | 4-gap correct=-1430px | 5-gap (current)=-1450px | keyframe=\"translateX(calc(-1450px))\""
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Bug #6 verdict: *5 (Builder cycle1) is CORRECT",
+    "status": "PASS",
+    "notes": "offset=1450px matches 5-gap formula"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Testimonial track loop seamlessness (Bug #12)",
+    "status": "FAIL",
+    "notes": "cardW=440px gap=24px trackScrollW=4616px halfW=2308px 4gaps=2296px 5gaps=2320px diff=12.0px paddingLeft=0px cards=10"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Process panels text centered (Pixel cycle3 hotfix)",
+    "status": "FAIL",
+    "notes": "P1:top=450px | P2:top=450px | P3:top=450px | P4:top=450px"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Cursor trail canvas present on desktop",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Horizontal overflow check",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Console errors — full session",
+    "status": "PASS",
+    "notes": "zero errors"
+  }
+]

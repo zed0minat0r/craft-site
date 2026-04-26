@@ -278,3 +278,27 @@
 **Visual diff verdict:** Zero rendered change. Two `display: none` rules on a never-rendered element removed. No visual section affected.
 
 2026-04-26 razor — .studio-strip-caption dead rule removed (base + mobile override, element never in HTML/JS), -86 bytes; Bug #23 closed will-not-fix (margins functional on block element)
+
+## 2026-04-26 — QA (cycle 6)
+
+2026-04-26 qa — 375/414/768/1440px Playwright sweep, 7 bugs closed, 1 new bug (#28) found
+
+**Bugs closed this cycle:**
+- Bug #6 CLOSED: studio strip loop jump — definitive Playwright measurement confirms *5 formula (item0→dup0=1450px). Builder cycle 1 correct. No jump.
+- Bug #7 CLOSED: studio captions invisible on touch — @media(hover:none) opacity:1 rule confirmed present in stylesheet. Silently fixed, not previously logged.
+- Bug #2 VERIFIED CLOSED: ?submitted=1 → #form-success visible — Playwright confirmed.
+- Bug #3 VERIFIED CLOSED: Ken Burns scale preserved — parallax writes --parallax-y, CSS class transform unaffected.
+- Bug #5 VERIFIED CLOSED: overlay z:1002 > hamburger z:1001 — Playwright confirmed at all mobile viewports.
+- Bug #14 VERIFIED CLOSED: mood-row accent bar — all 3 rows left=0px at 375px, Playwright confirmed.
+- Bug #20 VERIFIED CLOSED: form button reset — 12s setTimeout safety reset confirmed in main.js.
+
+**New bug found:**
+- Bug #28 (MEDIUM): Testimonial loop 12px seam — all viewports. translateX(-50%)=-1608px but card0→card5=1620px. 12px stutter per cycle. Fix: add padding-right:24px to track (scrollWidth 3216→3240, halfW=1620=exact match).
+
+**Bug #12 definitive measurement:** 12px gap confirmed at 375/414/768/1440px. Root: 10-item flex (9 gaps) has no exact midpoint at card boundary; -50% falls half-a-gap short. Merged into Bug #28 entry.
+
+**Process panels:** top:50% confirmed via cssRules API — getComputedStyle returns computed px, not percentage, causing initial false fail. All 4 panels correctly centered.
+
+**Console:** zero errors across all 4 viewports, full session.
+
+**Screenshots:** qa/screenshots/cycle6/ (24 images)
