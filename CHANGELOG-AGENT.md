@@ -325,3 +325,7 @@
 ## 2026-04-26 — Coordinator (cycle 7 dispatch)
 
 2026-04-26 15:00 coordinator — scheduled: Builder, Performance, QA, Nigel, focus: bug closure + perf verification (Bug #28 one-line testimonial fix + Lighthouse re-run to confirm cycle 6 fixes + bug-sweep of remaining open items + re-score), forbidden: Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop price text, Custom CTA, Cursor trail, Testimonial source labels, Contact form card visual, Contact textarea placeholder, Footer, Header/nav. Score 7.4 with 7.5 ceiling. Spark/Pixel/Refiner/Scout/Accessibility skipped — every section they would touch is on cooldown or recently audited. BUGS #27 + photography both user-blocked, surfaced in plan, not dispatched.
+
+## 2026-04-26 — Builder (cycle 7)
+
+2026-04-26 builder — Bug #28 CLOSED: added `padding-right: 24px` to `.testimonials-track` (style.css line 919) + mirrored in mobile override (line 1684); scrollWidth 3216→3240, translateX(-50%)=-1620px = exact card[0]→card[5] distance, loop seam closed (per PLAN.md)

@@ -163,10 +163,10 @@
 - `.section-label` uses `--copper` (#cf8b67) on `--cream` (#f7f2ec) background. Contrast is 2.50:1 — fails WCAG AA 4.5:1 for 12.8px (0.8rem) text. These are uppercase, letter-spaced labels; WCAG large text (3:1) threshold requires 18pt or 14pt bold. At 0.8rem ~12.8px bold they don't qualify as large text.
 - NOTE: Copper on cream is a core brand identity element appearing across all sections. Changing it would require a brand-level decision. Documented here for next design cycle — consider darkening copper label color slightly (e.g. #b87040) for light backgrounds only.
 
-**28. Testimonial loop seam: `translateX(-50%)` undershoots by 12px — affects all viewports (MEDIUM, OPEN)**
+**28. Testimonial loop seam: `translateX(-50%)` undershoots by 12px — affects all viewports (MEDIUM, CLOSED)**
 - Section: Testimonials
 - Selector: `@keyframes testimonial-scroll` / `style.css` line 925
 - **Found:** QA cycle 6 Playwright measurement.
 - With 10 flex cards and `gap: 24px`, the track `scrollWidth = 3216px` (9 gaps × 24px + 10 × 300px). `translateX(-50%)` = -1608px. But the actual offset from card[0] to card[5] (first duplicate) is **1620px** (5 card-widths + 5 gaps between them, including the gap before the duplicate). The animation falls 12px short of the loop boundary every cycle — creating a 12px stutter visible on all viewports.
 - At 1440px: same 12px discrepancy (card=440px, 5×440+5×24=2320, halfW=2308).
-- Fix (Builder): add `padding-right: 24px` to `.testimonials-track` (making scrollWidth=3240, halfWidth=1620 = exact match). Alternatively, use `translateX(calc(-1620px))` for 375px card size with a CSS custom property per breakpoint.
+- **Fix (Builder cycle 7):** Added `padding-right: 24px` to `.testimonials-track` (style.css line 919) and mirrored in mobile override (line 1684). scrollWidth goes 3216→3240, halfWidth=1620 = exact card[0]→card[5] distance. Loop seam closed.
