@@ -1,41 +1,45 @@
-# PLAN — Cycle 3, Builder
+# PLAN — Cycle 4, Builder
 
-**One-liner:** Fix Bug #5 (hamburger z-index over overlay), verify Bug #13 already resolved, update price ranges on all three mood rows.
+**One-liner:** AUDIT P2 honest testimonial source labels, AUDIT P3 trust-strip third item, SCOUT copper-glow cursor trail.
 
 ## What and Why
 
-### Bug #5: Hamburger z-index stacks above overlay
-- `.nav-hamburger` z-index 1001 sits above `.mobile-nav-overlay` z-index 999.
-- JS already adds `.nav-hidden` (opacity:0, pointer-events:none) but opacity transition can flash briefly.
-- Fix: raise `.mobile-nav-overlay` to z-index 1002 so it definitively covers the hamburger.
-- File: `style.css` line 1411
+### AUDIT P2: Testimonial source badge honesty pass
+- 4 "via Etsy" pills + 1 "via Instagram" pill — no live Etsy shop, no Instagram handle in footer.
+- Re-label each to honest plain text matching the card's copy:
+  - Card 1 (Rachel M. — custom tote): "past commission client"
+  - Card 3 (Sara L. — commissioned three bags, was "via Instagram"): "past commission client"
+  - Card 4 (Kate A. — custom quilt inquiry): "past commission client"
+  - Duplicate set cards 1, 3, 4: same labels as originals
+- Remove pill border treatment from `.testimonial-source` in style.css — plain attribution reads better without the verification-stamp border.
+- Files: `index.html` (8 edits: 4 primary + 4 duplicate cards), `style.css` (1 edit: remove border).
 
-### Bug #13: reveal-glow fires before reveal (already fixed in HEAD)
-- main.js line 249: reveal-glow observer already uses `{ threshold: 0.12, rootMargin: '0px 0px -40px 0px' }` — matches .reveal. Race condition eliminated.
-- Action: verify in code, then mark closed in BUGS.md with note.
+### AUDIT P3: Custom CTA trust strip third item
+- Replace "Bags, quilts & commissions welcome" with "Hand-finished in Pennsylvania".
+- File: `index.html` line 378. One edit.
 
-### AUDIT P2: Price ranges on mood rows
-- Row 1 (Bags, 6–10 hours): `$75` → `$75–$220`
-- Row 2 (Quilts): note BUGS.md says "15–30 hours" in actual HTML, AGENT-PLAN says "40–80 hours". Will match what's in HTML.
-  - `$120` → `$120–$480`
-- Row 3 (Custom commissions): `$95` → `$95+`
-- File: `index.html` lines 108, 133, 158
-- Must inherit existing `.mood-price` styling — no new component.
+### SCOUT Candidate C: Copper-glow cursor trail
+- New file: `js/cursor-trail.js` (~40 lines vanilla JS).
+- Canvas overlay, pointer-events:none, z-index:9999.
+- `pointer:fine` guard — desktop only.
+- `prefers-reduced-motion` guard — skips effect entirely.
+- Copper rgba(207,139,103, life * 0.35), decay 0.025/frame.
+- Loaded via `<script defer src="js/cursor-trail.js"></script>` at end of body in index.html.
 
 ## Files Touched
 
-- `style.css` — 1 edit (overlay z-index)
-- `index.html` — 3 edits (price text)
-- `BUGS.md` — mark #5 and #13 closed
+- `index.html` — 9 edits (8 source labels + 1 trust strip line + 1 script tag)
+- `style.css` — 1 edit (remove pill border from .testimonial-source)
+- `js/cursor-trail.js` — new file (~40 lines)
 - `CHANGELOG-AGENT.md` — append entry
+- `BUGS.md` — update if applicable
 
 ## Expected Diff
 
-4 surgical edits total across 2 source files.
+~50 lines across 3 files.
 
 ## Success Criterion
 
-- Hamburger not visible over open nav overlay at 375px.
-- No reveal-glow race condition observable.
-- All three mood rows show price ranges.
-- BUGS.md #5 and #13 marked closed.
+- All testimonial source labels honest plain text, no Etsy/Instagram platform claims.
+- Trust strip third item = "Hand-finished in Pennsylvania".
+- Cursor trail visible on pointer:fine desktop, invisible on touch + prefers-reduced-motion.
