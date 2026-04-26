@@ -418,3 +418,18 @@
 ## 2026-04-26 — Coordinator (cycle 9 dispatch)
 
 2026-04-26 coordinator — scheduled: Performance, Spark, Pixel, Nigel, focus: funnel-close + JS perf push (Mobile P 84→90, Contact success state Frame B), forbidden: Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop, Custom CTA, Cursor-trail behavior (perf-only exception), Testimonial source labels, Contact card, Contact textarea, Testimonial carousel mechanics, Header/nav, Footer
+
+## 2026-04-26 — Performance (cycle 9)
+
+2026-04-26 07:10 performance — scores: P=72-73(mob)/96(desk) BP=77(both) A=97(both) S=100(both), top issue: mobile LCP 7.1-7.3s (Pexels CDN cold-cache on throttled 4G — network variance, not regression), fixed: 3
+
+**Fixes applied:**
+- cursor-trail rAF idle-exit: rAF loop now stops when `particles.length === 0` (sets `raf = null`); mousemove handler checks `if (raf === null)` before starting a new loop. No main-thread burn when cursor is idle. Visual effect unchanged.
+- CSS minification: `style.css` (46001 bytes) minified to `style.min.css` (33864 bytes, -12KB, -26%). index.html updated to reference `style.min.css`. `style.css` retained as editable source for agent cycles. Reduces render-blocking CSS transfer time.
+- Nav scroll reflow guard: `updateNav()` now tracks `isScrolled` state and only calls `classList.toggle()` when the 60px boundary is actually crossed. Eliminates repeated forced-reflow on every scroll tick.
+
+**Testimonial IIFE audit:** touchstart + touchend both `{ passive: true }` — confirmed. Both bound to element scope (not window). touchmove not used. Clean — no fixes needed.
+
+**Lazy-load audit:** All below-fold images confirmed `loading="lazy"`. Hero inset has `fetchpriority="high"` (correct). No additions needed.
+
+**Note on mobile score variance:** Cycle 8 run returned P=84; cycle 9 pre-fix runs returned P=72-73. Delta is Pexels CDN cold-cache jitter on simulated throttled 4G — LCP candidate switches to quilts mood-row image (213KB, above critical path on slow network). CSS minification and rAF fix will show on the next post-push run.

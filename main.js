@@ -17,11 +17,12 @@
 /* ---- Nav scroll state ---- */
 (function() {
   const nav = document.getElementById('main-nav');
+  var isScrolled = false;
   function updateNav() {
-    if (window.scrollY > 60) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
+    var shouldScroll = window.scrollY > 60;
+    if (shouldScroll !== isScrolled) {
+      isScrolled = shouldScroll;
+      nav.classList.toggle('scrolled', shouldScroll);
     }
   }
   window.addEventListener('scroll', updateNav, { passive: true });

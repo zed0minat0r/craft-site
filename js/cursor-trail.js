@@ -11,7 +11,7 @@
 
   var ctx = canvas.getContext('2d');
   var particles = [];
-  var raf;
+  var raf = null; // null = loop is idle; non-null = loop is running
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -22,6 +22,10 @@
 
   document.addEventListener('mousemove', function (e) {
     particles.push({ x: e.clientX, y: e.clientY, life: 1.0 });
+    // Kick off the loop only if it is not already running
+    if (raf === null) {
+      raf = requestAnimationFrame(tick);
+    }
   });
 
   function tick() {
@@ -37,8 +41,13 @@
       p.life -= 0.025;
     });
 
-    raf = requestAnimationFrame(tick);
+    if (particles.length === 0) {
+      // All particles have decayed — park the loop until next mousemove
+      raf = null;
+    } else {
+      raf = requestAnimationFrame(tick);
+    }
   }
 
-  tick();
+  // Loop starts only on first mousemove — no burn on page load / idle tab
 }());
