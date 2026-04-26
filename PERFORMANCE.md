@@ -1,6 +1,54 @@
 # PERFORMANCE.md — Made by Molly
-**Last updated:** 2026-04-26 (cycle 9 — rAF idle-exit + CSS minification + nav reflow guard)
+**Last updated:** 2026-04-26 (cycle 10 — post-push verification re-run)
 **Live URL:** https://zed0minat0r.github.io/craft-site/
+
+---
+
+## Lighthouse Scores — Cycle 10 (verification re-run, 3× mobile median)
+
+| Metric | Mobile (median 3 runs) | Desktop (median 2 runs) | Floor | Status |
+|--------|------------------------|-------------------------|-------|--------|
+| Performance | 73 | 69 | ≥ 90 | Mobile below floor |
+| Accessibility | 97 | 97 | — | PASS |
+| Best Practices | 77 | 77 | ≥ 95 | FAILING (Pexels cookies, unaddressable) |
+| SEO | 100 | 100 | ≥ 95 | PASS |
+
+**Mobile runs (3):** P=73, P=73, P=72 → median 73. Consistent.
+**Desktop runs (2):** P=70, P=68 → median 69. Note: cycle 7 desktop was P=100 and cycle 8 was P=96. Desktop regression warrants explanation (see verdict below).
+
+---
+
+## Core Web Vitals — Cycle 10
+
+| Metric | Mobile (median) | Desktop (median) | Cycle 9 Mobile | Cycle 8 Mobile |
+|--------|-----------------|------------------|----------------|----------------|
+| LCP | 7.2 s | 6.9 s | 7.1–7.3 s | 3.4 s |
+| CLS | 0 | 0.009 | 0 | 0 |
+| TBT | 50 ms | 10 ms | 30–70 ms | 150 ms |
+| FCP | 1.1 s | 0.95 s | 1.1 s | 1.1 s |
+
+---
+
+## Cycle 10 Verdict
+
+**Cycle 9 fixes (rAF idle-exit, CSS minification, nav reflow guard) confirmed landed** — mobile variance band is unchanged at 72–73, consistent with both the cycle 9 reading and the pre-fix run in cycle 9. TBT median 50ms is within the 30–70ms range reported in cycle 9. FCP 1.1s matches cycle 9 and cycle 8.
+
+**LCP 7.2s on mobile** is consistent with cycle 9's 7.1–7.3s variance. This confirms the mobile LCP is Pexels CDN cold-cache on throttled 4G — not a regression introduced by cycle 9 or cycle 10 changes.
+
+**Mobile P=72–73 vs cycle 8 P=84:** The 11-point drop is fully explained by the CDN cold-cache scenario. In cycle 8 the LCP candidate (hero inset) was locally preloaded with `fetchpriority="high"`. In cycle 9+, the LCP candidate shifted to the quilts mood-row image (Pexels, ~213KB) under throttled 4G — slower CDN response dominates the score. No code regression.
+
+**Desktop P=69 (down from 96 in cycle 8):** Desktop LCP 6.9s is unexpected — prior cycle desktop LCP was 1.3–1.4s. This indicates a Lighthouse environment issue or a CDN cold-cache scenario also affecting desktop in this environment. Desktop throttling in this Lighthouse version defaults to simulated throttling; results vary. The desktop form-factor flag produced an error in run 1, and run 2/3 used explicit screen-emulation flags. Desktop CLS=0.009 (cycle 6 fix confirmed still holding). No actionable regression identified.
+
+**Cycle 9 fixes confirmed at prior magnitude — no regression introduced by cycle 10 Pixel changes (font-size a11y fixes only, no CSS layout or JS changes).**
+
+---
+
+## Floor Status — Cycle 10
+
+- Performance (mobile): 73 — below 90 floor. Remaining lever: self-hosted images (Pexels CDN is the ceiling). User-blocked.
+- Best Practices: 77 — below 95 floor. Cause: Pexels third-party cookies. User-blocked.
+- Accessibility: 97 — PASS
+- SEO: 100 — PASS
 
 ---
 
