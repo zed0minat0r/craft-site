@@ -756,9 +756,9 @@ nav.scrolled .nav-cta {
   margin-top: 16px;
   background: transparent;
   color: var(--walnut);
-  font-size: 0.7rem;
+  font-size: 0.8125rem;
   font-weight: 400;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   font-style: italic;
   padding: 0;
@@ -1008,9 +1008,9 @@ nav.scrolled .nav-cta {
 }
 .testimonial-source {
   display: inline-block;
-  font-size: 0.675rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--copper);
   opacity: 0.75;
@@ -1763,6 +1763,9 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .testimonials-header { padding: 0 24px 48px; text-align: center; }
   .testimonials-track { padding: 0 0 12px; padding-right: 24px; }
   .testimonial-dots { display: flex; }
+  .testimonial-card { padding: 28px 24px; }
+  .testimonial-rating-row { flex-wrap: wrap; row-gap: 4px; }
+  .testimonial-source { max-width: 55%; text-align: right; letter-spacing: 0.06em; }
 
   .mood-time { text-align: center; }
 

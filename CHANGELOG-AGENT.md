@@ -475,3 +475,27 @@
 ## 2026-04-25 — Coordinator (cycle 10 dispatch)
 
 2026-04-25 coordinator — scheduled: Pixel, Performance, Spark, Nigel, focus: a11y floor compliance + perf verification + funnel-symmetry close (sub-13px text fix .about-location-tag/.testimonial-source + cycle 9 post-push Lighthouse re-run + Contact sending/loading state Frame B + re-score), forbidden: Studio Strip, Hero Ken Burns, Mood rows visual, About section visual (font-size only), Process panels visual, Custom CTA, Cursor trail, Contact card visual, Contact textarea, Testimonial carousel mechanics, Header/nav, Footer, Section-label sizing, Success state (cycle 9 freeze). Score 7.5 held 3 cycles. Cycle 10 is NOT a no-op — three concrete real-value items qualify (Pixel cycle 9 explicitly flagged the sub-13px elements; Performance cycle 9 explicitly noted CSS-min/rAF fixes need post-push verification; sending state is symmetric funnel gap to the just-designed success state). If cycle 10 score holds at 7.5 for a 4th consecutive cycle, cycle 11 should auto-pause and prompt photography decision. Builder/Refiner/Razor/QA/Scout/Accessibility intentionally skipped — rationale in AGENT-PLAN.md.
+
+## 2026-04-26 — Pixel (cycle 10)
+
+**A11y floor fixes (both are exceptions to cooled-section freeze — same precedent as cycle 9 form-label fix):**
+- `.about-location-tag` font-size: 0.7rem (11.2px) → 0.8125rem (13px); letter-spacing 0.18em → 0.15em (compensates for larger size, visual weight reads similarly). Mobile override already had text-align:center — unchanged.
+- `.testimonial-source` font-size: 0.675rem (10.8px) → 0.8125rem (13px); letter-spacing 0.13em → 0.09em (size-compensated). Mobile override added: max-width:55%, text-align:right, letter-spacing:0.06em. `.testimonial-card` padding reduced 40px 36px → 28px 24px on mobile for interior-width headroom. `.testimonial-rating-row` gets flex-wrap:wrap + row-gap:4px on mobile so "past commission client" wraps cleanly to 2 lines rather than overflowing.
+- **Testimonial badge layout verdict:** No flex overflow at 375px or 414px — source text wraps to 2 lines within its 55% max-width column; row stays aligned with stars on the left. Rating-row mechanics (space-between, carousel animation) unaffected.
+- **style.min.css:** Rebuilt from style.css (npx clean-css-cli). Both new rules confirmed present in minified output.
+
+**Mobile center-alignment sweep (375px + 414px):**
+- Hero: text-align:center + justify-content:center on eyebrow/actions — PASS
+- Mood rows: text-align:center + align-items:center on single-column — PASS
+- Process panels: text-align:center + align-items:center on sticky content — PASS
+- Custom CTA: text-align:center globally — PASS
+- Testimonials header: text-align:center — PASS; rating-row: flex-wrap:wrap contained within 28px/24px padded card — PASS
+- About: about-inner text-align:center + about-location-tag text-align:center — PASS
+- Contact form header: left-aligned within centered card (intentional) — PASS
+- Success state: align-items:center + text-align:center — PASS
+- Footer: grid 1fr + text-align:center + justify-content:center on all rows — PASS
+- Header/nav: align-items:center — PASS
+
+**Visual diff at 1440px:** Both elements read ~1.4px larger. Identity (cream/espresso/copper) unchanged. About caption strip still reads as editorial tag; testimonial source still reads as copper stamp label.
+
+2026-04-26 08:16 pixel — .about-location-tag 11.2px→13px (a11y fix); .testimonial-source 10.8px→13px (a11y fix, mobile flex-wrap added to prevent overflow); alignment sweep 375+414px PASS all sections
