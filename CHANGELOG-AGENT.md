@@ -333,3 +333,7 @@
 ## 2026-04-26 — Performance (cycle 7 re-run)
 
 2026-04-26 04:20 performance — scores: Mobile P=74 BP=77 A=97 S=100 | Desktop P=100 BP=77 A=97 S=100, top issue: mobile LCP 6.4s (Google Fonts CSS render-blocking 530ms + Pexels image oversizing 276KB), fixed: 0 (verification only — cycle 6 fixes confirmed effective: LCP -1.7s mobile, FCP -1.3s mobile, desktop CLS 0.171→0.009, mobile perf score +8pts, desktop perf score +15pts; BP floor not met due to unaddressable Pexels third-party cookies)
+
+## 2026-04-26 — QA (cycle 7)
+
+2026-04-26 qa — 375px/414px/768px/1440px tested, 3 bugs closed (#8/#19/#28), 0 new bugs found; Bug #28 VERIFIED CLOSED: scrollWidth=3240 halfW=1620 exact card0→card5=1620px delta=0px all viewports; #8 VERIFIED CLOSED: CSS already correct (inset 0 0 100% 0); #19 VERIFIED CLOSED: aria-hidden items display:none on mobile; #17 still open (12px labels, unchanged); #21 still open (arrow snap, element absent from process panel 4 in headless); center alignment PASS at 375+414; zero console errors all viewports

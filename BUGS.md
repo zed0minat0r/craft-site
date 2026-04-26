@@ -1,7 +1,7 @@
 # Bug Report — Made by Molly
-**Tested:** 2026-04-26 at 375px + 414px + 768px + 1440px (latest: cycle 6 QA Playwright pass)
+**Tested:** 2026-04-26 at 375px + 414px + 768px + 1440px (latest: cycle 7 QA Playwright pass)
 **Branch:** main
-**Total bugs:** 19 open (15 closed: #4/#5/#6/#7/#9/#10/#11/#13/#15/#16/#18/#22/#24/#25/#26)
+**Total bugs:** 16 open (18 closed: #4/#5/#6/#7/#8/#9/#10/#11/#13/#15/#16/#18/#19/#22/#24/#25/#26/#28)
 
 ---
 
@@ -51,10 +51,11 @@
 - Selector: `.studio-strip-hover-overlay` / `style.css` line 1393
 - **Verified closed (QA cycle 6):** `@media (hover: none) { .studio-strip-hover-overlay { opacity: 1; } }` was added to style.css (present at line 1393–1398). On touch devices (`hover:none`) the overlay is always visible (opacity:1). Captions display unconditionally on mobile. Not logged in any prior changelog entry — silent fix. Closing now.
 
-**8. Mobile mood-row wipe-in direction is backwards — images drop in from top instead of rising up**
+**8. ~~Mobile mood-row wipe-in direction is backwards — images drop in from top instead of rising up~~ CLOSED**
 - Section: Shop by Mood (all three rows)
-- Selector: `.mood-photo` / `style.css` line 1532
-- Mobile wipe-in: `clip-path: inset(100% 0 0 0)` (top inset 100%) → `clip-path: inset(0 0 0 0)`. This means the top clip shrinks, revealing the image as if it's dropping down from above — the opposite of what scroll-triggered reveals typically do (rising up into view). On desktop the wipe is horizontal (left or right), which is intentional. On mobile it should be `inset(0 0 100% 0)` (bottom inset) to create an upward reveal consistent with the scrolling direction.
+- Selector: `.mood-photo` / `style.css` line 1639
+- Mobile wipe-in was `clip-path: inset(100% 0 0 0)` (top inset = image drops from above). Correct upward reveal should be `inset(0 0 100% 0)` (bottom inset shrinks as user scrolls up).
+- **Fix (prior cycle, per CSS audit cycle 7):** style.css line 1641 already reads `clip-path: inset(0 0 100% 0)` with reveal state at line 1648 `clip-path: inset(0 0 0 0)`. Comment on line 1638 confirms: "Bug #8: mobile wipe-in rises upward — inset clips from bottom, scroll direction match." Fix was silently applied. Verified cycle 7 QA: CSS rule confirmed correct.
 
 ---
 
@@ -115,9 +116,10 @@
 - Selector: `a[href="#"].nav-logo`
 - **Fix (cycle 5, Builder):** main.js lines 116-119 already handle this: `if (href === '#' || href === '') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }`. Logo tap smooth-scrolls to top correctly. Verified cycle 5.
 
-**19. Duplicate studio strip images render on mobile — 10 items in a dead-end scroll**
+**19. ~~Duplicate studio strip images render on mobile — 10 items in a dead-end scroll~~ CLOSED**
 - Section: Studio Strip (mobile)
 - The 5 duplicate `aria-hidden="true"` items exist to enable the desktop CSS loop. On mobile, the animation is `none` and the strip becomes a manual scroll carousel. Users scroll through 5 real images then 5 visually identical duplicates before hitting a hard right edge. No indication the duplicates are a dead end.
+- **Fix (CSS audit cycle 7):** style.css line 1713 contains `.studio-strip-item[aria-hidden="true"] { display: none; }` inside the mobile media query. Duplicates are hidden on mobile — users see only 5 real images and reach a clean right edge. Verified cycle 7 QA: `firstHiddenDisplay=none` confirmed in Playwright measurement.
 
 **20. Form submit button: "Sending..." text never resets if Formspree returns an HTTP error**
 - Section: Contact form
@@ -163,10 +165,18 @@
 - `.section-label` uses `--copper` (#cf8b67) on `--cream` (#f7f2ec) background. Contrast is 2.50:1 — fails WCAG AA 4.5:1 for 12.8px (0.8rem) text. These are uppercase, letter-spaced labels; WCAG large text (3:1) threshold requires 18pt or 14pt bold. At 0.8rem ~12.8px bold they don't qualify as large text.
 - NOTE: Copper on cream is a core brand identity element appearing across all sections. Changing it would require a brand-level decision. Documented here for next design cycle — consider darkening copper label color slightly (e.g. #b87040) for light backgrounds only.
 
-**28. Testimonial loop seam: `translateX(-50%)` undershoots by 12px — affects all viewports (MEDIUM, CLOSED)**
+**28. ~~Testimonial loop seam: `translateX(-50%)` undershoots by 12px — affects all viewports~~ CLOSED (VERIFIED cycle 7)**
 - Section: Testimonials
 - Selector: `@keyframes testimonial-scroll` / `style.css` line 925
 - **Found:** QA cycle 6 Playwright measurement.
 - With 10 flex cards and `gap: 24px`, the track `scrollWidth = 3216px` (9 gaps × 24px + 10 × 300px). `translateX(-50%)` = -1608px. But the actual offset from card[0] to card[5] (first duplicate) is **1620px** (5 card-widths + 5 gaps between them, including the gap before the duplicate). The animation falls 12px short of the loop boundary every cycle — creating a 12px stutter visible on all viewports.
 - At 1440px: same 12px discrepancy (card=440px, 5×440+5×24=2320, halfW=2308).
 - **Fix (Builder cycle 7):** Added `padding-right: 24px` to `.testimonials-track` (style.css line 919) and mirrored in mobile override (line 1684). scrollWidth goes 3216→3240, halfWidth=1620 = exact card[0]→card[5] distance. Loop seam closed.
+- **Verified (QA cycle 7 Playwright):**
+  - 375px: scrollW=3240px halfW=1620px exact=1620px delta=0px — EXACT MATCH
+  - 414px: scrollW=3240px halfW=1620px exact=1620px delta=0px — EXACT MATCH
+  - 768px: scrollW=3240px halfW=1620px exact=1620px delta=0px — EXACT MATCH
+  - 1440px: scrollW=4640px halfW=2320px exact=2320px delta=0px — EXACT MATCH (cardW=440px at desktop)
+  - Direct measurement card[0]→card[5]: 375px=1620px, 414px=1620px, 768px=1620px, 1440px=2320px — all match halfWidth exactly
+  - padding-right=24px confirmed in computed style across all viewports
+  - Zero console errors across all viewports. Bug #28 is fully closed.
