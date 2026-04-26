@@ -367,3 +367,32 @@
 ## 2026-04-26 — Spark (cycle 8)
 
 2026-04-26 spark — Frame A: logo weight/size drama (500 1.25rem → 700 1.5rem) + copper center-expand underline on nav links replacing plain color swap hover, scrolled hairline border upgraded to copper rgba(207,139,103,0.4), CTA border-radius 2px→0 (craft-stamp square), mobile nav letter-spacing matched 0.08em→0.12em, ref SCOUT Finding 1 (editorial hand-set caption — deliberate typographic presence applied to maker logo), replaced plain .nav-links a:hover color-only rule (underline now carries the hover signal)
+
+## 2026-04-26 — Pixel (cycle 8)
+
+**Footer visual refinement:**
+- `footer` border-top upgraded from faint cream `rgba(247,242,236,0.08)` to copper `rgba(207,139,103,0.35)` — matches Spark's scrolled-nav copper hairline, ties header/footer identity
+- `.footer-bottom` internal border-top: cream 0.08 → copper `rgba(207,139,103,0.2)` — subtle copper separator between content grid and copyright strip
+- `.footer-brand-name` font-weight: 500 → 700 — matches nav logo weight bump from Spark cycle 8 (both are "Made by Molly" in Playfair Display)
+- `.footer-col-title` font-size: 0.75rem → 0.875rem, letter-spacing: 0.2em → 0.18em — aligns with section-label system, was the only element in the footer still at 12px
+
+**Bug #17 (12px labels) — CLOSED:**
+- `.section-label` font-size: 0.8rem → 0.875rem (14px), letter-spacing: 0.22em → 0.18em
+- `.footer-col-title` font-size: 0.75rem → 0.875rem (14px), letter-spacing: 0.2em → 0.18em
+- `.hero-eyebrow` font-size: 0.75rem → 0.8125rem (13px), letter-spacing: 0.2em → 0.18em
+- Exceptions documented in BUGS.md: disclaimer left at 0.75rem (carousel cooldown), footer-copy/footer-made/author-location already at 13px
+
+**Bug #21 (process arrow snap) — CANNOT FIX, left open:**
+- `.process-fp-closing-arrow` element absent from index.html. Panel 4 HTML has no arrow element. QA cycle 7 confirmed "element absent in headless." Adding a transition to a non-existent selector has zero effect. Builder must add the element before this bug can be fixed. Full rationale added to BUGS.md #21.
+
+**Mobile center-alignment sweep (375px + 414px) — post Performance + Spark cycle 8:**
+- Nav logo (after Spark: 1.5rem 700 weight): `justify-content: space-between` flex layout, logo left / hamburger right — correct pattern for mobile nav, no centering regression. Fits 375px at 20px side padding with clearance.
+- Mobile nav overlay: `.mobile-nav-links a { justify-content: center; text-align: center }` — links centered full-screen — aligned.
+- Mood rows (after Performance srcset): visual position unchanged, srcset only affects image file selection, CSS clip-path animation unchanged — aligned.
+- Hero inset (after Performance fetchpriority + preload): `display: none` on mobile via CSS, empty `<source>` skips download — no visual change on mobile — aligned.
+- Footer (after this cycle's refinement): copper hairlines are `border` properties only, no layout change. Mobile grid `1fr` + `text-align: center` from cycle 4 still intact — aligned.
+- All other sections (spot check): Section-label font-size bump 0.8→0.875rem adds ~0.6px height per label — negligible layout impact at all viewports. All section headers confirmed centered via prior sweeps.
+
+**Files:** style.css (5 edits), BUGS.md (#17 closed, #21 rationale added)
+
+2026-04-26 pixel — footer copper hairlines + brand-name weight 700 + col-title 14px; Bug #17 closed (section-label/hero-eyebrow/footer-col-title bumped); Bug #21 left open (arrow element absent from HTML); alignment sweep 375+414px PASS all sections

@@ -203,9 +203,9 @@ nav.scrolled .nav-cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--copper);
   margin-bottom: 24px;
@@ -346,9 +346,9 @@ nav.scrolled .nav-cta {
    SECTION SHARED
    ============================================ */
 .section-label {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--copper);
   margin-bottom: 14px;
@@ -1234,7 +1234,7 @@ nav.scrolled .nav-cta {
    ============================================ */
 footer {
   background: var(--espresso);
-  border-top: 1px solid rgba(247,242,236,0.08);
+  border-top: 1px solid rgba(207,139,103,0.35);
   padding: 60px 40px 36px;
 }
 .footer-inner {
@@ -1248,7 +1248,7 @@ footer {
 .footer-brand-name {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--cream);
   margin-bottom: 14px;
 }
@@ -1276,9 +1276,9 @@ footer {
 }
 .social-link:hover { border-color: var(--copper); color: var(--copper); }
 .footer-col-title {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--copper);
   margin-bottom: 20px;
@@ -1296,7 +1296,7 @@ footer {
 }
 .footer-links a:hover { color: var(--cream); }
 .footer-bottom {
-  border-top: 1px solid rgba(247,242,236,0.08);
+  border-top: 1px solid rgba(207,139,103,0.2);
   padding-top: 28px;
   display: flex;
   align-items: center;

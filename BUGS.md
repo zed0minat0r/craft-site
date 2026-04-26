@@ -1,7 +1,7 @@
 # Bug Report — Made by Molly
-**Tested:** 2026-04-26 at 375px + 414px + 768px + 1440px (latest: cycle 7 QA Playwright pass)
+**Tested:** 2026-04-26 at 375px + 414px + 768px + 1440px (latest: cycle 8 Pixel pass)
 **Branch:** main
-**Total bugs:** 16 open (18 closed: #4/#5/#6/#7/#8/#9/#10/#11/#13/#15/#16/#18/#19/#22/#24/#25/#26/#28)
+**Total bugs:** 15 open (19 closed: #4/#5/#6/#7/#8/#9/#10/#11/#13/#15/#16/#17/#18/#19/#22/#24/#25/#26/#28)
 
 ---
 
@@ -108,9 +108,10 @@
 
 ## LOW (nice-to-have fixes)
 
-**17. Multiple elements use font-size 0.75rem (12px) — at the legal minimum, risky on text-only labels**
+**17. ~~Multiple elements use font-size 0.75rem (12px) — at the legal minimum, risky on text-only labels~~ CLOSED**
 - Selectors: `.section-label`, `.hero-eyebrow`, `.author-location`, `.testimonials-disclaimer`, `.footer-copy`, `.footer-made`, `.footer-col-title`
 - All at exactly 12px. While technically at the 12px guideline minimum, WCAG recommends 14px+ for body text. These are all informational labels, not decorative, and are especially small on mobile. The disclaimer text at 12px with `opacity: 0.7` on a dark background is particularly low-contrast.
+- **Fix (cycle 8, Pixel):** `.section-label` bumped 0.8rem → 0.875rem (14px), letter-spacing 0.22em → 0.18em. `.footer-col-title` bumped 0.75rem → 0.875rem (14px), letter-spacing 0.2em → 0.18em. `.hero-eyebrow` bumped 0.75rem → 0.8125rem (13px), letter-spacing 0.2em → 0.18em. Exceptions: `.testimonials-disclaimer` left at 0.75rem (carousel mechanics cooldown, bump risks layout shift in scroll track context); `.footer-copy`/`.footer-made` already at 0.8125rem (13px, above minimum); `.author-location` at 0.8125rem (13px, above minimum). style.css updated.
 
 **18. ~~Nav logo (`href="#"`) scrolls to top via browser jump, not smooth scroll~~ CLOSED**
 - Selector: `a[href="#"].nav-logo`
@@ -130,6 +131,7 @@
 - Section: Process (panel 4 closing)
 - Selector: `.process-fp-closing-arrow` / `style.css` lines 639–656
 - Normal state: `animation: arrowBob 2.5s infinite` (bounces 0→6px→0). On hover: `animation: none; transform: translateY(3px)`. When user first hovers, the transition goes from mid-bob position directly to `translateY(3px)` — can snap. On hover-off: returns to bob from `translateY(3px)` position.
+- **Status (cycle 8, Pixel):** CANNOT FIX — `.process-fp-closing-arrow` element is absent from the HTML. Panel 4 (`#fp-4`) in index.html contains only `.process-fp-bg`, `.process-fp-overlay--dark`, and `.process-fp-content` (num + title + desc). No arrow element is rendered. QA cycle 7 Playwright confirmed "element absent from process panel 4 in headless." A transition rule on a non-existent selector has zero effect. To fix: Builder must add the arrow element to index.html and the `arrowBob` keyframe + hover rule to style.css; then `transition: transform 0.3s ease` can be applied.
 
 **22. ~~Contact section: two consecutive `reveal from-bottom` elements animate independently — jarring on mobile~~ CLOSED**
 - Section: Contact
