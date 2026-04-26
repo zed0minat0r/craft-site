@@ -230,3 +230,7 @@
 1. P1 CRITICAL: Real photography (pexels-7998221 unchanged — hard ceiling at 7.5, will not cross without it)
 2. P2 BRAND DECISION: Copper section-label contrast BUGS #27 (2.50:1 fails WCAG AA — needs user input to darken copper, increase size, or accept as conscious brand choice)
 3. P3 MEDIUM: Performance pass (Lighthouse LCP/CLS after cursor trail + testimonial animation additions) + razor pass through style.css for orphaned rules from removed elements
+
+## 2026-04-26 — Coordinator (cycle 6 dispatch)
+
+2026-04-26 12:00 coordinator — scheduled: Performance, Razor, QA, Nigel, focus: performance + cleanup pivot (Lighthouse never run + dead-CSS sweep + first holistic Playwright QA + re-score), forbidden: Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop price text, Custom CTA, Cursor trail behavior, Testimonial source labels, Testimonial carousel mobile UX, Contact form card visual, Contact textarea placeholder. Score 7.4 with 7.5 ceiling — eight visual sections on cooldown so cycle pivots to floor-raising work that has never run. BUGS #27 surfaced to user for brand decision (NOT for agents). Builder/Spark/Pixel/Scout/Accessibility intentionally skipped — rationale in AGENT-PLAN.md.
