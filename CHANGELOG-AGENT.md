@@ -337,3 +337,7 @@
 ## 2026-04-26 — QA (cycle 7)
 
 2026-04-26 qa — 375px/414px/768px/1440px tested, 3 bugs closed (#8/#19/#28), 0 new bugs found; Bug #28 VERIFIED CLOSED: scrollWidth=3240 halfW=1620 exact card0→card5=1620px delta=0px all viewports; #8 VERIFIED CLOSED: CSS already correct (inset 0 0 100% 0); #19 VERIFIED CLOSED: aria-hidden items display:none on mobile; #17 still open (12px labels, unchanged); #21 still open (arrow snap, element absent from process panel 4 in headless); center alignment PASS at 375+414; zero console errors all viewports
+
+## 2026-04-26 — Nigel (cycle 7)
+
+2026-04-26 04:28 nigel — focus axis: conversion-friction, top issue: photography ceiling reached at 7.5; Bug #28 (testimonial stutter) closed + mobile LCP 8.1s→6.4s confirmed; next unlock requires original maker/product photography

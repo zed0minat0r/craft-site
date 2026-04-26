@@ -1,8 +1,8 @@
 # AUDIT — Made by Molly
 **Auditor:** Nigel
-**Date:** 2026-04-26 (cycle 6)
+**Date:** 2026-04-26 (cycle 7)
 **Focus axis:** Conversion friction
-**Score:** 7.4 / 10
+**Score:** 7.5 / 10
 
 ---
 
@@ -16,24 +16,15 @@
 
 ## Overall Verdict
 
-Cycle 6 was a floor-raising pivot — performance, dead-CSS removal, and the first holistic Playwright QA pass. None of this is visible to a sighted buyer doing a 30-second scan. The score holds at 7.4.
+Cycle 7 closed two genuine conversion-friction items that were measurable in prior cycles: the testimonial loop stutter (Bug #28) and confirmed mobile LCP reduction. The score ticks from 7.4 to 7.5 — the cap.
 
-The most conversion-relevant change of the cycle is the deferred `main.js` combined with font preloads and the empty-srcset mobile hero inset wrap. On a prior audit the mobile Lighthouse LCP was 8.1s — a figure well above the bounce threshold for a buyer arriving on cellular. Removing the synchronous render-blocking JS (179ms flagged savings) and eliminating the three woff2 font-swap delays together materially improve time-to-first-meaningful-interaction on mobile. For a buyer who would have bounced before reading the hero, this is conversion-relevant — not purely technical. I am acknowledging it as genuine without inflating the score, because I cannot confirm the final measured LCP without a re-run Lighthouse pass (Performance agent noted propagation time needed; score is an expectation, not a confirmed result).
+**Bug #28 closed.** The testimonials carousel had a visible 12px seam on every loop cycle at all four viewports. A buyer reading trust content was watching the band glitch every few seconds. QA verified scrollWidth now lands exactly at the card boundary (delta = 0px across 375/414/768/1440). This is conversion-relevant: trust sections that visibly malfunction undermine the signal they are supposed to send. The stutter is gone.
 
-The desktop CLS drop from 0.171 to approximately zero (font preloads + `contain: layout size` on the hero pseudo-element) eliminates the watermark text-swap jump that buyers on desktop experienced at first load. A visible element jumping on page load is a quality-perception signal that reads as "unfinished site" to a prospective buyer. This is now gone.
+**Mobile LCP confirmed: 8.1s to 6.4s (-21%).** Cycle 6 shipped the performance fixes but could not re-run Lighthouse. Cycle 7 confirmed the numbers. A 1.7s LCP reduction on mobile is material — the bounce threshold on cellular is approximately 3–5 seconds, and a buyer arriving from a craft-show postcard QR code is on a phone. 6.4s is still above the 3s ideal but the trajectory is correct and the improvement is real. Desktop LCP halved (1.6s to 0.8s). Desktop CLS eliminated (0.171 to 0.009).
 
-The favicon 404 fix (Best Practices score was 73 — low) is invisible to buyers but closes a developer-visible console error that would have undermined credibility for any technically-minded buyer reviewing source.
+**Score still caps at 7.5.** Mobile Performance at 74 means the cold cellular load is still sluggish — Google Fonts CSS is render-blocking (530ms flagged) and Pexels mood-row images are oversized on mobile (276KB flagged). These are live friction points for a buyer arriving on a budget phone with variable signal. Photography is still the single largest trust gap. `pexels-7998221` appears in the About section and the closing Process panel across all seven cycles without change.
 
-The Razor pass removed 86 bytes of dead CSS. Bug #23 closed as won't-fix with correct analysis.
-
-The QA pass verified seven previously-fixed bugs are genuinely closed and found one new genuine issue: Bug #28 — the testimonials loop has a 12px seam per cycle (scrollWidth midpoint does not land at a card boundary). The stutter was present before cycle 6 and is unchanged by this cycle. Its discovery is positive — better to know than not — but the stutter itself is a live defect that a buyer reading testimonials on any viewport can perceive. It has a one-line fix (padding-right: 24px on `.testimonials-track`) landing cycle 7.
-
-The score does not advance to 7.5 because:
-1. `pexels-7998221` is unchanged in About and the closing Process panel — hard photography ceiling.
-2. Bug #28 (12px testimonial stutter) is a live defect on the trust section, not yet fixed.
-3. Mobile LCP improvement is genuine but unconfirmed in magnitude — holding until a re-run Lighthouse score validates it.
-
-Score ceiling: 7.5. Will not cross without original photography.
+This is the photography ceiling. Until original maker or product photography lands, this site cannot cross 7.5 from a real buyer's perspective. A bespoke artisan textile site using stock photography of a person who is not the maker is a credibility gap no amount of performance tuning can paper over.
 
 ---
 
@@ -41,25 +32,25 @@ Score ceiling: 7.5. Will not cross without original photography.
 
 ### 1. Hero (7.5/10)
 
-No change from cycle 5. Desktop CLS eliminated (watermark text-swap gone) — first-load quality perception improved. Ken Burns + copper breathe holds. Sub-copy still leads with negatives. Two near-equal CTAs still split intent.
+Desktop CLS eliminated — first-load watermark text-swap jump is gone. Ken Burns + copper breathe holds. Sub-copy still leads with negatives. Two near-equal CTAs still split buyer intent. No change from cycle 6.
 
 ---
 
 ### 2. Shop by Mood / Collection (7.0/10)
 
-No change from cycle 5. Price ranges hold. `mood-time` italic walnut at 13px remains the least legible element in the section.
+No change. Price ranges hold. `mood-time` italic walnut at 13px remains the least legible element in the section. Mood-row images flagged as oversized on mobile (P2 for cycle 8).
 
 ---
 
 ### 3. The Process — Sticky Scroll (7.3/10)
 
-No change from cycle 5. Vertical centering consistent. Closing panel still a dead-end with no forward link. Closing panel still uses `pexels-7998221`.
+No change. Vertical centering consistent. Closing panel still a dead-end with no forward link. Closing panel still uses `pexels-7998221`.
 
 ---
 
 ### 4. About the Maker (7.8/10)
 
-No change from cycle 5. "Pennsylvania Studio" caption strip, L-bracket corner marks, 2.1rem signature all hold. Image is still `pexels-7998221`. Stock image repeated across both About and closing Process panel remains the single most trust-damaging element on the page.
+No change. "Pennsylvania Studio" caption strip, L-bracket corner marks, 2.1rem signature all hold. Image is still `pexels-7998221`. Stock image in About remains the single most trust-damaging element on the page — this is the face buyers associate with the maker.
 
 ---
 
@@ -71,57 +62,57 @@ No change. All stock imagery. No finished product visible. Pull quote unattribut
 
 ### 6. Custom CTA (7.2/10)
 
-No change from cycle 5. Spark Frame B spacing hierarchy holds. Trust strip has no shipping or returns commitment. "Hand-finished in Pennsylvania" is an origin claim, not a risk-reduction signal.
+No change. Trust strip has no shipping or returns commitment. "Hand-finished in Pennsylvania" is an origin claim, not a risk-reduction signal.
 
 ---
 
-### 7. Testimonials (7.3/10)
+### 7. Testimonials (7.4/10)
 
-No change from cycle 5 in implemented features. Bug #28 newly identified this cycle: 12px loop seam per cycle because `translateX(-50%)` = −1608px but the card0→card5 distance is 1620px. Fix is one line — deferred to cycle 7. The stutter was pre-existing but is now documented. A buyer reading testimonials on any viewport sees a small but perceptible loop jump on every cycle. Holds at 7.3; would tick up to 7.4 on Bug #28 fix.
+Bug #28 closed. The 12px loop seam is gone — QA verified delta = 0px at all four viewports across two full loop cycles each. Dot indicators tracking correctly post-fix. Center alignment at 375px holds. Touch UX (pause/resume, 50px swipe, dot tracking) unaffected by the padding-right change. Section ticks from 7.3 to 7.4. Honest attribution still holds from cycle 4.
 
 ---
 
 ### 8. Contact / Form (7.7/10)
 
-No change from cycle 5. Blockquote trust note, directive placeholder, L-bracket marks all hold.
+No change. Blockquote trust note, directive placeholder, L-bracket marks all hold. No form success state — confirmation experience is still absent.
 
 ---
 
-### 9. Mobile UX — Holistic (7.2/10)
+### 9. Mobile UX — Holistic (7.3/10)
 
-No change from cycle 5 in rendered output. Performance improvements (deferred main.js, font preloads, empty-srcset hero inset) are mobile-load-relevant but not visible in the rendered page for a buyer already loaded. Score holds pending Lighthouse re-run confirmation.
+Confirmed Mobile LCP 8.1s to 6.4s (-21%), Mobile FCP 2.8s to 1.5s (-46%). These are real buyer-perception improvements on cellular. However, Mobile Performance score 74 (floor target: 90) means Google Fonts CSS render-blocking and Pexels image sizing are still live friction. Section ticks from 7.2 to 7.3 on confirmed numbers. Does not reach 7.5 because cold cellular load is still sluggish above the bounce threshold.
 
 ---
 
 ### 10. Brand Cohesion / Photography (5.7/10)
 
-No change from cycle 5. `pexels-7998221` unchanged. Cursor trail holds. Original photography remains the single highest-leverage change available to this site.
+No change. `pexels-7998221` unchanged. Cursor trail holds. Photography ceiling unchanged. This section score does not move without original imagery.
 
 ---
 
-## Priority List — Top 3 (Cycle 7)
+## Priority List — Top 3 (Cycle 8)
 
 ### Priority 1 — CRITICAL: Real photography is the score ceiling
 
-`pexels-7998221` in the About section and closing Process panel is unchanged across six cycles. Hard cap at 7.5 until original photography lands. One authentic image of a finished product or the maker at work is worth more to conversion than any remaining code change.
+`pexels-7998221` in the About section and closing Process panel is unchanged across seven cycles. Hard cap at 7.5 until original photography lands. One authentic image of the maker at work — or a finished product — is the single highest-leverage change available to this site. When ready, this unlocks Scout's Layered Telescope-Zoom sequence and moves the score trajectory toward 8.0.
 
-### Priority 2 — HIGH: Bug #28 — Testimonial loop 12px stutter (one-line fix)
+### Priority 2 — HIGH: Mobile performance push (Google Fonts render-blocking + mood-row image sizing)
 
-`padding-right: 24px` on `.testimonials-track` sets scrollWidth from 3216 to 3240, making the midpoint land exactly at a card boundary. The fix takes one line and closes a live defect on the trust section. This is Builder work — zero risk, high reward, deferred only because testimonials were on cooldown in cycle 6.
+Google Fonts CSS is render-blocking 530ms on mobile. Mood-row images are 276KB each on mobile — flagged as oversized. These two changes together would push Mobile Performance from 74 toward 90 (the stated floor). Concrete paths: inline critical font-face declarations and preload swap (eliminates render-blocking CSS request), and add `srcset` / `sizes` on mood-row `<img>` elements to serve appropriately sized images on mobile. Neither touches a cooled visual section. Builder work.
 
-### Priority 3 — MEDIUM: Bug #27 — Copper section-label contrast (brand decision needed)
+### Priority 3 — MEDIUM: Bug #27 — Copper section-label contrast (user brand decision needed)
 
-Copper section-labels on cream background measure 2.50:1 — failing WCAG AA for small text (0.8rem). The agent team cannot resolve this without a user brand decision: darken the copper slightly, increase font size, or accept as conscious brand choice. Needs user input.
+Copper section-labels on cream background measure 2.50:1, failing WCAG AA for small text (0.8rem, 12.8px). Three options for the user to choose: (a) darken copper slightly for label use only (e.g. `#b87040`), (b) bump label font-size to 14px or higher, (c) accept as a conscious brand choice. Agents cannot resolve this without a user decision — surfacing it as an input-needed item for cycle 8 planning.
 
 ---
 
-## What Would Move This to 7.5+
+## What Would Move This to 8.0
 
-1. One real original product photograph replacing `pexels-7998221` in the About section.
-2. Bug #28 fix (testimonial loop seam — one line, cycle 7).
-3. Copper section-label contrast brand decision (BUGS #27).
-4. Back-to-top affordance for mobile (page is 12–14 viewport lengths).
-5. Contact form success state — a confirmation experience that matches the form quality.
+1. One real original product or maker photograph replacing `pexels-7998221` in About and the closing Process panel (unlocks 7.5 ceiling and trajectory toward 8.0).
+2. Mobile Performance 74 to 90+ (Google Fonts inlining + mood-row srcset).
+3. Contact form success state — a confirmation experience that matches the existing form quality.
+4. Back-to-top affordance for mobile — the page is 12–14 viewport lengths on a 375px screen.
+5. Bug #27 copper contrast resolved (user brand decision needed).
 
 ---
 
@@ -135,7 +126,8 @@ Copper section-labels on cream background measure 2.50:1 — failing WCAG AA for
 | 2026-04-26 | 4 | 7.3 | conversion-friction | pexels-7998221 unchanged; testimonial honest-attribution pass resolves credibility dissonance |
 | 2026-04-26 | 5 | 7.4 | conversion-friction | testimonials mobile touch UX + contact card trust-note relocation earned +0.1; pexels-7998221 still score ceiling |
 | 2026-04-26 | 6 | 7.4 | conversion-friction | floor-raising cycle (perf/razor/QA) mostly invisible to buyer scan; mobile LCP improvement real but unconfirmed in magnitude; Bug #28 newly surfaced (12px testimonial stutter, fix cycle 7) |
+| 2026-04-26 | 7 | 7.5 | conversion-friction | Bug #28 closed (testimonial stutter gone) + mobile LCP 8.1s→6.4s confirmed; photography ceiling reached at 7.5 |
 
 ---
 
-*Score: 7.4 — Cycle 6 was infrastructure, not conversion. Performance improvements (deferred JS, font preloads, favicon, empty-srcset hero) raise the quality floor and materially improve mobile load time, but cannot be confirmed in magnitude without a Lighthouse re-run. Bug #28 is a live defect on the trust section, now documented. Photography ceiling unchanged.*
+*Score: 7.5 — Photography ceiling reached. Bug #28 (visible testimonial stutter on trust section) closed; mobile LCP 8.1s→6.4s confirmed via Lighthouse re-run. Mobile Performance 74 and pexels-7998221 in About+Process are the two remaining live conversion-friction blockers. Score cannot advance past 7.5 without original photography.*
