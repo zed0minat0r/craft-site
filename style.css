@@ -1529,9 +1529,19 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .shop-mood-header { padding: 0 24px 48px; text-align: center; }
   .mood-row { grid-template-columns: 1fr; min-height: unset; }
   .mood-row.reverse { direction: ltr; }
-  .mood-photo { height: 280px; }
+  /* Bug #8: mobile wipe-in rises upward — inset clips from bottom, scroll direction match */
+  .mood-photo {
+    height: 280px;
+    clip-path: inset(0 0 100% 0);
+    transition:
+      opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      filter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+      clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mood-row.reveal-glow .mood-photo { clip-path: inset(0 0 0 0); }
   .mood-text { padding: 36px 24px; align-items: center; text-align: center; }
-  /* All accent bars on same side on single-column mobile */
+  /* Bug #14: all accent bars on same side on single-column mobile */
   .mood-row.reverse .mood-text::before { left: 0; right: auto; }
   .mood-desc { max-width: 100%; }
   .btn-walnut { align-self: center; }

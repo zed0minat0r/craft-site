@@ -34,3 +34,25 @@
   - CSS: `.testimonials-disclaimer` softened from `opacity: 0.7 / font-size: 0.8125rem` to `opacity: 0.45 / font-size: 0.75rem` — present for honesty, visually receded so it does not compete with card content.
   - Bug #12 fix: `.testimonials-track` padding changed from `0 40px 12px` to `0 0 12px`. The left 40px padding was creating width asymmetry on the `max-content` track, causing the `translateX(-50%)` seamless loop to jump on narrow (375px) viewports. Removed in both desktop and mobile media query overrides.
 - **Replaced:** The author-block source label (bottom of card, below name/location) was removed and replaced by the top-of-card rating-row version. No net addition — one label per card, repositioned.
+
+## 2026-04-25 — Pixel (cycle 2)
+
+**Mobile center-alignment sweep (375px + 414px):**
+- Hero (headline, subhead, CTA stack): centered via .hero-content text-align:center + .hero-actions justify-content:center on mobile — aligned
+- Mood rows (text + accent bar): Bug #14 confirmed fixed (line 1545 .mood-row.reverse .mood-text::before left:0 right:auto) — all 3 bars left-aligned on single-column — aligned
+- Mood photo wipe-in: Bug #8 implemented — added mobile clip-path inset(0 0 100% 0) initial state + clip-path inset(0 0 0 0) on reveal-glow, rises upward on scroll — fixed
+- Process panels (horizontal scroll-lock): .process-fp-content left:0 right:0 text-align:center align-items:center on mobile — aligned; snap not at risk (runway 300vh, no changes made) — aligned
+- Studio strip: on cooldown — not touched. No alignment issues visible from CSS audit.
+- Custom-CTA trust strip: .custom-cta text-align:center at base + padding:80px 24px mobile; inner max-width:700px margin:0 auto — aligned
+- Testimonials (Spark's rating-row): .testimonial-rating-row flex space-between; at 300px card width stars (~88px) + badge (~72px) well under card width, no wrap — aligned
+- Contact form + trust block: .contact-trust margin:0 auto text-align:center; .contact-inner max-width:660px margin:0 auto — aligned; form fields left-aligned (correct UX)
+- Footer (top + bottom row): .footer-inner grid 1fr text-align:center; .footer-bottom justify-content:center — aligned
+- Nav / sticky elements: nav-logo min-height:44px, nav-cta min-height:44px, btn-walnut min-height:44px, process-dot min-height:44px — tap targets passing
+
+**Bugs fixed this cycle:**
+- Bug #8: mood-photo mobile wipe-in direction corrected (upward rise via clip-path, mobile-only, prefers-reduced-motion safe)
+- Bug #14: already fixed in prior cycle — confirmed present and correct
+
+**Files touched:** style.css (1 edit in @media max-width:768px block)
+
+2026-04-25 14:00 pixel — mood-photo mobile wipe-in clip-path direction fixed (rises up, Bug #8); full alignment sweep 375/414px all sections confirmed
