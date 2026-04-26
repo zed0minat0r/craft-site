@@ -1,8 +1,8 @@
 # AUDIT — Made by Molly
-**Auditor:** Nigel  
-**Date:** 2026-04-25  
-**Focus axis:** Conversion friction  
-**Score:** 6.8 / 10
+**Auditor:** Nigel
+**Date:** 2026-04-25 (cycle 2)
+**Focus axis:** Conversion friction
+**Score:** 7.0 / 10
 
 ---
 
@@ -16,9 +16,9 @@
 
 ## Overall Verdict
 
-The site is visually accomplished for a single-page artisan build. The scroll experience, typography pairing, and colour palette are clearly above average craft — Playfair + DM Sans in cream/espresso/copper reads as intentional and appropriate. However, evaluated purely through the lens of whether a stranger reading this site will actually send an inquiry, several friction points bleed the site below the 7.0 threshold.
+Cycle 2 delivered three genuine quality improvements: the testimonials source label is now a copper pill-badge paired flush-right with the star row (structural gain), the mobile mood photo wipe-in direction is corrected, and the carousel seamless-loop padding fix resolves a visible jump on narrow viewports. The About section CTA was already present in HEAD (a prior audit oversight — it is there, it is wired, it is good).
 
-The site is better than a generic Squarespace template but not yet at the level where it removes every hesitation a prospective buyer carries into the page. It earns a 6.8.
+The net result is a site that now reads more credibly in the testimonials block and moves more cleanly on mobile. However, the trust ceiling imposed by stock photography, unverifiable review sources, and price range ambiguity has not moved. A prospective buyer in 90 seconds will still ask "is this a real shop?" and not find a definitive answer. The score moves from 6.8 to 7.0 — we are now at "better than most competitors" but have not yet reached "I would choose this over alternatives."
 
 ---
 
@@ -74,9 +74,9 @@ The site is better than a generic Squarespace template but not yet at the level 
 - The about copy is the strongest writing on the site. "Textile art you actually want to live with" and "every seam sewn with intention" are specific and confident without being precious.
 - Photo frame with copper accent, "Pennsylvania Studio" tag, and Molly signature together create a convincing personal voice.
 - The grid proportion (5fr/7fr photo-to-text) is unconventional in a good way — the text dominates, which is right for a maker whose personality is the product.
+- The "Start a custom order" CTA button at the base of the About section is present, wired via `data-inquiry="custom"`, and correctly placed at the emotional peak. This was flagged as missing in cycle 1 — it is confirmed present in HEAD.
 
 **Weaknesses:**
-- The section ends with "Tell me what you're looking for and let's figure out what we can make together" — but there is no CTA button at the bottom of the About section. A reader emotionally engaged at this point has nowhere to go except scroll to the next section (Studio Strip), which is atmospherically pleasant but lowers temperature. A direct CTA here would catch a conversion moment.
 - The image used ("Hands marking and cutting fabric") is the same Pexels photo used for the Process closing panel (`pexels-7998221`). A repeat image breaks the illusion of a specific studio and a specific maker.
 
 ---
@@ -110,18 +110,26 @@ The site is better than a generic Squarespace template but not yet at the level 
 
 ---
 
-### 7. Testimonials (6.0/10)
+### 7. Testimonials (6.5/10)
+
+**Cycle 2 delta:** Moved from 6.0 to 6.5. The Spark refinement made a real structural improvement — the source label is now a copper pill-badge sitting flush-right of the stars at the top of each card. This is the correct hierarchy: rating + source as a verification row, body copy below, author at base. It reads closer to a platform stamp than it did before. Additionally, one card (Kate A.) now shows 4 stars, which is a meaningful credibility signal. The disclaimer copy is softened to opacity 0.45 and 12px — present for honesty, no longer visually competing with the card content. These are genuine gains.
+
+**Why it did not move further:** "via Etsy," "direct order," and "via Instagram" are unlinked plain text. There is no clickable Etsy shop URL, no verified checkmark icon, no review count. "Direct order" and "via Instagram" are not verifiable platforms — they are labels a site owner writes for themselves. A skeptical buyer reads all three the same way: unverified. The initial-letter avatars (R, J, S, D, K) remain unconvincing stand-ins for real people. Trust ceiling for this block without a linkable platform presence is approximately 6.5 regardless of how well the layout is executed.
 
 **Strengths:**
 - Auto-scrolling testimonials at 50s pace is slow enough to be readable on desktop.
 - Card content is specific — city names, product types, use frequency. Not boilerplate in tone.
 - The hover-pause on track is a useful desktop behaviour.
+- Spark's pill-badge + rating-row pairing reads as verification intent, which is the right signal direction.
+- Mixed star rating (4 stars on Kate A.) is more believable than uniform 5-star unanimity.
+- Disclaimer is now visually receded — present for honesty, not distracting from card content.
+- Carousel padding fix resolves the 375px seamless-loop jump. Technically clean.
 
 **Weaknesses:**
-- All five testimonials are 5-star ratings. Without a platform badge (Etsy, Google, Meta), a block of identical perfect ratings reads as fabricated. This actively undermines trust rather than building it. Even a single 4-star rating with a note would be more credible.
-- "Reviews from early customers and friends who've received my work" — this disclaimer appears directly below five perfect star ratings. It is an admission that these are not verified reviews positioned at the exact moment of maximum doubt. It does more damage than no testimonials at all for a skeptical buyer.
-- The author initials (R, J, S, K, D) with gradient letter-avatars are not convincing stand-ins for real faces. A single real photo with permission would outweigh five initial-avatars.
-- On mobile, auto-play continues with no visible controls — a user who cannot navigate back to a card they half-read will simply scroll past the section.
+- Source labels ("via Etsy," "direct order," "via Instagram") are not linked to any verifiable platform. The pill-badge styling implies verification that the underlying data does not support.
+- Four of five primary cards still show 5-star ratings. One mixed rating helps but does not change the overall impression of a curated set.
+- Initial-letter gradient avatars remain. A single real reviewer photo with permission would outweigh five initial badges.
+- On mobile, auto-play continues with no visible pause or swipe affordance.
 
 ---
 
@@ -132,6 +140,7 @@ The site is better than a generic Squarespace template but not yet at the level 
 - Form architecture is clean: name, email, inquiry type, message. No field bloat.
 - The inquiry pre-select via `data-inquiry` click linkage is genuinely smart.
 - Form submit loading state plus 12s safety reset is solid engineering.
+- The `?submitted=1` success state now correctly reveals and scrolls (Bug #2 fixed in prior cycle).
 
 **Weaknesses:**
 - `hello@madebymolly.com` as the fallback email is a placeholder — if the inbox is unmonitored, a visitor who uses the email fallback gets no response.
@@ -140,21 +149,28 @@ The site is better than a generic Squarespace template but not yet at the level 
 
 ---
 
-### 9. Mobile UX — Holistic (6.5/10)
+### 9. Mobile UX — Holistic (6.8/10)
+
+**Cycle 2 delta:** Moved from 6.5 to 6.8. The mood photo wipe-in now rises upward on scroll (Bug #8 fixed), matching scroll direction and feeling natural. The full alignment sweep at 375/414px is confirmed clean across all sections — no regressions. The carousel padding fix removes the 375px loop jump. Tap targets all pass 44px.
 
 **Strengths:**
 - 44px minimum touch targets are consistently respected throughout.
 - Horizontal overflow has been addressed. No scroll bleed observed in the markup.
 - Mobile hamburger, overlay, and close behaviour are clean and functional.
+- Mood photo wipe-in direction corrected — rises upward on scroll, which reads naturally.
+- All three mood-row accent bars are now left-aligned in single-column layout.
+- Center-alignment sweep confirmed clean at 375px and 414px.
 
 **Weaknesses:**
-- On mobile the sticky process section at 200vh means panel transitions happen at high scroll speed — there is functionally no dwell on panels 3 and 4. A user who scrolls at a moderate pace will cycle through all four panels in under 4 seconds.
+- On mobile the sticky process section at 200vh means panel transitions happen at high scroll speed — there is functionally no dwell on panels 3 and 4.
 - There is no back-to-top affordance. A single-page site this tall (approximately 12–14 viewport lengths on mobile) has no recovery path for a user who passes a CTA.
 - The testimonials auto-play on mobile has no visible pause or swipe affordance.
 
 ---
 
 ### 10. Brand Cohesion / Photography (5.5/10)
+
+No change from cycle 1. This is the score ceiling for the entire site. Until real product photography replaces stock imagery, this section anchors the overall score below 7.5.
 
 **Strengths:**
 - The Pexels image selection is on-theme (fabric, sewing, patchwork) and avoids obviously generic stock clichés.
@@ -167,28 +183,37 @@ The site is better than a generic Squarespace template but not yet at the level 
 
 ---
 
-## Priority List — Top 3
+## Priority List — Top 3 (Cycle 3)
 
-### Priority 1 — CRITICAL: Repair testimonial credibility
-The disclaimered block of five perfect ratings is the single most trust-damaging element on the page. Add a platform label ("via Etsy" or similar), vary the star ratings to include one 4-star, and move the disclaimer into a less prominent position — or remove it entirely and replace with one verified review widget. Five stars with a "friends who received my work" caveat is worse than no testimonials at all for a skeptical buyer.
+### Priority 1 — CRITICAL: Real photography is the score ceiling
+Stock photography and the repeated `pexels-7998221` image are the single largest trust blocker remaining. No amount of layout refinement will move this site past 7.5 while every image could belong to any other artisan brand. Minimum viable step: replace the repeated image in the About section with any original photograph of Molly or her actual products. One real image of a finished bag or quilt would do more conversion work than any remaining code change.
 
-### Priority 2 — HIGH: Add a CTA at the bottom of the About section
-The emotional peak of the page (About copy, personal tone, Molly signature) has no action path. A reader primed by "I make things that outlast the trend they were bought in" needs a button immediately below — "Start a custom order" or "Tell me what you need." This is a missed conversion moment that costs one button element to fix.
+### Priority 2 — HIGH: Fix price range ambiguity in the Shop rows
+"Starting from $75" for bags creates open-ended price anxiety. Adding an upper bound or second anchor ("Market bags $75–$95 / Structured totes from $140") allows a buyer to gauge budget fit before committing to the contact form. Without an upper bound, "starting from" implies unlimited price — a stop signal rather than a proceed signal. This is a two-line copy change with a direct conversion impact.
 
-### Priority 3 — MEDIUM: Fix price range ambiguity in the Shop rows
-"Starting from $75" for bags creates open-ended price anxiety. Add a range or a second anchor ("Structured totes $75–$180 / Market bags $75–$95") so a buyer can estimate whether the piece fits their budget before investing time in the form. Without an upper bound, "starting from" implies unlimited price, which is a stop signal rather than a proceed signal.
+### Priority 3 — MEDIUM: Testimonials — link or remove the platform labels
+"via Etsy" as a pill badge implies a verifiable platform review, but there is no link to the Etsy shop, no review count, and no verified checkmark. The badge styling creates an expectation the data does not fulfil. Either link "via Etsy" to the actual Etsy shop listing (which would be a genuine trust signal) or replace the label with "custom commission client" to be straightforwardly honest without implying external verification that does not exist.
 
 ---
 
 ## What Would Move This to 7.5+
 
-1. Testimonial credibility fixed (verified source badge or mixed ratings).
-2. CTA added at the base of the About section.
-3. Price ranges added to all three shop rows.
+1. One real original product photograph (replacing `pexels-7998221` repeat in About section at minimum).
+2. Price ranges added to all three shop rows — buyers need an upper bound to proceed.
+3. Etsy shop link added to "via Etsy" source badges, or label copy adjusted to accurate phrasing.
 4. Back-to-top affordance for mobile.
-5. Trust strip third item in Custom CTA section replaced with a shipping or returns guarantee.
-6. One original product photograph replacing the most-repeated stock image.
+5. Trust strip third item in Custom CTA section replaced with a shipping or returns guarantee ("Ships to all 50 states" or "Full refund if it doesn't feel right").
+6. A visible Instagram handle in the contact or footer section — for a one-person maker brand, a live feed or @handle is the fastest "real human" signal.
 
 ---
 
-*Score: 6.8 — Visually better than most, held back by testimonial credibility failure and missed conversion moments at emotional peaks.*
+## Audit History
+
+| Date | Cycle | Score | Focus Axis | Top Issue |
+|------|-------|-------|-----------|-----------|
+| 2026-04-25 | 1 (smoke test) | 6.8 | conversion-friction | Disclaimered block of 5 perfect ratings actively destroys trust |
+| 2026-04-25 | 2 | 7.0 | conversion-friction | Stock photography is the score ceiling; testimonials improved but unverified |
+
+---
+
+*Score: 7.0 — Better than most competitors. Held back by stock photography, unverifiable review sources, and price ambiguity. Testimonials credibility improved meaningfully via Spark cycle 2; About CTA confirmed present. Real photography is now the primary blocker.*

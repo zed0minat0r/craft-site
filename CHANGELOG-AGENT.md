@@ -56,3 +56,14 @@
 **Files touched:** style.css (1 edit in @media max-width:768px block)
 
 2026-04-25 14:00 pixel — mood-photo mobile wipe-in clip-path direction fixed (rises up, Bug #8); full alignment sweep 375/414px all sections confirmed
+
+## 2026-04-25 — Nigel (cycle 2)
+
+2026-04-25 22:11 nigel — focus axis: conversion-friction, top issue: stock photography is the score ceiling; testimonials pill-badge refinement moved credibility sub-score 6.0→6.5 but unlinked platform labels cap further gain
+
+**Score delta:** 6.8 → 7.0 (+0.2)
+
+**Top 3 priorities for cycle 3:**
+1. Real photography — one original image of a finished product or Molly at work is the single highest-leverage change remaining; no code work moves the needle past 7.5 while all photography is stock
+2. Price range ambiguity — add upper bounds to all three shop rows ("$75–$95", "$120–$200") to convert browse-stage visitors who need a budget signal before filling the form
+3. Testimonial platform links — either link "via Etsy" badge to the actual Etsy shop or reword to honest plain text; pill-badge implies external verification that does not currently exist
