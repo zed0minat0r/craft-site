@@ -225,11 +225,14 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
 
   form.addEventListener('submit', function() {
     btn.disabled = true;
-    btn.textContent = 'Sending...';
-    // Safety reset: re-enable button after 12s in case of network error
+    btn.classList.add('is-sending');
+    btn.innerHTML = '<em>Sending…</em>';
+    // Safety reset (BUGS #20): re-enable button after 12s if redirect never
+    // comes back — e.g. network error or Formspree outage — so buyer can retry.
     setTimeout(function() {
       if (btn.disabled) {
         btn.disabled = false;
+        btn.classList.remove('is-sending');
         btn.textContent = 'Send Message';
       }
     }, 12000);

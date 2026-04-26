@@ -500,6 +500,15 @@
 
 2026-04-26 08:16 pixel — .about-location-tag 11.2px→13px (a11y fix); .testimonial-source 10.8px→13px (a11y fix, mobile flex-wrap added to prevent overflow); alignment sweep 375+414px PASS all sections
 
+## 2026-04-26 — Spark (cycle 10)
+
+2026-04-26 spark — Frame A: copper sweep-underline sending state (bottom 2px keyframe L→R), italic serif "Sending…" label replaces uppercase "Send Message", ref SCOUT Finding 4 (warm trust block clarity — maker voice in every funnel touchpoint), replaced dead/wrong 12s safety reset (BUGS #20 CLOSED)
+
+- **Sending state design:** On submit, button gets `.is-sending` class. `innerHTML` swaps to `<em>Sending…</em>` — Playfair Display italic, 1rem, no text-transform. A 2px copper line sweeps left-to-right along the button's bottom edge via `@keyframes send-sweep` (1.6s cubic-bezier, infinite) — a mark, not a generic spinner. Button background stays espresso (calm, not alarming).
+- **12s safety reset (BUGS #20 CLOSED):** Prior dead code reset to "Send Message" correctly but the class was never removed, leaving the sending animation running. Fixed: `classList.remove('is-sending')` + `textContent = 'Send Message'` on timeout — button fully returns to idle state. Bug #20 closed.
+- **Files:** style.css (+32 lines: `.is-sending`, `::after`, `@keyframes send-sweep`, `em` rule), main.js (submit handler: add `.is-sending`, use `innerHTML`, wire reset correctly), style.min.css (rebuilt, +1986 bytes from 33888), BUGS.md (#20 CLOSED)
+- **Replaced:** Prior `btn.textContent = 'Sending...'` plain uppercase text (no visual identity, wrong reset copy)
+
 ## 2026-04-26 — Performance (cycle 10 re-run)
 
 2026-04-26 performance — scores: P=73(mob)/69(desk) BP=77(both) A=97(both) S=100(both), top issue: mobile LCP 7.2s (Pexels CDN cold-cache, same as cycle 9 — confirmed not a regression), fixed: 0

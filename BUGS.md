@@ -122,10 +122,11 @@
 - The 5 duplicate `aria-hidden="true"` items exist to enable the desktop CSS loop. On mobile, the animation is `none` and the strip becomes a manual scroll carousel. Users scroll through 5 real images then 5 visually identical duplicates before hitting a hard right edge. No indication the duplicates are a dead end.
 - **Fix (CSS audit cycle 7):** style.css line 1713 contains `.studio-strip-item[aria-hidden="true"] { display: none; }` inside the mobile media query. Duplicates are hidden on mobile — users see only 5 real images and reach a clean right edge. Verified cycle 7 QA: `firstHiddenDisplay=none` confirmed in Playwright measurement.
 
-**20. Form submit button: "Sending..." text never resets if Formspree returns an HTTP error**
+**20. ~~Form submit button: "Sending..." text never resets if Formspree returns an HTTP error~~ CLOSED**
 - Section: Contact form
-- Selector: `main.js` lines 181–185
+- Selector: `main.js` — submit handler
 - `btn.disabled = true; btn.textContent = 'Sending...'` on submit event, no error handling. If the network request fails (offline, Formspree down), the button stays permanently disabled and reads "Sending..." with no way to retry. No `fetch`/XHR error catch, no reset.
+- **Fix (Spark cycle 10):** 12s `setTimeout` now wired correctly: checks `btn.disabled`, calls `btn.classList.remove('is-sending')` and resets `btn.textContent = 'Send Message'` (matching actual button copy — prior dead code had the wrong label). Submit handler also adds `.is-sending` class (copper sweep underline) and uses `btn.innerHTML = '<em>Sending…</em>'` for italic serif sending label. Button re-enables cleanly on timeout. CLOSED.
 
 **21. Process closing arrow hover resets position — small visual jump**
 - Section: Process (panel 4 closing)
