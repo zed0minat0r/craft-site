@@ -1,25 +1,26 @@
-# PLAN — Cycle 1
+# PLAN — Cycle 2, Builder
 
-**One-liner:** Fix studio strip loop stutter by correcting the keyframe translateX calculation.
+**One-liner:** Verify and document BUGS.md #1/#2/#3 — all three critical/high fixes already shipped in commit 62e166c.
 
 ## What and Why
 
-AUDIT.md Priority 3 calls out a visible stutter at the loop boundary in the studio strip
-auto-scroll animation. The keyframe currently uses `calc(-270px * 5 - 20px * 4)`, which
-scrolls 5 items plus 4 gaps. But the DOM has 5 real items followed by 5 duplicates, and
-the CSS gap is 20px — including between item 5 and item 6. That means one gap is not
-accounted for, so when the animation resets to translateX(0) it jumps 20px. Fix is one
-number: change `20px * 4` to `20px * 5`.
+BUGS.md was written against commit 858d612. Commit 62e166c (a prior Builder pass) already
+shipped all three fixes:
+- Bug #1 (CRITICAL): smooth-scroll `href="#"` guard — main.js line 116
+- Bug #2 (CRITICAL): `?submitted=1` → `#form-success` reveal — main.js lines 210-219
+- Bug #3 (HIGH): Ken Burns parallax — CSS variable `--parallax-y` in main.js line 45, style.css line 142
 
-## Files
+No code changes needed this cycle. Work = audit + changelog entry.
 
-- `/Users/modica/projects/craft-site/style.css` — line 1330, @keyframes studio-scroll
+## Files Touched
+
+- None (all fixes already in HEAD)
 
 ## Expected Diff
 
-One number in one line. Before: `calc(-270px * 5 - 20px * 4)`. After: `calc(-270px * 5 - 20px * 5)`.
+None to code. Changelog entry appended to CHANGELOG-AGENT.md.
 
 ## Success Criterion
 
-The studio strip scrolls continuously on desktop with no visible jump or stutter at the
-loop boundary.
+Console clean on logo click, form success state visible on `?submitted=1`, hero Ken Burns
+scale preserved on first scroll. All verified against current HEAD.
