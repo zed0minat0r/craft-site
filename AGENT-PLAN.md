@@ -1,194 +1,167 @@
-# AGENT-PLAN — Cycle 6
+# AGENT-PLAN — Cycle 7
 
 **Date:** 2026-04-26
-**Coordinator dispatch:** cycle 6
+**Coordinator dispatch**
+**Score going in:** 7.4 (held cycle 6) | Ceiling: 7.5 without real photography
+**Focus axis:** Bug closure + performance verification (no new visual surface)
 **Live:** https://zed0minat0r.github.io/craft-site/
-**Focus axis:** Performance + cleanup (pivot — visual sections at cooldown saturation)
-**Score:** 7.4 / 10 (ceiling 7.5 without real photography)
 
 ---
 
-## Dispatch rationale
+## Rationale (one line)
 
-Score has climbed 6.8 → 7.0 → 7.2 → 7.3 → 7.4 across five cycles, gaining 0.6 entirely through additive visual + UX work. The 7.5 ceiling is hard-capped on real photography (Nigel cycles 2–5, all confirming). Of 10 sections, 8 are on cooldown this cycle — stacking another visual addition would either re-touch a cooled section or pile on (violating simplicity-over-polish memory rule).
-
-This cycle pivots to **work that has never run before**: a Performance pass (Lighthouse LCP/CLS/payload — never measured), a Razor pass (dead-CSS sweep across 5 cycles of edits), and the first holistic QA pass (Playwright at all breakpoints — Pixel has only done targeted alignment sweeps). Nigel re-scores honestly against a cleanup-improved baseline.
-
-BUGS #27 (copper section-label contrast 2.50:1) is **surfaced to the user for a brand decision** and explicitly OFF the table for agents to attempt unilaterally.
-
-This is a "raise the floor" cycle, not a "raise the ceiling" cycle.
+Cycle 6 raised the floor invisibly; cycle 7 closes the one remaining live visible defect (Bug #28), verifies the perf fixes actually landed, sweeps any leftover open bugs, and re-scores — every cooled section is forbidden, photography is blocked on user, Bug #27 is blocked on user.
 
 ---
 
-## Agents — Execution order
+## Scheduled Agents (4, in execution order)
 
-### Agent 1 — Performance (NEW — never run)
+### 1. Builder — Bug #28 one-line testimonial fix
 
-**Why now:** Five cycles of additive code — cursor trail canvas IIFE (cycle 4), testimonial touch IIFE with rAF + matrix capture (cycle 5), process dot ARIA wiring (cycle 5), form submit handler, reveal observer, Ken Burns parallax — none have been profiled. JS bundle is at its largest point in the project. Bug #4 (mobile loads `display:none` hero inset image) and Bug #16 (Google Fonts via CSS `@import` — render-blocking despite preconnect hints) are both confirmed open and both performance-relevant.
+**Why now:** Testimonial carousel mechanism cooldown from cycle 5 has expired. Bug #28 is the one remaining live, visible defect on the page — a 12px stutter on every loop cycle of the trust section, measured at all four viewports by QA cycle 6. The fix is one CSS line. AUDIT cycle 6 Priority 2.
 
 **Specific instructions:**
-1. Run Lighthouse against the live URL: `npx lighthouse https://zed0minat0r.github.io/craft-site/ --form-factor=mobile --output=json --output-path=./lighthouse-cycle6-mobile.json`. Capture: LCP, CLS, INP, total bundle weight, render-blocking resources, unused JS/CSS percentages. Same for `--form-factor=desktop`.
-2. Verify Bug #4 via DevTools Network tab on a 375px viewport: confirm `.hero-product-inset img` still downloads despite being `display:none`. Fix with `loading="lazy"` minimum, or add `<picture>` with mobile `<source media="(max-width: 768px)" srcset="">` to skip the download.
-3. Verify Bug #16: `style.css` line 5 `@import url('https://fonts.googleapis.com/...')` is render-blocking. Move to `<link rel="stylesheet" href="...">` in `<head>` to honor existing preconnect hints. Remove the `@import` line.
-4. Profile cursor-trail.js: confirm clean exit on `pointer:fine` mismatch (mobile) and `prefers-reduced-motion`. Confirm rAF loop disposes when pointer leaves window — leak check with DevTools Performance tab.
-5. Profile testimonial touch IIFE (`main.js`): confirm `touchmove` listener is `{ passive: true }` where applicable (scroll-perf hit otherwise). If touchmove participates in swipe-detection it may need to remain non-passive — document the trade-off.
-6. Document findings in `PERFORMANCE.md` (new file, append-style). Apply ONLY low-risk wins this cycle: lazy-load fix, `@import` → `<link>`, passive listeners. No major refactors.
+- Open `/Users/modica/projects/craft-site/style.css`, locate `.testimonials-track` rule.
+- Add `padding-right: 24px;` to `.testimonials-track` (and only that — do not touch `padding-left`, do not touch the mobile override).
+- This makes `scrollWidth` go from 3216 to 3240 at 375px, so `translateX(-50%)` lands at -1620px exactly — the card[0]->card[5] distance. Loop seam closes.
+- Verify the existing mobile media query override at `@media (max-width: 768px)` does not reset padding-right; if it does, mirror the change there.
+- Do NOT touch testimonial card markup, copy, source labels, dot indicators, or the touch IIFE.
+- Update `BUGS.md` to mark Bug #28 CLOSED with a one-line note linking to the commit.
+- Update `CHANGELOG-AGENT.md` with one line.
 
 **Memory guardrails:**
-- Do NOT remove any glow / animation / cursor / Ken Burns / reveal — those are quality, not bloat (Nigel-never-removes rule).
-- Do NOT suggest dropping the cursor trail. It is a wow-layer shipped cycle 4 and Nigel scored it positively.
-- Do NOT touch any cooled visual section.
-- Apps must NOT look AI-generated — preserve cream/espresso/copper artisan identity even when removing render-blocking CSS.
-- Respectful tone in PERFORMANCE.md commentary.
+- No invented data — testimonials are already honest-attribution; do not edit any source label or copy.
+- Spark replaces when adding rule — Builder here is only adding one declaration to an existing selector, not piling on.
+- Pixel-alignment is downstream concern; this fix is purely scrollWidth math.
 
-**Forbidden sections:** Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop price text, Custom CTA, Cursor trail behavior, Testimonial source labels, Testimonial carousel mobile UX, Contact form card visual, Contact textarea placeholder.
+**Forbidden sections (do not touch):** Studio Strip, Hero, About, Process panels, Mood rows, Shop prices, Custom CTA, Cursor trail, Contact form card, Contact textarea placeholder, Footer, Header/nav, testimonial source labels, testimonial copy, testimonial card structure.
 
 **Exit criteria:**
-- Lighthouse mobile + desktop reports archived in PERFORMANCE.md (LCP / CLS / INP + bundle weight).
-- Bug #4 closed (mobile no longer downloads hidden hero inset image).
-- Bug #16 closed (fonts loaded via `<link>`, not `@import`).
-- Cursor trail + testimonial IIFE leak check documented.
-- Visual diff at 375 + 1440 shows zero rendered change.
-- All changes pushed; CHANGELOG-AGENT.md appended.
+- One CSS declaration added to `.testimonials-track`.
+- BUGS.md #28 marked CLOSED.
+- CHANGELOG entry written.
+- No other files changed.
 
 ---
 
-### Agent 2 — Razor (dead-CSS cleanup — never run)
+### 2. Performance — Lighthouse re-run + verification
 
-**Why now:** Five cycles of additive edits with multiple element removals — `.contact-trust` outer div removed (Spark cycle 5), `.testimonial-source` pill border removed (Builder cycle 4), `.custom-cta::before` watermark removed (Spark cycle 4), `.process-fp-content` bottom-anchor positioning replaced with `top:50%/translateY(-50%)` (Pixel cycle 3 hotfix). Orphaned CSS rules from removed elements add bytes and confuse future agents. Razor never run on this project.
+**Why now:** Cycle 6 Performance shipped five fixes (deferred main.js, 3x font preloads, hero contain, favicon, empty-srcset picture wrap) but did NOT re-run Lighthouse (GitHub Pages propagation cited). One full cycle has now passed — propagation is done. Without confirmed numbers, Nigel is still holding the score and discounting the floor-raise. AUDIT cycle 6 explicit blocker: "Mobile LCP improvement is genuine but unconfirmed in magnitude — holding until a re-run Lighthouse score validates it."
 
 **Specific instructions:**
-1. Audit `style.css` for selectors targeting elements/classes no longer in `index.html`. Cross-reference every selector against current HTML and JS dynamic class additions.
-2. Specifically inspect for orphaned rules from these known removals:
-   - `.contact-trust` outer div (removed cycle 5 — content promoted into card; check for leftover flex/border/spacing rules)
-   - `.testimonial-source` pill border (removed cycle 4 — leftover `border` / `padding` / `border-radius` declarations on the selector?)
-   - `.custom-cta::before` watermark (removed cycle 4 — full block + mobile suppressor; confirm both gone)
-   - `.process-fp-content` bottom-anchor positioning (replaced cycle 3 — leftover `bottom:` declarations alongside the new `top:50%`?)
-   - `html { scroll-behavior: smooth }` (already removed; confirm only the comment marker remains at line 29)
-3. Remove ONLY rules with zero matches in `index.html` AND zero matches in `main.js` / `cursor-trail.js` dynamic class additions.
-4. Run a final byte count delta — report in CHANGELOG-AGENT.md.
-5. Bug #23 (redundant `margin-left:auto; margin-right:auto` on `.studio-pull-quote` inside `text-align:center` parent) — close it via removal.
-6. Bug #4 likely owned by Performance — coordinate; do not double-fix.
+- Re-run Lighthouse against the live URL `https://zed0minat0r.github.io/craft-site/` for both mobile and desktop.
+- Update `/Users/modica/projects/craft-site/PERFORMANCE.md` with a clearly-labelled "Cycle 7 re-run" section showing: Performance, Best Practices, Accessibility, SEO scores for both form factors, plus key metrics (LCP, CLS, TBT, FCP).
+- Compare against the cycle 6 baseline (P=66 mob / 85 desk; BP=73 both; A=97 both; S=100 both) and call out which fixes hit, which didn't, and the magnitude of LCP improvement on mobile.
+- Floor expectations Nigel set: Performance >= 90, Best Practices >= 95.
+- If a regression exists, surface it — do NOT ship more code; just report.
+- If everything passed: write a one-line summary that QA/Nigel can cite to unblock score advancement.
+- No code changes this run unless a clear regression is discovered AND the fix is one declaration.
 
 **Memory guardrails:**
-- Razor never removes anything actively used. Bias toward leaving in if uncertain. Cost of removing a live rule is far worse than dead bytes.
-- Do NOT touch any glow, animation, cursor effect, reveal observer, hover state, or focus-visible rule. Those are intentional quality.
-- Do NOT remove rules scoped to `@media (prefers-reduced-motion)` — those are accessibility commitments.
-- Do NOT touch styles for cooled sections without first verifying the selector is truly orphaned.
-- Apps must NOT look AI-generated — visual identity must survive cleanup.
-- Nigel-never-removes rule applies to Razor too: when in doubt, leave it.
+- Do NOT add fabricated numbers — paste actual Lighthouse output.
+- Respectful tone — if a fix didn't fully land, frame as "next-cycle candidate" not "Performance failed."
+- Apps must not look AI-generated — this is verification, not new visual surface.
 
-**Forbidden sections:** Same cooldown list as Agent 1. Razor may TOUCH `style.css` broadly but may not remove any visible style from any cooled section.
+**Forbidden sections:** All visual sections on cooldown. Performance does not touch HTML or CSS unless a regression appears.
 
 **Exit criteria:**
-- Orphaned-rule audit appended to CHANGELOG-AGENT.md (specific selectors removed + byte delta).
-- Bug #23 closed.
-- Visual diff (manual screenshot at 375 + 1440) shows zero change to any rendered section.
-- Pushed.
+- PERFORMANCE.md cycle 7 re-run section written with real numbers.
+- Verdict line: "Cycle 6 fixes confirmed" or "Regression at X" with specifics.
+- CHANGELOG entry.
 
 ---
 
-### Agent 3 — QA (full Playwright sweep — first holistic QA pass)
+### 3. QA — Spot-check Bug #28 fix + bug-sweep remaining open
 
-**Why now:** Pixel has done targeted alignment sweeps, Accessibility ran cycle 5, but a full regression QA across 5 cycles of changes has never run. Bug #6 (studio strip 20px loop jump) needs definitive verification — the original BUGS.md says `*4` is correct, but Builder cycle 1 changed it to `*5`. One side is wrong and that math is checkable. Bug #12 (testimonial loop seamlessness on narrow mobile) was partially addressed cycle 2 but not verified. Bugs #19, #20, #21 still open.
+**Why now:** Builder will have shipped the one-line testimonial fix earlier in the cycle. QA needs to verify it actually closed the seam, check no regression in the carousel touch UX or dot indicators, and sweep any remaining open BUGS.md items (#8 mobile mood-row direction, #17 12px label sizes, #19 mobile studio strip duplicates, #21 process arrow hover snap). Several of these have ambiguous status across cycles.
 
 **Specific instructions:**
-1. Run Playwright at 375px, 414px, 768px, 1440px. Test scenarios:
-   - Page load + scroll-to-each-section + screenshot at each breakpoint.
-   - Hero Ken Burns: scroll 1px, confirm scale not lost (Bug #3 verification — Builder cycle 2 said it was already fixed).
-   - Studio strip desktop: record 30s of loop animation, confirm no 20px jump at boundary (Bug #6 — definitive answer).
-   - Testimonial track desktop + 375px: record 30s of loop, confirm seamless on narrow viewport (Bug #12).
-   - Process dots: keyboard tab through, confirm focus ring visible and `aria-selected` updates as user scrolls.
-   - Contact form: submit with valid + invalid inputs, confirm `?submitted=1` redirect flow shows success div.
-   - Cursor trail: confirm canvas only renders on `pointer:fine`, dispose on viewport blur.
-   - Form submit error path (Bug #20): simulate Formspree HTTP error — confirm button does NOT stay stuck on "Sending..." (currently broken per BUGS.md).
-2. Hunt for new regressions across all 5 cycles of edits. Document with screenshots.
-3. Definitively resolve Bug #6 by measuring the actual gap between item 5 and item 6 (duplicate 1) at the loop boundary in DevTools. If current `*5` is wrong, file an issue (do NOT fix this cycle — Builder owns cycle 7).
-4. Verify Bug #12 by recording the testimonial track at 375px for two full loop cycles.
-5. Open new bug entries for any regression found. Do NOT fix them this cycle — QA reports, doesn't repair.
+- Re-run Playwright against live URL across 375 / 414 / 768 / 1440 viewports.
+- Specific Bug #28 verification: measure `.testimonials-track` scrollWidth post-fix and confirm `halfWidth x 2 = scrollWidth` exactly. Watch the loop boundary across at least 2 full cycles per viewport — should be visually seamless.
+- Verify the touch UX (pause on touchstart, resume after 4s on touchend, swipe >=50px, dot indicator tracking) still works after the padding change.
+- Sweep: BUGS.md #8 (mobile mood-row wipe direction — Pixel cycle 2 claimed fix, verify present), #19 (mobile studio strip 10-item dead-end — confirm whether still genuine or whether opacity:1 hover-overlay fix mitigates), #21 (process arrow hover snap — never touched).
+- Update BUGS.md statuses based on what you actually find. Do NOT close anything you can't verify.
+- Take screenshots into `qa/screenshots/cycle7/`.
+- Save a `QA-CYCLE-7.md` report.
 
 **Memory guardrails:**
-- Pixel always audits center-alignment on mobile at 375/414. QA inherits this — confirm centering on every section at both widths.
-- Test from a real buyer's perspective. Nigel's 5.5–7.5 range applies. A regression a real buyer would notice matters more than a developer-only quirk.
-- Do NOT modify any code. QA only documents.
+- Pixel-alignment focus: also re-verify center-alignment at 375px on testimonials post-fix (the padding-right change can subtly shift card layout). Confirm `.testimonial-rating-row` still flush, dots still centered.
+- No invented findings — only report what you measured.
+- No fabricated content.
 
-**Forbidden:** No code edits. Documentation only. New bugs go to BUGS.md as open entries; closed bugs may be re-opened with screenshot evidence.
+**Forbidden sections:** All cooled visual sections — QA only verifies, does not edit any visual code outside reporting.
 
 **Exit criteria:**
-- `QA-CYCLE-6.md` (new) with breakpoint screenshots + pass/fail per scenario.
-- Bug #6 definitively resolved (math + measurement).
-- Any new regressions added to BUGS.md as open entries.
-- Pushed.
+- QA-CYCLE-7.md written.
+- Bug #28 verified closed with measurement.
+- 4+ open BUGS.md items have updated status.
+- CHANGELOG entry.
 
 ---
 
-### Agent 4 — Nigel (re-score)
+### 4. Nigel — Re-score with confirmed perf numbers + Bug #28 closed
 
-**Why now:** Standard end-of-cycle re-score. Cycle 6 is structurally different — no visual additions, only floor-raising work. Nigel must score honestly: invisible quality work (perf, dead-CSS, QA verification) does NOT move the conversion-friction score for a 30-second buyer scan. The score may hold at 7.4. That is acceptable and correct — the cycle was deliberately invisible.
+**Why now:** Two scoring blockers from cycle 6 should resolve this cycle: Bug #28 fix lands (testimonials section 7.3 -> 7.4 per Nigel cycle 6 explicit promise), and Lighthouse re-run confirms perf magnitude (unblocks mobile UX sub-score). Without re-scoring, the loop will look stuck.
 
 **Specific instructions:**
-1. Re-audit at 375px + 1440px against the rubric.
-2. Score from a real buyer's POV. Floor-raising work that's invisible to a sighted 30-second scan should NOT inflate the score.
-3. If the score holds at 7.4 because the cycle was correctly invisible, write it that way. Do NOT invent a delta to justify activity.
-4. Surface BUGS #27 (copper section-label contrast 2.50:1) again as priority 2 — blocked on user brand decision and the agent team cannot resolve it. List the three options for the user (see "BUGS #27 surfaced" section below).
-5. P1 remains real photography — unchanged across all 6 cycles. State this directly.
-6. Top 3 priorities for cycle 7 should reflect: (1) photography, (2) BUGS #27 brand decision, (3) whatever cycle 6 surfaces (Performance regressions, QA-found bugs, etc).
-7. Update AUDIT.md with cycle 6 results. Append SCORES.log.
+- Read AUDIT.md cycle 6, the new PERFORMANCE.md cycle 7 section, the new QA-CYCLE-7.md, and the closed Bug #28 entry.
+- Score from a real artisan-textile buyer's perspective on a mobile phone arriving from a craft-show postcard QR code.
+- Score range realistic: 7.4 still likely. 7.5 reachable if perf gains are large AND testimonials seam genuinely seamless. NOT above 7.5 — that ceiling holds without original photography.
+- Update AUDIT.md as a fresh cycle 7 audit (replace current contents — no history accumulation, the table at the bottom is the only history).
+- Append cycle 7 row to the audit history table.
+- Append one line to SCORES.log.
+- Write Nigel's top 3 priorities for cycle 8. Photography stays Priority 1 until it ships. Bug #27 stays as P2/P3 user blocker. New P3 candidate from the cycle 6 brainstorm: back-to-top affordance for mobile (page is 12-14 viewport lengths) OR contact form success-state delight OR ambient-sound toggle as next "wow" — pick whichever has the cleanest path that doesn't touch a cooled section.
 
 **Memory guardrails:**
-- Nigel scores stricter — new-ish artisan site sits 5.5–7.5. Do NOT inflate above 7.5 without real photography movement.
-- Nigel never recommends removing glows / animations / effects. Only adds or improves.
-- No fabricated data — all scores must trace to specific cycle 6 evidence.
-- Respectful tone — never call user a bottleneck on photography or brand decision. Frame collaboratively.
-- Apps must NOT look AI-generated — penalize any drift toward generic Claude defaults.
+- Nigel scores stricter — new artisan site sits 5.5–7.5. Do NOT inflate above 7.5.
+- Nigel never recommends removing glows/animations/effects.
+- No ghost numbers / no faded background numerals on any recommendation.
+- No fabricated content / no fake testimonials / no invented data.
+- No dev / template-marketplace content.
+- Respectful tone — never call user a bottleneck. The photography blocker is a user-decision, frame collaboratively ("when ready").
+- Apps must not look AI-generated — recommendations should reinforce cream/espresso/copper artisan identity.
+- Bug #27 is blocked on user brand decision — surface as user-input-needed, do NOT instruct an agent to attempt it next cycle.
 
-**Forbidden:** No code edits. AUDIT.md update + SCORES.log append + CHANGELOG-AGENT.md entry only.
+**Forbidden sections:** Nigel does not touch code — only AUDIT.md and SCORES.log.
 
 **Exit criteria:**
-- AUDIT.md updated with cycle 6 verdict + section deltas + 3 priorities for cycle 7.
+- AUDIT.md replaced with cycle 7 audit.
+- History table extended.
 - SCORES.log appended.
-- CHANGELOG-AGENT.md appended.
-- Pushed.
+- 3 priorities for cycle 8 written.
+- CHANGELOG entry.
 
 ---
 
-## Forbidden sections this cycle (cooldown list)
+## What is NOT happening this cycle, and why
 
-- Studio Strip (cycle 1)
-- Hero Ken Burns (cycle 2)
-- Mood rows visual (cycle 2)
-- About (Spark cycle 3)
-- Process panels visual (Pixel cycle 3 hotfix + Accessibility cycle 5 ARIA)
-- Shop price text (Builder cycle 3)
-- Custom CTA (Spark cycle 4)
-- Cursor trail behavior (Builder cycle 4)
-- Testimonial source labels (Builder cycle 4)
-- Testimonial carousel mobile UX (Builder cycle 5)
-- Contact form card visual (Spark cycle 5)
-- Contact textarea placeholder (Builder cycle 5)
-
-## NOT scheduled this cycle (and why)
-
-- **Builder:** Most open bugs Builder would fix are owned by Performance (Bug #4, #16) or Razor (Bug #23). Bug #6 needs QA verification first — Builder may run cycle 7 after QA delivers definitive measurement.
-- **Spark:** Every visual section is on cooldown. Spark needs at least one decoolied section to avoid piling on. No work this cycle.
-- **Pixel:** Accessibility ran cycle 5; QA full sweep this cycle covers alignment regression at the same breakpoints. Pixel returns cycle 7 if QA surfaces alignment issues.
-- **Scout:** Cycle 3 catalog has live runner-up (layered telescope zoom) blocked on real photography. New research not needed until photography unlocks.
-- **Accessibility:** Ran cycle 5. WCAG floor raised. Returns cycle 8 (3-cycle cadence) unless QA surfaces a regression.
-
-## BUGS #27 — surfaced for user decision (NOT for agents)
-
-Copper section-label contrast 2.50:1 fails WCAG AA for small text (0.8rem). Three options:
-
-**(a)** Darken copper for label use only (e.g. `#b87040`). Add new CSS variable `--copper-text` separate from `--copper`. Preserves original copper for accents/decoration/cursor trail. Cleanest fix.
-
-**(b)** Increase `.section-label` font-size from 0.8rem to 1rem (qualifying as large text under WCAG, 3:1 threshold instead of 4.5:1). Risks visual hierarchy side-effects across all sections.
-
-**(c)** Accept as conscious brand choice. Document the WCAG exception in BUGS.md. No code change.
-
-Coordinator recommendation: **(a)**. But agents may NOT choose unilaterally.
+- **Spark:** Every visual section it could touch is cooled. Forcing Spark would risk piling on cooled sections or inventing a new section to refine. Skip.
+- **Pixel:** Center-alignment was last swept cycle 5; will be re-checked by QA on the testimonial post-fix. Skip a dedicated pass.
+- **Refiner / Razor:** Cycle 6 just ran a full dead-CSS audit. Nothing new to remove.
+- **Scout:** SCOUT.md has the Layered Telescope-Zoom queued but it's blocked on real photography. Wow-candidate brainstorm at this point would be speculative — defer until the score budget actually opens.
+- **Accessibility:** Cycle 5 ran a full axe-equivalent pass. The remaining a11y blocker is Bug #27, blocked on user.
+- **Builder for Bug #27:** Blocked on user brand decision, surfaced in Nigel's priorities as user-input-needed.
 
 ---
 
-## One-line rationale
+## Stop conditions
 
-Cycle 6 pivots to performance + cleanup + QA — eight visual sections are on cooldown, the score is one tick from its 7.5 photography ceiling, and floor-raising work has never run.
+- If Builder cannot find the `.testimonials-track` rule cleanly (style.css drift), stop and report — do not invent.
+- If Performance Lighthouse run fails / propagation issue / numbers worse than cycle 6 baseline → stop, write findings to PERFORMANCE.md, do NOT have Builder ship more code in the same cycle.
+- If QA finds Bug #28 fix didn't close the seam → stop the cycle there, mark it for cycle 8 re-attempt.
+- 30-tool-call hard cap per agent.
+
+---
+
+## Cooldowns enforced this cycle
+
+Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop price text, Custom CTA, Cursor trail, Testimonial source labels, Contact form card visual, Contact textarea placeholder, Footer (cycle 4 visual), Header/nav (no agent has it as primary).
+
+The only section where visual code may be edited this cycle: testimonials (one CSS line in `.testimonials-track`, Builder only).
+
+---
+
+## User-blocked items (surfaced, not dispatched)
+
+- **Real photography (P1)** — pexels-7998221 in About + closing Process panel. Hard ceiling at 7.5. One real product or maker photo unblocks the whole trajectory.
+- **Bug #27 — copper section-label contrast** — 2.50:1 vs WCAG 4.5:1 floor for 12.8px text. Three options: (a) darken copper slightly for label use only (e.g. #b87040), (b) bump label size to 14pt+, (c) accept as conscious brand choice. Needs user input.
