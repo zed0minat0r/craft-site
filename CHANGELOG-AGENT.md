@@ -514,3 +514,7 @@
 2026-04-26 performance — scores: P=73(mob)/69(desk) BP=77(both) A=97(both) S=100(both), top issue: mobile LCP 7.2s (Pexels CDN cold-cache, same as cycle 9 — confirmed not a regression), fixed: 0
 
 **Verdict:** Cycle 9 fixes confirmed at prior magnitude. Mobile median 73 across 3 runs (P=73/73/72) matches the 72–73 band reported in cycle 9. TBT 50ms within cycle 9 range (30–70ms). FCP 1.1s unchanged. Pixel cycle 10 a11y font-size fixes introduced no perf regression. Mobile Performance floor (≥90) remains below target — cause is Pexels CDN third-party latency on throttled 4G, not addressable without self-hosted images. Desktop P=69 lower than cycle 8 (96) — consistent with CDN cold-cache also hitting desktop in this Lighthouse environment; LCP candidate behavior in headless confirms CDN variance, not code regression.
+
+## 2026-04-26 — Nigel (cycle 10)
+
+2026-04-26 08:26 nigel — focus axis: micro-interactions, top issue: pexels-7998221 unchanged; sending state completes form funnel motion language but photography remains the sole score ceiling at 7.5 (4th consecutive hold); recommend cycle 11 auto-pause
