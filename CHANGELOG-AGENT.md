@@ -79,3 +79,13 @@
 - **AUDIT P2:** Price upper bounds added to all three mood-row `.mood-price` elements in index.html. Bags: `$75–$220` (6–10 hr range); Quilts: `$120–$480` (15–30 hr range); Custom commissions: `$95+` (open-ended). Inherited existing `.mood-price` span/strong markup — no new component. Source: AUDIT P2 / AGENT-PLAN.md.
 - **Files:** style.css (1 edit, line 1411), index.html (3 edits, lines 108/133/158), BUGS.md (#5/#13 closed), PLAN.md updated.
 2026-04-25 builder — Bug #5 overlay z-index fixed (999→1002), Bug #13 verified resolved, AUDIT P2 price ranges shipped (per PLAN.md)
+
+## 2026-04-25 — Spark (cycle 3)
+
+2026-04-25 spark — Frame B: About section editorial refinement, ref SCOUT Finding 1 (editorial hand-set photo caption), replaced floating espresso corner badge + full-square copper accent
+
+- **Pennsylvania Studio tag:** Moved from absolute corner badge (espresso pill, `-16px left / 24px top`) to a static caption strip below the photo — thin copper rule at top, serif-italic uppercase, walnut text. Replaced the badge entirely (same content, editorial direction). Mobile: centered.
+- **Photo frame accent:** Replaced the full 120x120 floating copper square (`bottom:-20px; right:-20px`) with inset corner bracket marks via `::before` / `::after` on `.about-photo-frame`. Two L-shaped 28px copper strokes at top-left and bottom-right corners, 65% opacity. Sits inside `overflow:hidden` — no overflow risk. Net: one decorative element removed (the square), one added (brackets) — no piling on.
+- **Molly signature:** Size raised 1.6rem → 2.1rem, `margin-top` 32px → 44px. More presence as a personal anchor without changing content.
+- **About quote:** Size tightened `clamp(1.5rem, 2.5vw, 2rem)` → `clamp(1.45rem, 2.3vw, 1.9rem)`, `line-height` 1.45 → 1.5. Slightly quieter quote lets the signature land harder.
+- **Section label hierarchy:** `.about-text-side .section-label` gets `letter-spacing: 0.25em` (up from 0.22em) and `margin-bottom: 22px` (up from 14px) for more breathing room above the quote.
