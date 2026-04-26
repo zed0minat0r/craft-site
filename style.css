@@ -624,72 +624,9 @@ nav.scrolled .nav-cta {
   font-weight: 300;
 }
 
-/* ---- Closing panel ---- */
-.process-fp--closing .process-fp-closing-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  padding: 0 40px;
-  z-index: 2;
-}
-
-.process-fp-closing-eyebrow {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--copper);
-  text-align: center;
-}
-
-.process-fp-closing-quote {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 6vw, 5rem);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--cream);
-  line-height: 1.15;
-  max-width: 900px;
-  text-align: center;
-  text-shadow: 0 2px 40px rgba(48, 40, 36, 0.4);
-  margin: 0;
-}
-
-.process-fp-closing-sub {
-  font-size: clamp(1rem, 1.6vw, 1.2rem);
-  color: rgba(247, 242, 236, 0.85);
-  line-height: 1.7;
-  max-width: 620px;
-  text-align: center;
-  font-weight: 300;
-}
-
-.process-fp-closing-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border: 1.5px solid rgba(207, 139, 103, 0.65);
-  border-radius: 50%;
-  color: var(--copper);
-  transition: border-color 0.3s, background 0.3s, transform 0.3s;
-  animation: arrowBob 2.5s ease-in-out infinite;
-}
-.process-fp-closing-arrow:hover {
-  border-color: var(--copper);
-  background: rgba(207, 139, 103, 0.15);
-  transform: translateY(3px);
-  animation: none;
-}
-@keyframes arrowBob {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(6px); }
-}
+/* Closing panel keeps the same .process-fp-content layout as panels 1-3.
+   The .process-fp--closing modifier exists only to swap in the darker
+   overlay (.process-fp-overlay--dark) for end-of-section emphasis. */
 
 /* ---- Progress dots ---- */
 .process-dots {
@@ -1615,8 +1552,6 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
 
   .testimonials-disclaimer { padding: 0 24px; }
 
-  .process-fp--closing .process-fp-closing-content { padding: 0 24px; gap: 28px; }
-  .process-fp-closing-quote { font-size: clamp(1.6rem, 6vw, 2.4rem); }
 
   .studio-pull-quote { font-size: 1.2rem; padding: 0 8px; }
   .studio-strip-header { padding: 0 24px 24px; }
