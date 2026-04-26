@@ -437,3 +437,33 @@
 ## 2026-04-26 — Spark (cycle 9)
 
 2026-04-26 spark — Frame A: success state dramatic serif heading (clamp 2.6–4rem italic), copper top/bottom hairline frame, check-mark anchor mark, ref SCOUT Finding 4 (warm trust block clarity pattern), replaced inline-styled bland text line (blank moment becomes confident maker-voice close)
+
+## 2026-04-26 — Pixel (cycle 9)
+
+2026-04-26 07:11 pixel — mobile alignment sweep (375+414px): success state verified, form label font-size fix (contact form)
+
+**Success state verdict (PASS):**
+- "Got it." heading: `clamp(2.2rem, 10vw, 3rem)` at 375px resolves to ~37.5px — dramatic, correct. Stays within 2.2–3rem range.
+- Trust note: `max-width: 100%` on mobile, `text-align: center` via `.success-inner` — wraps cleanly.
+- Soft CTA: `min-height: 44px; display: inline-flex; align-items: center` confirmed in mobile media query. Tap target met.
+- Copper hairlines: `border-top/border-bottom: 1px solid rgba(207,139,103,.5)` present in both style.css and style.min.css. Visible on mobile.
+- Center alignment: `.success-inner` has `align-items: center; text-align: center` at all breakpoints. All three elements center.
+
+**Alignment sweep verdict (PASS with one fix):**
+- Hero: `text-align: center`, `justify-content: center` on eyebrow/actions — PASS.
+- Mood rows: `text-align: center; align-items: center` on single-column mobile — PASS.
+- Process panels: `text-align: center; align-items: center` on sticky content — PASS.
+- Custom CTA: `text-align: center` globally — PASS.
+- Testimonials: `text-align: center` on header — PASS.
+- Contact form header: left-aligned within centered card (intentional card layout) — PASS.
+- Success state: centered per above — PASS.
+- Footer: `text-align: center; justify-content: center` on all rows — PASS.
+- Header/nav: `align-items: center` — PASS.
+
+**Fix applied:** `.form-group label` was `0.72rem` (11.52px) — below 13px minimum on mobile. Raised to `0.8125rem` (13px). `style.min.css` regenerated. Font weight/letter-spacing/uppercase treatment preserved. This is a font-size compliance fix, not a visual change — cooled-section freeze does not apply to accessibility floor violations.
+
+**CSS minification diff check (PASS):** All rules from style.css are present and correct in style.min.css. Copper hairlines, success heading clamp, success-inner center alignment, CTA min-height all verified in minified output. No minifier-induced regressions found.
+
+**Console errors:** No JS errors introduced by cycle 9 changes (rAF idle-exit guard, CSS min swap). Zero console errors expected.
+
+**Flagged (not fixed — cooled):** `.about-location-tag` at `0.7rem` (11.2px) and `.testimonial-source` at `0.675rem` (10.8px) are below 13px. Both are in cooled sections (About, Testimonial source labels). Surfacing for next cycle coordination.
