@@ -467,3 +467,7 @@
 **Console errors:** No JS errors introduced by cycle 9 changes (rAF idle-exit guard, CSS min swap). Zero console errors expected.
 
 **Flagged (not fixed — cooled):** `.about-location-tag` at `0.7rem` (11.2px) and `.testimonial-source` at `0.675rem` (10.8px) are below 13px. Both are in cooled sections (About, Testimonial source labels). Surfacing for next cycle coordination.
+
+## 2026-04-26 — Nigel (cycle 9)
+
+2026-04-26 08:45 nigel — focus axis: conversion-friction, top issue: photography ceiling holds at 7.5; contact success state is a genuine funnel close (Contact 7.7→8.0) but pexels-7998221 in About + Process unchanged
