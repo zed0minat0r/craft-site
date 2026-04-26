@@ -1,45 +1,43 @@
-# PLAN — Cycle 4, Builder
+# PLAN — Cycle 5, Builder
 
-**One-liner:** AUDIT P2 honest testimonial source labels, AUDIT P3 trust-strip third item, SCOUT copper-glow cursor trail.
+**One-liner:** Testimonial carousel mobile touch UX (pause/swipe/dots), contact textarea placeholder, verify/document Bug #15 and #18 as already fixed.
 
 ## What and Why
 
-### AUDIT P2: Testimonial source badge honesty pass
-- 4 "via Etsy" pills + 1 "via Instagram" pill — no live Etsy shop, no Instagram handle in footer.
-- Re-label each to honest plain text matching the card's copy:
-  - Card 1 (Rachel M. — custom tote): "past commission client"
-  - Card 3 (Sara L. — commissioned three bags, was "via Instagram"): "past commission client"
-  - Card 4 (Kate A. — custom quilt inquiry): "past commission client"
-  - Duplicate set cards 1, 3, 4: same labels as originals
-- Remove pill border treatment from `.testimonial-source` in style.css — plain attribution reads better without the verification-stamp border.
-- Files: `index.html` (8 edits: 4 primary + 4 duplicate cards), `style.css` (1 edit: remove border).
+### AUDIT P2: Testimonial carousel mobile touch UX
+- Add touch interaction layer to the CSS-driven testimonials carousel via main.js.
+- `touchstart`: capture X position, pause animation-play-state by setting a `data-paused` attribute + CSS class.
+- `touchend`: measure delta; if >=50px jump prev/next card (manipulate `transform` directly, reconcile with loop). Restart animation after 4s delay.
+- Dot indicators: inject 5 `.testimonial-dot` elements into a new `.testimonial-dots` container below `.testimonials-track-wrap` in index.html. Active dot tracks visible card via IntersectionObserver (on mobile) or position calculation.
+- CSS: dot styles in style.css — small circles, copper active state, centered below track.
+- Files: main.js (new IIFE ~60 lines), index.html (1 edit: add `.testimonial-dots` container), style.css (1 edit: dot styles ~15 lines).
 
-### AUDIT P3: Custom CTA trust strip third item
-- Replace "Bags, quilts & commissions welcome" with "Hand-finished in Pennsylvania".
-- File: `index.html` line 378. One edit.
+### AUDIT P3: Contact textarea placeholder
+- Update `placeholder` on `<textarea name="message">` (index.html line 577).
+- New text: `e.g. a market tote in olive linen, roughly 14 inches wide, gift in 6 weeks — happy to send a sketch first`
+- One attribute change.
 
-### SCOUT Candidate C: Copper-glow cursor trail
-- New file: `js/cursor-trail.js` (~40 lines vanilla JS).
-- Canvas overlay, pointer-events:none, z-index:9999.
-- `pointer:fine` guard — desktop only.
-- `prefers-reduced-motion` guard — skips effect entirely.
-- Copper rgba(207,139,103, life * 0.35), decay 0.025/frame.
-- Loaded via `<script defer src="js/cursor-trail.js"></script>` at end of body in index.html.
+### BUGS.md #15: scroll-behavior dual conflict
+- Already resolved — style.css line 29 has a comment confirming `scroll-behavior` was intentionally omitted. Mark CLOSED in BUGS.md.
+
+### BUGS.md #18: Nav logo smooth scroll
+- Already resolved — main.js lines 116-119: `if (href === '#' || href === '') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }` — already scrolls to top smoothly. Mark CLOSED in BUGS.md.
 
 ## Files Touched
 
-- `index.html` — 9 edits (8 source labels + 1 trust strip line + 1 script tag)
-- `style.css` — 1 edit (remove pill border from .testimonial-source)
-- `js/cursor-trail.js` — new file (~40 lines)
-- `CHANGELOG-AGENT.md` — append entry
-- `BUGS.md` — update if applicable
+- `main.js` — 1 new IIFE (~60 lines): touch/swipe/pause + dot indicator logic
+- `index.html` — 2 edits: textarea placeholder + testimonial-dots container
+- `style.css` — 1 edit: dot indicator styles (~15 lines)
+- `BUGS.md` — 2 edits: close #15 and #18
+- `CHANGELOG-AGENT.md` — append cycle 5 entry
 
 ## Expected Diff
 
-~50 lines across 3 files.
+~80 lines across 4 files.
 
 ## Success Criterion
 
-- All testimonial source labels honest plain text, no Etsy/Instagram platform claims.
-- Trust strip third item = "Hand-finished in Pennsylvania".
-- Cursor trail visible on pointer:fine desktop, invisible on touch + prefers-reduced-motion.
+- On 375px: tap carousel pauses auto-scroll, swipe left/right advances cards, dots reflect current position.
+- Existing translateX(-50%) seamless loop still works on resume.
+- Contact textarea shows directive placeholder text.
+- Bugs #15 and #18 marked CLOSED with fix notes.
