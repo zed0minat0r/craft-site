@@ -302,3 +302,22 @@
 **Console:** zero errors across all 4 viewports, full session.
 
 **Screenshots:** qa/screenshots/cycle6/ (24 images)
+
+## 2026-04-26 — Nigel (cycle 6)
+
+2026-04-26 14:00 nigel — focus axis: conversion-friction, top issue: floor-raising cycle mostly invisible to buyer scan; mobile LCP improvement real but unconfirmed in magnitude; Bug #28 (12px testimonial stutter) newly surfaced, fix deferred to cycle 7
+
+**Delta from cycle 5:** 7.4 → 7.4 (held)
+
+**What moved (and what didn't):**
+- Performance improvements (deferred main.js, font preloads, empty-srcset hero inset) are the most conversion-relevant changes of the cycle — mobile LCP from ~8.1s expected to improve substantially on cellular, which is genuine buyer-perception gain. Held pending confirmed Lighthouse re-run.
+- Desktop CLS 0.171 → ~0 (font preloads + containment on hero pseudo-element) eliminates the watermark text-swap jump at first load. Quality-perception improvement, invisible once loaded.
+- Bug #28 discovery: 12px loop seam on testimonials track (pre-existing defect, now documented). One-line fix — deferred to cycle 7 per cooldown.
+- Razor: 86 bytes dead CSS removed. Zero visual change.
+- QA: zero console errors across all viewports. 7 bugs confirmed closed.
+- Photography: unchanged. Hard ceiling at 7.5.
+
+**Top 3 — Cycle 7:**
+1. P1 CRITICAL: Real photography (pexels-7998221 in About + Process closing panel — hard ceiling, will not cross 7.5 without it)
+2. P2 HIGH: Bug #28 — testimonial loop 12px stutter (padding-right: 24px on .testimonials-track — one-line Builder fix)
+3. P3 MEDIUM: Bug #27 — copper section-label contrast (2.50:1, fails WCAG AA — needs user brand decision to resolve)
