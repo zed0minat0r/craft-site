@@ -158,3 +158,20 @@
 **Files:** style.css (1 edit, mobile block, line ~1631), BUGS.md (#9/#10/#22 closed)
 
 2026-04-26 09:00 pixel — Contact double-stutter fixed (Bug #22, transition-delay 0.2s on contact-inner.reveal mobile); Bugs #9/#10 verified closed (44px min-height confirmed); full alignment sweep 375+414px: testimonials/custom-cta/footer/contact all centered
+
+## 2026-04-26 — Nigel (cycle 4)
+
+2026-04-26 09:30 nigel — focus axis: conversion-friction, top issue: testimonials mobile UX (no pause/swipe affordance on auto-play carousel) is now the primary friction point after testimonial honest-attribution pass resolved credibility dissonance; pexels-7998221 unchanged and still score ceiling
+
+**Delta from cycle 3:** 7.2 → 7.3 (+0.1)
+
+**What moved the score:**
+- Testimonials: honest-attribution relabeling ("via Etsy" → "past commission client" / "direct order") resolves the credibility-dissonance flag from cycle 3; pill border removal correct; section score 6.5 → 7.0
+- Custom CTA: Spark Frame B spacing hierarchy + watermark removal + trust-strip upgrade ("Hand-finished in Pennsylvania"); section score 7.0 → 7.2
+- Mobile UX: Pixel tap-target sweep (bugs #9/#10 closed) + contact double-stutter fixed (bug #22); holistic mobile score 7.0 → 7.1
+- Brand cohesion: cursor trail (first "wow" interaction layer — copper rgba(207,139,103), well-calibrated decay, correct pointer:fine + reduced-motion guards); brand cohesion score 5.5 → 5.7
+
+**Top 3 — Cycle 5:**
+1. P1 CRITICAL: Real photography (pexels-7998221 unchanged — score ceiling, will not cross 7.5 without it)
+2. P2 HIGH: Testimonials mobile UX — pause-on-touch + swipe/dot indicator on auto-play carousel
+3. P3 MEDIUM: Contact textarea placeholder — directive text to reduce blank-page paralysis on custom commission inquiries

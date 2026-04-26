@@ -1,8 +1,8 @@
 # AUDIT — Made by Molly
 **Auditor:** Nigel
-**Date:** 2026-04-25 (cycle 3)
+**Date:** 2026-04-26 (cycle 4)
 **Focus axis:** Conversion friction
-**Score:** 7.2 / 10
+**Score:** 7.3 / 10
 
 ---
 
@@ -16,15 +16,20 @@
 
 ## Overall Verdict
 
-Cycle 3 delivered three genuine improvements: price ranges in all three shop rows, a refined About section personal anchor, and a material readability and vertical centering fix on the Process panels. Each of these moved a real buyer signal forward in a meaningful — if incremental — way.
+Cycle 4 delivered three discrete improvements that each touch conversion friction in different ways. The net result is a modest but earned advance from 7.2 to 7.3.
 
-The shop rows now show budget ceilings ($75–$220 bags, $120–$480 quilts, $95+ custom). A prospective buyer can gauge budget fit in one glance. That is a direct conversion-friction reduction: the "at least this much" stopping signal is replaced by a range that contextualises value. Bags and quilts both land well ($220 is a sensible ceiling for a handmade structured tote; $480 for a multi-day quilt signals serious craft pricing credibly). Custom at "$95+" is still open-ended — it is the one row that retains price anxiety — but commission work is inherently variable and the copy justifies it.
+The testimonial relabeling is the most conversion-relevant change this cycle. "via Etsy" implied external platform verification that did not exist — a buyer who hovered expecting a live link would find nothing, which is worse than no signal at all. "past commission client" and "direct order" are honest attributions that a real buyer reads as intentionally restrained, not evasive. The credibility-dissonance Nigel cycle 3 flagged is resolved. One card retaining "direct order" versus the majority using "past commission client" also introduces a small but healthy variation — uniformity across all five would feel as engineered as five perfect ratings once did. Removing the pill border flattens the visual hierarchy in the right direction: the attribution now reads as metadata, not as a badge claiming something.
 
-The About section refinement is a genuine qualitative improvement. The "Pennsylvania Studio" caption strip with a copper hairline divider is more confident than a floating corner badge — it reads as authorship rather than decoration. The L-bracket corner marks on the photo frame are restrained and tasteful. The signature at 2.1rem with 44px top margin now lands as a personal seal, not an afterthought. Combined, the About section now reads more like a real maker's page than a template fill-in.
+The trust-strip change in the Custom CTA is a smaller but accurate move. "Bags, quilts & commissions welcome" was a category restatement — a buyer deep enough into the page to reach the CTA already knows the offer. "Hand-finished in Pennsylvania" is a production claim. It is not bold (no shipping guarantee, no returns guarantee, no maker close-up), but it is specific, confident, and not redundant. This is the trust strip doing its job at the minimum viable level.
 
-The Process panel fix is the most technically impactful change. Vertical centering via `top: 50%; transform: translateY(-50%)` is correct and consistent — the text block's centre point is now viewport-locked on all four panels regardless of text height. The readability upgrades (weight 300→400, opacity 0.82→0.96, font floor 0.9rem→1rem, overlay floor 15%→30%) make the panel descriptions actually readable in ambient light conditions. These are not cosmetic — they were genuine usability failures that blocked the process narrative from landing.
+The cursor trail merits its own assessment because the brief specifically calls it out. At 4px radius decaying to 0 at life=0, opacity floored at 0.35 * life, copper rgba(207,139,103) on the brand's own palette — this is well-calibrated. It is subtle enough not to distract from copy, visible enough to register as intentional craft. The pointer:fine guard is correct (no touch pollution). The prefers-reduced-motion guard is correct. The z-index:9999 is appropriate for a fixed overlay that must read over section backgrounds without capturing events (pointer-events:none). As a brand-presence layer it is the first "wow" signal this site has shipped. It does not reduce conversion friction directly — a buyer filling out the contact form is not thinking about the cursor trail. But it contributes to the felt quality of the experience in a way that makes the pricing feel more justified. Scored under brand cohesion rather than conversion friction.
 
-The net result: a buyer in 90 seconds now gets clearer budget signals in the shop, a more believable personal maker story in About, and a more readable process narrative. The site moves from 7.0 to 7.2. The score remains below 7.5 because stock photography — including the repeated `pexels-7998221` across both About and the closing Process panel — is still the credibility ceiling. No code change this cycle addressed that blocker.
+The score does not move past 7.3 because:
+1. `pexels-7998221` is still in both the About section and the closing Process panel. This is unchanged and it remains the score ceiling.
+2. The testimonial section still has five cards with no pause affordance on mobile, no swipe indicator, and the disclaimer text ("collected over the past year from custom commission clients") still sits below the scroll port on most viewports — buyers who do not scroll past the track never read it.
+3. The contact form textarea still has a generic placeholder. Blank-page paralysis is a real conversion blocker for custom commission work where the buyer has to describe something.
+
+Score ceiling: 7.5. Will not cross it without original photography.
 
 ---
 
@@ -32,112 +37,113 @@ The net result: a buyer in 90 seconds now gets clearer budget signals in the sho
 
 ### 1. Hero (7.5/10)
 
-**No change from cycle 2.** Strong value prop, Ken Burns + copper breathe, provenance eyebrow. Sub-copy still leans on "no factory, no shortcuts" negative framing rather than buyer-benefit framing. Two CTAs of near-equal weight. Ghost watermark adds cognitive load before headline.
+**No change from cycle 3.** Ken Burns + copper breathe is the strongest scroll-opening moment on the page. Value prop is clear. Sub-copy still leads with negatives rather than buyer-benefit framing. Two near-equal CTAs split intent.
 
 ---
 
 ### 2. Shop by Mood / Collection (7.0/10)
 
-**Cycle 3 delta:** Moved from 6.5 to 7.0. Price ranges are now in all three rows.
-
-- Bags: $75–$220. This is the single best change this cycle. A buyer knows a market tote is at the low end, a structured weekender is at the top. The anxiety of "starting from" with no ceiling is gone.
-- Quilts: $120–$480. The range correctly reflects the scale of effort — a small wall hanging versus a full-size art piece. This is credible and earns trust.
-- Custom: $95+. Still open-ended, but commission work necessarily is. The copy context ("A quilt from your grandmother's old clothes") justifies the open price without creating a stopping signal.
-
-**Remaining weaknesses:**
-- The `mood-time` copy ("Each bag takes 6–10 hours") is still italic walnut at 13px — the highest-value price-justification copy is the least legible element in the section.
-- Shop CTA buttons still link to `#contact` via 600ms setTimeout for pre-select. A buyer who clicks before scroll-stop may land with no pre-selection.
+**No change from cycle 3.** Price ranges in all three rows are the right structural fix. `mood-time` copy remains italic walnut at 13px — the highest-value price-justification copy is still the least legible element in this section. Shop CTA setTimeout pre-select still has a race condition.
 
 ---
 
 ### 3. The Process — Sticky Scroll (7.3/10)
 
-**Cycle 3 delta:** Moved from 7.0 to 7.3. Vertical centering fix is correct and consistent — all four panels now share the same text-block centre point. Readability improvements are material: weight 400, opacity 0.96, and a higher overlay floor mean the description copy now survives over photo backgrounds in normal ambient conditions.
-
-**Remaining weaknesses:**
-- Panel 3 and Panel 4 remain tonally repetitive. The closing quote panel is a dead-end — no link to the next conversion step.
-- Mobile: 200vh sticky budget still means panels 3 and 4 get near-zero dwell on phone viewports.
+**No change from cycle 3.** Vertical centering consistent. Readability improvements hold. Closing panel is still a dead-end with no forward link. Mobile dwell still short on panels 3 and 4.
 
 ---
 
 ### 4. About the Maker (7.8/10)
 
-**Cycle 3 delta:** Moved from 7.5 to 7.8. This is the most improved section this cycle.
-
-- The "Pennsylvania Studio" caption strip with copper hairline divider below the photo reads as authorship attribution, not a floating badge. It is the correct treatment for a personal maker brand.
-- L-bracket corner marks (28px, 65% opacity) are restrained and elegant — they frame the photo without competing with it.
-- Signature at 2.1rem with 44px top margin now functions as a genuine personal seal. The about copy, quote, divider, body copy, signature, and CTA read as a complete narrative arc.
-- Quote quieted slightly so the signature wins the visual attention hierarchy — correct priority.
-
-**Remaining weaknesses:**
-- Image is still `pexels-7998221` — the same image used in the closing Process panel. A repeated stock photo within the same page is the single most trust-damaging detail on the site.
+**No change from cycle 3.** "Pennsylvania Studio" caption strip, L-bracket corner marks, 2.1rem signature — the structural improvements from cycle 3 hold. Image is still `pexels-7998221`. The same stock image used in the closing Process panel appearing here is the single most trust-damaging repeated element on the page.
 
 ---
 
 ### 5. Studio Strip (6.0/10)
 
-**No change.** Still all stock imagery. No finished product visible. Pull quote is unattributed. Mobile horizontal scroll is a conversion dead zone.
+**No change.** All stock imagery. No finished product visible. Pull quote unattributed. Mobile horizontal scroll is a conversion dead zone.
 
 ---
 
-### 6. Custom CTA (7.0/10)
+### 6. Custom CTA (7.2/10)
 
-**No change.** Forest green contrast section works. "Most of my favorites have been custom work" is strong conversion copy. Trust metadata strip is well-placed. Watermark "Custom" still competes on tablets. Third trust-strip item ("Bags, quilts & commissions welcome") is still redundant.
+**Cycle 4 delta:** Moved from 7.0 to 7.2.
+
+- Spark Frame B spacing tightening is the correct treatment: eyebrow reads first, title reads second, body paragraph at weight 400 and 1.0625rem is now legible without squinting on mid-range displays. The hierarchy is earned, not assumed.
+- Trust strip third item is now "Hand-finished in Pennsylvania." This is a production claim rather than a category restatement. Specific and honest.
+- Watermark removed. The ::before "Custom" ghost competed with the headline on tablet viewports. Its removal is a net positive — the section is cleaner and the headline wins without a fight.
+
+**Remaining weaknesses:**
+- Trust strip still has no shipping guarantee or returns commitment at the decision point. "Hand-finished in Pennsylvania" is more confident than what it replaced but a buyer at the CTA wants risk reduction, not origin information.
 
 ---
 
-### 7. Testimonials (6.5/10)
+### 7. Testimonials (7.0/10)
 
-**No change this cycle.** Testimonials Etsy-link cooldown ends this cycle — P3 for cycle 4 is to link "via Etsy" to the actual shop.
+**Cycle 4 delta:** Moved from 6.5 to 7.0.
 
-**Status:** Source labels still unlinked. Four of five cards still 5-star. Initial-letter avatars remain. Auto-play on mobile has no pause or swipe affordance.
+The honest-attribution relabeling is the single most conversion-relevant change in this cycle. "via Etsy" implied platform verification that did not exist; "past commission client" and "direct order" are accurate and read as intentionally honest rather than evasive. Removing the pill border is the correct visual treatment — the attribution is metadata, not a badge making a claim.
+
+One card retaining 4 stars (Kate A., Allentown) continues to be the section's most credible signal. Five uniform 5-star ratings would still feel suspicious; the 4-star card makes the other four more believable.
+
+**Remaining weaknesses:**
+- No pause or swipe affordance on mobile. Auto-play with no controls on a 5-card track is a dark-pattern-adjacent UX choice for a trust section.
+- Disclaimer text below the track is below the scroll port on many viewports — most buyers who do not scroll past the carousel never see it.
+- No visible review count or timeframe in the section heading — buyers cannot calibrate recency without reading the disclaimer they likely miss.
 
 ---
 
 ### 8. Contact / Form (7.5/10)
 
-**No change.** Trust note above form is excellent. Form architecture is clean. `hello@madebymolly.com` fallback is unmonitored. No Instagram handle in contact section.
+**No change from cycle 3.** Trust note ("If you're not happy with what arrives, message me — I'll make it right") is the strongest buyer-reassurance copy on the page. It belongs here and it lands correctly. Form architecture clean. Textarea placeholder is still generic — for a custom commission contact form this is a missed opportunity to reduce blank-page paralysis.
 
 ---
 
-### 9. Mobile UX — Holistic (7.0/10)
+### 9. Mobile UX — Holistic (7.1/10)
 
-**Cycle 3 delta:** Moved from 6.8 to 7.0. The Process panel vertical centering fix is the most impactful mobile improvement this cycle — panels that drifted in position on different text heights now sit consistently. Readability improvements compound on mobile where screen brightness and viewing angle reduce contrast further.
+**Cycle 4 delta:** Moved from 7.0 to 7.1.
+
+- Pixel's tap-target sweep closed bugs #9 and #10 (btn-walnut and nav-cta both confirmed at 44px min-height). These were real usability failures that are now resolved.
+- Contact double-stutter fixed (bug #22, transition-delay 0.2s stagger on contact-inner.reveal). The animation sequence is now legible: trust strip animates first, form card follows. This is the correct read order for a buyer landing on the contact section.
+- Footer alignment confirmed clean at 375px and 414px.
 
 **Remaining weaknesses:**
-- Process panels 3 and 4 still lose dwell time on mobile (200vh sticky budget).
+- Testimonials auto-play still has no pause or swipe indicator on mobile.
 - No back-to-top affordance on a page approximately 12–14 viewport lengths tall.
-- Testimonials auto-play with no swipe affordance on mobile.
+- Process panels 3 and 4 still lose dwell on mobile (200vh sticky budget).
 
 ---
 
-### 10. Brand Cohesion / Photography (5.5/10)
+### 10. Brand Cohesion / Photography (5.7/10)
 
-**No change.** This remains the score ceiling. All photography is stock. `pexels-7998221` appears in both the About section and the closing Process panel — the single most damaging repeated image on the site. One real photograph of Molly or a finished product would move this score more than any remaining code change.
+**Cycle 4 delta:** Moved from 5.5 to 5.7.
+
+The cursor trail is the first interaction-layer "wow" signal on this site. Copper rgba(207,139,103) at 4px peak radius, decaying at 0.025/frame, max opacity 35% — this is calibrated correctly for a craft-maker brand. It is felt rather than seen. The pointer:fine and prefers-reduced-motion guards are correct. This does not fix the photography problem but it does raise the felt quality of the desktop experience enough to move the brand cohesion score by 0.2.
+
+`pexels-7998221` remains in both the About section and the closing Process panel. This is unchanged. It is still the score ceiling for the entire site. One original photograph of Molly, her studio, or a finished product would do more for the brand cohesion score than any remaining code change.
 
 ---
 
-## Priority List — Top 3 (Cycle 4)
+## Priority List — Top 3 (Cycle 5)
 
-### Priority 1 — CRITICAL: Real photography is the score ceiling
-The repeated `pexels-7998221` across About and the Process closing panel is the single most trust-damaging detail remaining. One original photograph — Molly's hands on her specific products, a finished bag, a real quilt — would do more for conversion than any remaining code change. Until this is replaced, no amount of copy or layout refinement can move the site past 7.5.
+### Priority 1 — CRITICAL: Real photography is still the score ceiling
+`pexels-7998221` in the About section and closing Process panel is unchanged. This is the ceiling for the entire audit. Until original photography lands, the site scores below 7.5 regardless of all other improvements. Frame this as the next unlock — every other improvement on the list is a secondary gain against this primary one.
 
-### Priority 2 — HIGH: Etsy shop link on source badges (cooldown ends this cycle)
-"via Etsy" as a pill badge implies external verification but links nowhere. Connecting it to an actual Etsy shop URL converts an implied trust signal into a real one. This is a single href change with a disproportionate credibility return. If a live Etsy URL is not available, the label should be rewritten to "past commission client" to be accurate without implying unverifiable platform verification.
+### Priority 2 — HIGH: Testimonials mobile UX — pause/swipe affordance
+The testimonial track auto-plays on mobile with no pause button, no swipe indicator, and no dot navigation. A buyer reading a testimonial on a phone cannot pause the carousel to finish reading before it advances. This is the most friction-generating UX failure currently on the site that does not require photography. A simple pause-on-touch (touchstart stops the interval) and dot-indicator row beneath the track would resolve both issues in under 40 lines.
 
-### Priority 3 — MEDIUM: Trust strip third item in Custom CTA — swap for shipping or returns guarantee
-"Bags, quilts & commissions welcome" is a restatement of the site's entire offer in the climactic CTA section. Replace with a concrete buyer reassurance: "Ships to all 50 states" or "If it doesn't feel right, I'll make it right." A buyer reading the trust strip at decision time needs risk reduction, not product category confirmation.
+### Priority 3 — MEDIUM: Contact form textarea placeholder — reduce blank-page paralysis
+The textarea currently has a generic or absent placeholder. For a custom commission maker, the single biggest reason a buyer abandons the contact form is not knowing what to write. A directive placeholder ("e.g. a market tote in olive linen, roughly 14 inches wide — I'd love your input on hardware") sets expectations, models the level of detail needed, and reduces the blank-page moment that kills intent. This is one attribute change with a disproportionate conversion return for a custom-order business.
 
 ---
 
 ## What Would Move This to 7.5+
 
-1. One real original product photograph replacing `pexels-7998221` in the About section at minimum.
-2. Etsy shop link connected to "via Etsy" source badges.
-3. Trust strip third item in Custom CTA replaced with a shipping or returns guarantee.
-4. Back-to-top affordance for mobile.
-5. Visible Instagram handle in contact or footer — fastest "real human" signal for a maker brand.
-6. Textarea placeholder made directive ("e.g. a market tote in olive linen, roughly 14 inches wide") to reduce blank-page paralysis.
+1. One real original product photograph replacing `pexels-7998221` in the About section.
+2. Testimonials mobile: pause-on-touch + swipe indicator or dot navigation.
+3. Contact textarea placeholder made directive.
+4. Back-to-top affordance for mobile (page is 12–14 viewport lengths).
+5. Trust strip in Custom CTA: add a shipping or returns commitment ("Ships to all 50 states" / "If it doesn't feel right, I'll make it right") as a fourth item or replace the current third.
 
 ---
 
@@ -148,7 +154,8 @@ The repeated `pexels-7998221` across About and the Process closing panel is the 
 | 2026-04-25 | 1 (smoke test) | 6.8 | conversion-friction | Disclaimered block of 5 perfect ratings actively destroys trust |
 | 2026-04-25 | 2 | 7.0 | conversion-friction | Stock photography is the score ceiling; testimonials improved but unverified |
 | 2026-04-25 | 3 | 7.2 | conversion-friction | Repeated pexels-7998221 across About + Process is the remaining primary trust blocker |
+| 2026-04-26 | 4 | 7.3 | conversion-friction | pexels-7998221 unchanged; testimonial honest-attribution pass resolves credibility dissonance; testimonials mobile UX is next friction point |
 
 ---
 
-*Score: 7.2 — Better than most competitors. Price ranges now give buyers budget fit at a glance. Process panels readable and vertically consistent. About section reads as a genuine maker page. Held below 7.5 by stock photography ceiling and repeated image.*
+*Score: 7.3 — Testimonial honest-attribution pass resolves the cycle-3 credibility dissonance flag. Custom CTA spacing hierarchy and trust-strip upgrade are accurate improvements. Cursor trail is first "wow" interaction layer: well-calibrated for the brand, raises felt quality without visual clutter. Held below 7.5 by stock photography ceiling and mobile testimonial UX gap.*
