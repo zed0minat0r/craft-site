@@ -62,16 +62,15 @@
 
 ## MEDIUM (polish, alignment, visible quirks)
 
-**9. `btn-walnut` tap target is ~41px — below the 44px minimum**
+**9. ~~`btn-walnut` tap target is ~41px — below the 44px minimum~~ CLOSED**
 - Section: Shop by Mood (all three CTA buttons)
-- Selector: `.btn-walnut` / `style.css` line 470
-- Padding: 13px top + 13px bottom. With font-size 0.8rem (12.8px) and normal line-height (~15px), total height ≈ 41px. No `min-height` is set. Fails the 44px tap target requirement on mobile.
-- Fix: Change padding to `14px 28px` or add `min-height: 44px`.
+- Selector: `.btn-walnut` / `style.css` line 484
+- **Fix (cycle 4, Pixel):** `min-height: 44px` confirmed present alongside `padding: 14px 28px`. Tap target at 44px. Verified in CSS audit at 375px + 414px.
 
-**10. `nav-cta` ("Custom Order" in desktop nav) tap target is ~37px**
+**10. ~~`nav-cta` ("Custom Order" in desktop nav) tap target is ~37px~~ CLOSED**
 - Section: Navigation
-- Selector: `.nav-cta` / `style.css` line 101
-- Padding: 10px top + 10px bottom. Total height ≈ 37px. No `min-height`. Below the 44px minimum. (The `.nav-logo` has correct 44px via `min-height: 44px` — `.nav-cta` was missed.)
+- Selector: `.nav-cta` / `style.css` line 105
+- **Fix (cycle 4, Pixel):** `min-height: 44px` confirmed present with `display: inline-flex; align-items: center`. Tap target at 44px. Verified in CSS audit at 375px + 414px.
 
 **11. `process-dots` container has `aria-hidden="true"` but wraps interactive buttons**
 - Section: Process (sticky pin)
@@ -130,10 +129,10 @@
 - Selector: `.process-fp-closing-arrow` / `style.css` lines 639–656
 - Normal state: `animation: arrowBob 2.5s infinite` (bounces 0→6px→0). On hover: `animation: none; transform: translateY(3px)`. When user first hovers, the transition goes from mid-bob position directly to `translateY(3px)` — can snap. On hover-off: returns to bob from `translateY(3px)` position.
 
-**22. Contact section: two consecutive `reveal from-bottom` elements animate independently — jarring on mobile**
+**22. ~~Contact section: two consecutive `reveal from-bottom` elements animate independently — jarring on mobile~~ CLOSED**
 - Section: Contact
 - Selectors: `.contact-trust.reveal.from-bottom` and `.contact-inner.reveal.from-bottom`
-- Both elements enter view nearly simultaneously on mobile. They animate as separate reveals creating a double-stutter effect. On mobile at 375px the trust bar and the form card animate in near-sequentially with a slight offset that looks unintentional.
+- **Fix (cycle 4, Pixel):** Added `transition-delay: 0.2s` on `.contact-inner.reveal` inside `@media (max-width: 768px)`. Trust strip animates first, form card follows 200ms later — intentional stagger, no longer looks like a double-stutter. style.css mobile block.
 
 **23. Studio strip pull-quote: redundant `margin-left: auto; margin-right: auto` inside a `text-align: center` parent**
 - Section: Studio Strip header

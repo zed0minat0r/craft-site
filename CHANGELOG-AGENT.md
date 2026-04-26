@@ -137,3 +137,24 @@
 ## 2026-04-26 — Spark (cycle 4)
 
 2026-04-26 spark — Frame B: Custom CTA spacing hierarchy + watermark removal, ref SCOUT Finding 4 (warm trust block clarity pattern), replaced ::before "Custom" ghost watermark (Nigel cycle 3 flag). eyebrow letter-spacing 0.22em→0.25em + margin 20→24px; title margin 20→28px; body font-weight 300→400 + size 1rem→1.0625rem + line-height 1.7 + margin 24→36px; trust strip gap 12→16px + margin 40→48px + opacity 0.85→0.9; watermark ::before rule removed entirely (18-line block + mobile suppressor line). Content count: 3 trust items, 1 headline, 1 body, 1 CTA — unchanged.
+
+## 2026-04-26 — Pixel (cycle 4)
+
+**Mobile center-alignment sweep (375px + 414px):**
+- Testimonials (rating-row after Builder relabel): `.testimonial-rating-row` flex space-between, no pill border, source label reads "past commission client" / "direct order" as plain copper uppercase text. At 300px card width (375px viewport), stars ~88px + source label ~110px fits without wrap — aligned.
+- Custom CTA (after Spark Frame B): `.custom-cta { text-align: center }` base + `.custom-cta-inner { max-width: 700px; margin: 0 auto }`, mobile padding `80px 24px`. `.custom-cta-details` flex justify-content:center flex-wrap:wrap. `.btn-copper-lg` display:inline-flex. All centered — aligned at 375px + 414px.
+- Footer (first audit this cycle): `.footer-inner { grid-template-columns: 1fr; text-align: center }`, `.footer-brand-desc { max-width: 100%; margin: auto }`, `.footer-social { justify-content: center }`, `.footer-links { align-items: center }`, `.footer-bottom { justify-content: center; text-align: center }` — all centered — aligned at 375px + 414px.
+- Contact form trust strip: `.contact-trust { text-align: center; margin: 0 auto 24px }` — aligned. `.contact-inner { max-width: 660px; margin: 0 auto }` — centered card — aligned. Form fields left-aligned (correct UX).
+- Bug #22 diagnosed and fixed: added `transition-delay: 0.2s` on `.contact-inner.reveal` in mobile media query — trust strip animates first, form card follows 200ms later. No longer jarring double-stutter. style.css mobile block.
+
+**Tap target sweep:**
+- BUGS.md #9 (`btn-walnut`): `min-height: 44px` confirmed at style.css line 484. CLOSED.
+- BUGS.md #10 (`nav-cta`): `min-height: 44px` with `display: inline-flex; align-items: center` confirmed at style.css line 107. CLOSED.
+
+**Cursor trail verification:**
+- js/cursor-trail.js line 3: `if (!window.matchMedia('(pointer:fine)').matches) return;` — IIFE exits on touch (375px). No canvas appended, no mousemove listener, no rAF loop. Mobile clean.
+- prefers-reduced-motion: cursor-trail.js line 6 returns early on reduce preference. CSS @media (prefers-reduced-motion: reduce) block covers `.reveal`, `.testimonials-track`, `.btn-copper-lg`, `.mood-photo`, `.hero-bg`, `.process-fp` — existing reveal animations properly guarded.
+
+**Files:** style.css (1 edit, mobile block, line ~1631), BUGS.md (#9/#10/#22 closed)
+
+2026-04-26 09:00 pixel — Contact double-stutter fixed (Bug #22, transition-delay 0.2s on contact-inner.reveal mobile); Bugs #9/#10 verified closed (44px min-height confirmed); full alignment sweep 375+414px: testimonials/custom-cta/footer/contact all centered
