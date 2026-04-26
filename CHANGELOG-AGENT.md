@@ -175,3 +175,7 @@
 1. P1 CRITICAL: Real photography (pexels-7998221 unchanged — score ceiling, will not cross 7.5 without it)
 2. P2 HIGH: Testimonials mobile UX — pause-on-touch + swipe/dot indicator on auto-play carousel
 3. P3 MEDIUM: Contact textarea placeholder — directive text to reduce blank-page paralysis on custom commission inquiries
+
+## 2026-04-26 — Coordinator (cycle 5 dispatch)
+
+2026-04-26 coordinator — scheduled: Builder, Spark, Pixel, Nigel, focus: conversion-friction + first accessibility pass (AUDIT P2 testimonials mobile UX + AUDIT P3 directive placeholder + 2 stale bugs + Contact card Frame B + a11y pass + re-score), forbidden: Studio Strip, Hero, Mood rows, About, Process panels visual, Shop prices, Custom CTA, cursor trail, testimonial source labels, Footer

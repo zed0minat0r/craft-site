@@ -1,142 +1,112 @@
-# AGENT-PLAN — Cycle 4
+# AGENT-PLAN — Cycle 5
 
-**Coordinator:** dispatched 2026-04-25
-**Project:** Made by Molly (craft-site)
+**Date:** 2026-04-26
+**Coordinator dispatch:** cycle 5
 **Live:** https://zed0minat0r.github.io/craft-site/
-**Last score:** 7.2 (cycle 3) — trajectory 6.8 → 7.0 → 7.2 (+0.2 each cycle)
-**Focus axis:** conversion-friction + first "wow" interaction layer
-**Forbidden sections this cycle:** Studio Strip · About section · Process panels · Hero (Ken Burns / parallax) · Mood rows visual+animation · Shop section price text
+**Score trajectory:** 6.8 → 7.0 → 7.2 → 7.3
+**Score ceiling:** 7.5 (without real photography)
+**Focus axis:** Conversion friction + accessibility (first pass)
 
 ---
 
-## Dispatch Decision
+## Rationale
 
-Score is 7.2 — under the 8.5 polish gate, so full agent slate runs. AUDIT P1 (real photography) cannot be fixed in code — explicitly excluded from agent scope. AUDIT P2 (Etsy badge) and P3 (trust strip line) are both code-eligible and form the Builder spine. SCOUT's recommended copper-glow cursor trail is the cycle's first "wow" candidate and fits Builder's budget after the P2/P3 work — added as the second Builder task. Spark refines the Custom CTA frame on a Frame B pass. Pixel runs the standard mobile alignment + accessibility-tap-target sweep. Nigel re-scores at the end.
+Score sits at 7.3 with a 7.5 ceiling that holds until original photography lands. AUDIT cycle 4 gave clean P2/P3 targets that fit one Builder pass. Spark has done four straight Frame B passes on rich sections and the only unrefined-but-eligible visual area left is the Contact form card (footer was already audited cycle 4). Pixel has run a mobile sweep every cycle — cycle 5 is the right moment for the first-ever Accessibility pass (axe-core, ARIA, contrast, alt text), which also picks up BUGS.md #11 (process-dots aria-hidden wrapping interactive buttons). Nigel re-scores under stricter rubric per memory.
 
-**Rationale (one line):** Builder ships AUDIT P2/P3 + SCOUT's cursor trail wow-moment, Spark refines Custom CTA Frame B, Pixel sweeps mobile + tap targets including the new cursor-trail desktop guard, Nigel re-scores stricter against the photography ceiling.
-
----
-
-## Agent 1 — Builder
-
-**Why now:** Cycle 4 has two concrete, code-eligible AUDIT priorities (P2 testimonial badge, P3 Custom CTA trust strip) plus SCOUT's cycle-4 recommendation (copper-glow cursor trail). All three fit one Builder pass.
-
-**Specific instructions:**
-1. **AUDIT P2 — Testimonial source badges.** The user does NOT have a known live Etsy shop. Do NOT fabricate a URL. Re-label every "via Etsy" pill to honest plain text — pick one of: "past commission client" / "from Etsy customer" / "from Instagram DM" / "direct order" — and match each card to its actual source story already in the testimonial copy. Remove the pill border treatment if relabeling makes it read as plain attribution rather than verification. The four cards labeled "via Etsy" and the one labeled "via Instagram" both need an honesty pass — Instagram label can stay if the user has a real Instagram (check footer/contact for handle; if none, soften that one too).
-2. **AUDIT P3 — Custom CTA trust strip third item.** Replace "Bags, quilts & commissions welcome" with a credible artisan-brand commitment. Approved options (pick one): "Ships within 2 weeks of order confirmation" / "Hand-finished in Pennsylvania" / "Every piece backed by a satisfaction guarantee". Do NOT invent specific shipping windows, return windows, or legal terms beyond these patterns.
-3. **SCOUT recommendation — Copper-glow cursor trail.** Implement Candidate C from SCOUT.md exactly: ~40 lines vanilla JS, canvas overlay, `pointer-events:none`, `z-index: 9999`, particle decay 0.025/frame, copper rgba(207,139,103, life * 0.35). Wrap entire init in `if (window.matchMedia('(pointer:fine)').matches) { ... }` — desktop only. Add `prefers-reduced-motion` guard that skips the effect entirely. New file `js/cursor-trail.js` loaded via `<script defer src="js/cursor-trail.js"></script>` at end of body — do not bury it inside main.js.
-
-**Memory guardrails (MUST respect):**
-- No fabricated URLs / no fake Etsy link / no invented testimonial sources.
-- No fabricated guarantees with specific legal terms (refund windows, lifetime warranty, etc.).
-- Apps must NOT look AI-generated — cursor trail must use the cream/espresso/copper palette, not generic blue/white sparkle.
-- Simplicity over polish — replace the trust-strip line, do not add a fourth item.
-
-**Forbidden:** Studio Strip · About section · Process panels · Hero · Mood rows · Shop price text. Do not add new sections.
-
-**Exit criteria:**
-- AUDIT P2 cleared: every source label is honest (links to real platform OR is plain past-tense attribution; no implied verification without href).
-- AUDIT P3 cleared: trust-strip third item replaced with one of the approved commitment lines.
-- Cursor trail ships and is visible on desktop pointer:fine, invisible on touch + prefers-reduced-motion.
-- BUGS.md updated only if Builder closes anything in passing.
+Razor and Performance passes are noted as eligible but deferred — accessibility is the higher-leverage next axis given BUG #11 is a real screen-reader-blocker still open. Razor next cycle if no fresh AUDIT critical surfaces.
 
 ---
 
-## Agent 2 — Spark (Frame B)
+## Agents (execution order)
 
-**Why now:** Custom CTA section has not been touched since cycle 1. Builder is replacing the trust-strip third item (one line, content). Spark refines the surrounding Custom CTA frame on a Frame B pass — typography, spacing, visual hierarchy of the existing trust strip + headline + body — without adding new elements.
+### 1. Builder — AUDIT P2 + P3 + open bug sweep
 
-**Specific instructions:**
-- Frame B refinement of the Custom CTA section ONLY (forest-green contrast block, headline "Most of my favorites have been custom work", body copy, trust strip, CTA button).
-- Refine: spacing between headline and body, trust-strip iconography spacing, button weight, watermark "Custom" treatment (Nigel cycle 3 noted it competes on tablets — quiet it OR remove it; do not add a replacement).
-- The watermark is the one element you may REMOVE without replacing — it's identified as competing for attention. Removing decorative noise honors simplicity-over-polish.
-- Frame B keeps content count: do NOT strip the trust strip from 3 items to 2. Builder is replacing the third item's text — Spark refines its visual treatment.
+**Brief:**
+Ship two tightly-scoped buyer-friction fixes from AUDIT cycle 4 and clear two open BUGS.md items that haven't moved in 4 cycles.
 
-**Memory guardrails (MUST respect):**
-- Frame B keeps content count — three trust-strip items stay three.
-- Spark must replace/remove when adding — if you add anything new, identify what comes out.
-- No ghost numbers / large faded background numerals anywhere.
-- Apps must NOT look AI-generated — keep the artisan cream/espresso/copper system, not generic SaaS gradients.
-- Nigel never recommends removing glows/animations/effects — Spark may remove ONLY the over-large "Custom" watermark per Nigel's own cycle-3 note, nothing else.
+- **AUDIT P2 (HIGH):** Testimonial carousel mobile UX. Add (a) pause-on-touch (touchstart pauses the auto-advance interval, touchend restarts after 4s), (b) dot indicators below the track (one dot per primary card, active dot reflects current visible card), (c) basic swipe gesture (touchstart X to touchend X delta, threshold ~50px, jump prev/next). Carousel structure unchanged — only mobile interaction layer. The `.testimonials-track` translateX(-50%) seamless loop must keep working. If swipe lands mid-loop, the pause-on-touch must hold position cleanly.
+- **AUDIT P3 (MEDIUM):** Contact textarea directive placeholder. One attribute change on `<textarea name="message">` — placeholder text like `e.g. a market tote in olive linen, roughly 14 inches wide, gift in 6 weeks — happy to send a sketch first`. Honest, specific, not a fake order. No copy fabrication beyond the placeholder hint.
+- **BUGS.md #15:** Remove `html { scroll-behavior: smooth }` from style.css line 29. JS smooth scroll is the correct path; CSS+JS dual is fighting. One-line removal.
+- **BUGS.md #18:** Nav logo (`href="#"`) should call `window.scrollTo({ top: 0, behavior: 'smooth' })` from the existing smooth-scroll handler instead of falling through to browser default. main.js already has the guard for `#` — make it scroll, don't just early-return.
 
-**Forbidden:** Studio Strip · About section · Process panels · Hero · Mood rows · Shop section · Testimonials (Builder owns this cycle). Do not add new sections. Do not touch typography globals.
+**MEMORY guardrails:**
+- No fabricated content / no fake testimonials.
+- Respectful tone in any user-facing copy.
+- Apps must NOT look AI-generated — placeholder must read as a real maker would write it.
 
-**Exit criteria:**
-- Custom CTA section reads tighter visually but content count unchanged (still 3 trust items, still 1 headline, still 1 body, still 1 CTA).
-- Tablet watermark "Custom" no longer competes with the headline (quieted or removed cleanly).
-- Diff is bounded to Custom CTA selectors in style.css + at most 1 HTML change.
+**Forbidden sections this cycle:**
+Studio Strip, Hero (Ken Burns or otherwise), Mood rows visual/animation, About section, Process panels, Shop price text, Custom CTA, cursor trail, testimonial source labels.
+
+**Source:** AUDIT P2/P3, BUGS.md #15/#18.
 
 ---
 
-## Agent 3 — Pixel
+### 2. Spark — Frame B on Contact form card
 
-**Why now:** Builder is shipping a desktop-only cursor canvas + replacing copy in two sections. Pixel must verify (a) the cursor canvas does not regress mobile, (b) the relabeled testimonial badges still center-align at 375px and 414px, (c) tap targets stay at 44px after Custom CTA Frame B refinement.
+**Brief:**
+Frame B refinement on the Contact section form card (`.contact-inner`) — the only non-cooldown rich section that has never had a Spark editorial pass. Refine spacing, typography hierarchy, and the trust-note treatment ("If you're not happy with what arrives, message me — I'll make it right" — the strongest reassurance copy on the page, currently buried in default styling). Treat the trust note as the section's emotional anchor, not a footnote.
 
-**Specific instructions:**
-1. **Mobile center-alignment audit at 375px AND 414px** (mandatory per memory) on:
-   - Testimonials cards after Builder's relabel — source badge alignment in the rating-row flex.
-   - Custom CTA section after Spark's Frame B — trust strip horizontal centering, CTA button centering, headline centering.
-   - Footer (cycle eligible — has not been audited).
-   - Contact form trust strip and form card vertical rhythm (BUGS.md #22 noted double-stutter on mobile reveals — diagnose if visible).
-2. **Tap target sweep** — confirm `.btn-walnut` (BUGS.md #9, currently ~41px) and `.nav-cta` (BUGS.md #10, currently ~37px) — fix both to min-height 44px. These are persistent accessibility bugs.
-3. **Cursor trail desktop-only verification** — confirm `pointer:fine` guard works: at 375px the canvas element should not paint, no console errors, no event listener leaks.
-4. **prefers-reduced-motion** — verify cursor trail respects the user setting; verify the existing reveal animations also respect it (spot check, do not refactor).
+Possible moves: tighten label-to-input rhythm; raise the trust-note from inline paragraph to a hairline-bordered editorial pull-quote inside the card; consider an L-bracket corner mark on the card frame matching the About-section treatment for visual cohesion (NOT the same component — same family).
 
-**Memory guardrails (MUST respect):**
-- Pixel always audits center-alignment on mobile at 375px AND 414px — both viewports, not one.
-- No content removal — only alignment / tap-target / spacing fixes.
-- Apps must NOT look AI-generated — do not introduce generic Material/Tailwind tap-target patterns.
+**MEMORY guardrails:**
+- Frame B keeps content count — do NOT add or remove form fields, trust-note bullets, or section copy. Refine spacing/typography only.
+- Replace when adding — if a new accent is introduced (e.g. corner brackets), an existing decorative element of equivalent weight gets removed or reduced. No piling on.
+- No ghost numbers / large faded background numerals.
+- Apps must NOT look AI-generated — keep cream/espresso/copper artisan identity.
+- Nigel never recommends removing glows/animations/effects, but Spark can replace one decorative move with another.
 
-**Forbidden:** Studio Strip · About · Process panels · Hero · Mood rows · Shop price layout · Testimonial copy edits (Builder owns content). No new sections. No CSS variable redefinitions.
+**Forbidden sections this cycle:**
+Studio Strip, Hero, Mood rows, About section, Process panels, Custom CTA, Footer (already audited cycle 4), Testimonials. Touch ONLY the Contact form card.
 
-**Exit criteria:**
-- Both BUGS.md #9 and #10 closed (44px min-height confirmed).
-- Mobile alignment sweep documented in changelog with each section verified at 375px + 414px.
-- Cursor trail confirmed inactive on mobile + reduced-motion.
+**Source:** AGENT-PLAN cycle 5 eligible-focus list (Contact form card never refined).
 
 ---
 
-## Agent 4 — Nigel
+### 3. Pixel — first-ever Accessibility pass (axe-core, ARIA, contrast, alt)
 
-**Why now:** Cycle close. Three code changes (Builder P2/P3 + Spark Frame B) plus the cursor-trail wow-moment plus Pixel tap-target fixes. Nigel re-scores from a real buyer's perspective.
+**Brief:**
+First Accessibility pass in 5 cycles. Run a structured a11y audit across the full page and fix the open accessibility blocker:
 
-**Specific instructions:**
-- Re-audit conversion-friction axis. Score from a prospective buyer landing cold on the live URL.
-- The score ceiling remains photography. P1 did not move this cycle (and was not in scope). Do NOT inflate the score above 7.5 just because cosmetic refinements landed. The repeated `pexels-7998221` is still in About and Process closing panel — that ceiling has not lifted.
-- Acknowledge the cursor trail as a genuine new experience layer — it is the first "wow" moment shipped this project. Score its delight value, but do not let it inflate the conversion-friction axis (it does not directly reduce friction; it is brand presence).
-- Update AUDIT.md with cycle 4 entry, top-3 priorities for cycle 5, and updated section scores.
-- Append SCORES.log line.
+- **BUGS.md #11 (MEDIUM, open):** `.process-dots` container has `aria-hidden="true"` while wrapping interactive buttons — screen-reader users have NO access to process panel navigation. Remove `aria-hidden` from the container and add proper `aria-label` to each dot button (e.g. `aria-label="Jump to step 1: Source"`). Use `role="tablist"` on the container and `role="tab"` / `aria-selected` on each dot if structurally appropriate.
+- **Alt text audit:** Every `<img>` on the page — verify alt is descriptive, not empty, not filename. Stock pexels images get descriptive alt ("Hands cutting waxed canvas in studio" — describe the image, do NOT claim it's Molly). Decorative-only images get `alt=""`.
+- **Contrast audit:** All text over photos (Hero headline, Process panel desc, Custom CTA body) — verify WCAG AA (4.5:1 normal, 3:1 large). Especially the testimonials disclaimer at opacity 0.45 / 12px on dark background (BUGS.md #17 area). Document which fail and bump the failing ones (raise opacity, not size — Spark cooldown applies to typography of testimonials).
+- **ARIA roles and landmarks:** Verify `<main>`, `<nav>`, `<footer>` are semantic with appropriate landmarks. Verify form has a `<label>` for every input (or aria-label).
+- **Focus states:** Confirm visible focus rings on all interactive elements (buttons, links, dots, form fields). Tab through mentally — anywhere focus disappears is a fail.
+- **Mobile center-alignment sweep at 375 + 414px** — confirm Builder's testimonial dot indicators land centered, the new placeholder doesn't break the textarea visual rhythm, and Spark's Contact card changes are aligned.
 
-**Memory guardrails (MUST respect):**
-- Nigel scores stricter — new-ish artisan site sits 5.5–7.5. Do not move past 7.5 without real photography movement.
-- Nigel never recommends removing glows / animations / effects — only addition or improvement. The cursor trail counts as a new effect; if it lands well, say so. If it does not, suggest tuning (decay rate, color, density), not removal.
-- Score from a real buyer's perspective, not a designer's.
-- Respectful tone — never blame the user for missing photography. Frame as "next unlock," not "blocker the user has not delivered."
+**MEMORY guardrails:**
+- Pixel ALWAYS audits center-alignment on mobile at 375/414px (in addition to a11y).
+- No invented content — alt text describes what the image actually shows, doesn't claim it's Molly when it's pexels.
+- Nigel never removes glows/animations — Pixel doesn't either; only add missing reduced-motion guards if any are absent.
 
-**Forbidden:** Do not edit code. Do not touch agent files except AUDIT.md / SCORES.log / CHANGELOG-AGENT.md.
+**Forbidden sections this cycle:**
+None for the a11y pass — page-wide. But do NOT change visual design beyond a11y necessity (focus rings, contrast bumps, aria attributes). No layout shifts. Cooldown sections (Studio Strip, Hero, About, Process visuals, Mood rows, Custom CTA, Shop prices, cursor trail) — touch only their a11y attributes, not their visual treatment.
 
-**Exit criteria:**
-- AUDIT.md cycle 4 entry written with top-3 cycle 5 priorities.
-- SCORES.log appended.
-- Score delta justified with specific buyer-perspective reasoning, not vibes.
+**Source:** BUGS.md #11 (open), AUDIT cycle 4 testimonials disclaimer contrast flag, eligible-focus list (accessibility pass never run).
 
 ---
 
-## Cooldowns Enforced
+### 4. Nigel — re-score (cycle 5)
 
-| Section | Last touched | Cooldown until |
-|---|---|---|
-| Studio Strip | cycle 1 | cycle 5 |
-| About | cycle 3 (Spark) | cycle 5 |
-| Process panels | cycle 3 (Pixel hotfix) | cycle 5 |
-| Hero | cycle 2 ratified | cycle 5 |
-| Mood rows visual / animation | cycle 2 (Pixel) | cycle 5 |
-| Shop section price text | cycle 3 (Builder) | cycle 6 |
+**Brief:**
+Re-score under the strict rubric. New-ish artisan site sits 5.5–7.5; score from real-buyer perspective; do NOT inflate above 7.5 without real photography movement.
+
+**Expected delta this cycle:** Modest. P2 testimonial mobile UX is genuine friction relief (worth ~+0.1 if shipped clean). P3 placeholder is small but real. Spark Contact card refinement could move the contact section sub-score. Accessibility pass moves the mobile UX sub-score and brand-cohesion confidence floor but most a11y wins are invisible to a sighted buyer doing a 30-second scan — Nigel should NOT over-credit invisible structural improvements on the conversion-friction axis. Realistic landing zone: 7.4 (+0.1). Hard cap remains 7.5 without real photography.
+
+**MEMORY guardrails:**
+- Nigel never recommends removing glows/animations/effects.
+- Nigel scores stricter — new sites start ~5.5, not 7.0+.
+- Nigel does NOT inflate past 7.5 without real photography.
+- Respectful tone — never call user a bottleneck for not having shot photos yet. Frame photography as the next unlock, collaboratively.
+- No dev/template-marketplace content recommendations.
+
+**Forbidden:**
+No new section invention. No fabricated metric ("X% conversion lift"). No prescribing photography content beyond "one original product or studio photograph" framing.
+
+**Source:** AUDIT.md re-score; append to SCORES.log.
 
 ---
 
-## Notes for Cycle 5+
+## Coordinator one-line
 
-- AUDIT P1 (real photography) remains the top blocker. Until the user supplies one original photo of Molly or a finished product, no code change can break 7.5 cleanly.
-- SCOUT runner-up (Layered Telescope Zoom) is the next "wow" candidate after cursor trail proves stable. Cycle 6 candidate.
-- Bug sweep candidate cycle: BUGS.md still has 17+ open including 2 mediums (#11 process-dots aria-hidden, #15 dual smooth-scroll) and the long-tail lows. Schedule a Razor pass cycle 6.
+`2026-04-26 coordinator — scheduled: Builder, Spark, Pixel, Nigel, focus: conversion-friction + first accessibility pass (AUDIT P2 testimonials mobile UX + AUDIT P3 directive placeholder + 2 stale bugs + Contact card Frame B + a11y pass + re-score), forbidden: Studio Strip, Hero, Mood rows, About, Process panels visual, Shop prices, Custom CTA, cursor trail, testimonial source labels, Footer`
