@@ -110,3 +110,18 @@
 **Files:** style.css lines 568-576 (overlay), 588-595 (fp-content desktop), 620-626 (fp-desc), 1581-1592 (fp-content mobile)
 
 2026-04-25 pixel — How It's Made panels: vertical center fixed (bottom anchor → top:50%/translateY(-50%) all 4 panels), readability fixed (weight 300→400, opacity 0.82→0.96, overlay floor 15%→30%)
+
+## 2026-04-25 — Nigel (cycle 3)
+
+2026-04-25 23:28 nigel — focus axis: conversion-friction, top issue: repeated pexels-7998221 across About + Process closing panel is the primary remaining trust blocker
+
+**Cycle 3 delta (+0.2 from 7.0):**
+- Shop sub-score 6.5 → 7.0: Price ranges ($75–$220 bags, $120–$480 quilts) give buyers budget fit at a glance. "Starting from" open-ended anxiety is resolved for two of three rows.
+- About sub-score 7.5 → 7.8: Caption strip + hairline divider, L-bracket corners, and 2.1rem signature combine into a convincing personal-maker anchor. This is the best single-section improvement of the cycle.
+- Process sub-score 7.0 → 7.3: Vertical centering fix is correct (top:50%/translateY(-50%) all 4 panels). Readability improvements (weight 400, opacity 0.96, overlay floor 30%) make description copy land.
+- Mobile sub-score 6.8 → 7.0: Process panel centering consistency improves perceived quality on small screens.
+
+**Top 3 priorities — cycle 4:**
+1. CRITICAL: Real photography — repeated pexels-7998221 in both About and Process closing panel is the ceiling blocker. One real photo outweighs any remaining code change.
+2. HIGH: Link "via Etsy" source badge to actual Etsy shop URL (cooldown ends this cycle).
+3. MEDIUM: Replace "Bags, quilts & commissions welcome" in Custom CTA trust strip with a shipping or returns guarantee.
