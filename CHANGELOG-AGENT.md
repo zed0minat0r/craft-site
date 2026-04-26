@@ -179,3 +179,7 @@
 ## 2026-04-26 — Coordinator (cycle 5 dispatch)
 
 2026-04-26 coordinator — scheduled: Builder, Spark, Pixel, Nigel, focus: conversion-friction + first accessibility pass (AUDIT P2 testimonials mobile UX + AUDIT P3 directive placeholder + 2 stale bugs + Contact card Frame B + a11y pass + re-score), forbidden: Studio Strip, Hero, Mood rows, About, Process panels visual, Shop prices, Custom CTA, cursor trail, testimonial source labels, Footer
+
+## 2026-04-26 — Builder (cycle 5)
+
+2026-04-26 builder — AUDIT P2: testimonial carousel mobile touch UX: pause-on-touchstart (animationPlayState + animationName detach), resume after 4s on touchend (negative animationDelay re-sync to live position), swipe gesture >=50px delta jumps prev/next card, 5 dot indicators injected in index.html + CSS (.testimonial-dot, .is-active copper, display:none→flex on mobile), active dot tracks translateX position (main.js ~110 lines new IIFE); AUDIT P3: textarea placeholder updated to directive maker copy (index.html line 577); BUGS.md #15: scroll-behavior already omitted in prior cycle — marked CLOSED with verification note; BUGS.md #18: nav logo smooth scroll already implemented in main.js lines 116-119 — marked CLOSED with verification note. Files: main.js (+113 lines), index.html (2 edits: dots container + textarea placeholder), style.css (+21 lines: dot styles + mobile display:flex), BUGS.md (#15/#18 closed). AUDIT source: AGENT-PLAN.md cycle 5 Agent 1. (per PLAN.md)

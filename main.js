@@ -275,3 +275,123 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     inquirySelect.value = preselect;
   }
 })();
+
+/* ---- Testimonials carousel: mobile touch (pause / swipe / dot indicators) ----
+   The track uses CSS animation testimonial-scroll (translateX 0 → -50%).
+   On touch: pause the animation and track position via getComputedStyle.
+   On swipe: jump to adjacent card by temporarily overriding transform, then
+   re-sync the animation start-offset so the loop is never broken.
+   Dots: 5 dots map to the 5 primary cards. Active dot is computed from the
+   track's current translateX relative to one card+gap width.
+*/
+(function() {
+  var track = document.getElementById('testimonials-track');
+  var dotsContainer = document.getElementById('testimonial-dots');
+  if (!track || !dotsContainer) return;
+
+  /* Only apply touch layer on touch-capable devices */
+  var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (!isTouch) return;
+
+  var dots = dotsContainer.querySelectorAll('.testimonial-dot');
+  var NUM_CARDS = 5;
+  var SWIPE_THRESHOLD = 50; /* px */
+  var RESTART_DELAY = 4000; /* ms after touchend before resuming */
+  var touchStartX = 0;
+  var touchStartTime = 0;
+  var resumeTimer = null;
+  var activeDot = 0;
+
+  /* Get the width of one card + gap to compute which card is visible */
+  function getCardStep() {
+    var card = track.querySelector('.testimonial-card');
+    if (!card) return 324; /* fallback: 300px card + 24px gap */
+    var style = getComputedStyle(track);
+    var gap = parseFloat(style.gap) || 24;
+    return card.offsetWidth + gap;
+  }
+
+  /* Read current translateX from the live animation */
+  function getCurrentTranslateX() {
+    var matrix = getComputedStyle(track).transform;
+    if (!matrix || matrix === 'none') return 0;
+    var m = matrix.match(/matrix\(([^)]+)\)/);
+    if (!m) return 0;
+    var values = m[1].split(',');
+    return parseFloat(values[4]) || 0;
+  }
+
+  /* Freeze the track at its current animated position */
+  function pauseTrack() {
+    var currentX = getCurrentTranslateX();
+    track.style.animationPlayState = 'paused';
+    track.style.transform = 'translateX(' + currentX + 'px)';
+    track.style.animationName = 'none'; /* detach so we can translate freely */
+    updateDotFromX(currentX);
+  }
+
+  /* Resume CSS animation, re-anchored to currentX so there's no jump.
+     Strategy: set animation-delay negative so the loop starts at exactly
+     the current scroll position.  One full loop = -50% = totalWidth/2 px.
+     duration = 50s. delay = -(currentX / (totalWidth/2)) * 50s */
+  function resumeTrack() {
+    var totalWidth = track.scrollWidth;
+    var halfWidth = totalWidth / 2;
+    var currentX = parseFloat(track.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+    /* Clamp to negative half-width range [0, -halfWidth] */
+    var clamped = Math.max(-halfWidth, Math.min(0, currentX));
+    var progress = Math.abs(clamped) / halfWidth; /* 0→1 */
+    var delay = -(progress * 50); /* negative delay = start mid-animation */
+    track.style.transform = '';
+    track.style.animationName = 'testimonial-scroll';
+    track.style.animationDelay = delay + 's';
+    track.style.animationPlayState = 'running';
+  }
+
+  function setActiveDot(idx) {
+    idx = ((idx % NUM_CARDS) + NUM_CARDS) % NUM_CARDS;
+    activeDot = idx;
+    dots.forEach(function(d, i) {
+      d.classList.toggle('is-active', i === idx);
+    });
+  }
+
+  function updateDotFromX(currentX) {
+    var step = getCardStep();
+    if (step <= 0) return;
+    var pos = Math.abs(currentX);
+    var idx = Math.round(pos / step) % NUM_CARDS;
+    setActiveDot(idx);
+  }
+
+  function scheduleResume() {
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(resumeTrack, RESTART_DELAY);
+  }
+
+  track.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+    clearTimeout(resumeTimer);
+    pauseTrack();
+  }, { passive: true });
+
+  track.addEventListener('touchend', function(e) {
+    var delta = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) >= SWIPE_THRESHOLD) {
+      /* Swipe: move one card in the swipe direction */
+      var step = getCardStep();
+      var currentX = parseFloat(track.style.transform.replace('translateX(', '').replace('px)', '')) || 0;
+      var newX = currentX + (delta > 0 ? step : -step);
+      /* Clamp to [0, -(NUM_CARDS-1)*step] — no over-scroll */
+      var totalWidth = track.scrollWidth;
+      var halfWidth = totalWidth / 2;
+      if (newX > 0) newX = 0;
+      if (newX < -halfWidth + step) newX = -halfWidth + step;
+      track.style.transform = 'translateX(' + newX + 'px)';
+      updateDotFromX(newX);
+    }
+    scheduleResume();
+  }, { passive: true });
+
+})();

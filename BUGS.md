@@ -93,10 +93,10 @@
 - Selector: `.mood-row.reverse .mood-text::before` / `style.css` line 429
 - On desktop, the vertical copper accent bar flips sides for reversed rows (intentional for 2-col layout). On mobile the grid becomes single-column and `direction: ltr` is restored, but `.mood-row.reverse .mood-text::before { left: auto; right: 0; }` still applies. Row 01 and 03 have the bar on the left; Row 02 has it on the right. Inconsistent alignment on mobile where all bars should logically be on the same side.
 
-**15. Dual smooth-scroll: both `html { scroll-behavior: smooth }` and JS `window.scrollTo({ behavior: 'smooth' })` active**
+**15. ~~Dual smooth-scroll: both `html { scroll-behavior: smooth }` and JS `window.scrollTo({ behavior: 'smooth' })` active~~ CLOSED**
 - Section: Global
 - Selector: `style.css` line 29 + `main.js` line 117
-- Having both native CSS smooth scroll and JS smooth scroll active simultaneously can cause conflicts — some browsers double-apply easing or fight over scroll position. The JS `e.preventDefault()` + `window.scrollTo` pattern is the correct approach; the CSS `scroll-behavior: smooth` on `html` should be removed to avoid interference, especially with programmatic scroll jumps from process dot clicks.
+- **Fix (cycle 5, Builder):** `html { scroll-behavior: smooth }` was already removed prior to this cycle. style.css line 29 contains a comment: `/* scroll-behavior intentionally omitted — JS smooth scroll handles all anchors */`. No dual-scroll conflict. Verified cycle 5.
 
 **16. Google Fonts loaded via CSS `@import` (render-blocking) despite `<link rel="preconnect">` in HTML**
 - Section: Global / `<head>`
@@ -111,9 +111,9 @@
 - Selectors: `.section-label`, `.hero-eyebrow`, `.author-location`, `.testimonials-disclaimer`, `.footer-copy`, `.footer-made`, `.footer-col-title`
 - All at exactly 12px. While technically at the 12px guideline minimum, WCAG recommends 14px+ for body text. These are all informational labels, not decorative, and are especially small on mobile. The disclaimer text at 12px with `opacity: 0.7` on a dark background is particularly low-contrast.
 
-**18. Nav logo (`href="#"`) scrolls to top via browser jump, not smooth scroll**
+**18. ~~Nav logo (`href="#"`) scrolls to top via browser jump, not smooth scroll~~ CLOSED**
 - Selector: `a[href="#"].nav-logo`
-- The JS smooth scroll guard `if (target)` catches the null result and lets the default browser `#` behavior fire (instant jump to top). Every other nav link scrolls smoothly. This inconsistency is noticeable if user is mid-page and taps the logo.
+- **Fix (cycle 5, Builder):** main.js lines 116-119 already handle this: `if (href === '#' || href === '') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }`. Logo tap smooth-scrolls to top correctly. Verified cycle 5.
 
 **19. Duplicate studio strip images render on mobile — 10 items in a dead-end scroll**
 - Section: Studio Strip (mobile)
