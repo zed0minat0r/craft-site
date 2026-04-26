@@ -170,6 +170,8 @@ nav.scrolled .nav-cta {
   line-height: 1;
   user-select: none;
   white-space: nowrap;
+  /* Contain font-swap layout shifts to this element (CLS fix) */
+  contain: layout size;
 }
 .hero-content {
   position: relative;

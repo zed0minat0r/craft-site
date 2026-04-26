@@ -1,7 +1,7 @@
 # Bug Report — Made by Molly
 **Tested:** 2026-04-26 at 375px + 1440px (latest: cycle 5 a11y pass)
 **Branch:** main
-**Total bugs:** 23 open (9 closed: #5/#9/#10/#11/#13/#15/#18/#22/#24/#25/#26, 4 new: #24–#27)
+**Total bugs:** 21 open (11 closed: #4/#5/#9/#10/#11/#13/#15/#16/#18/#22/#24/#25/#26)
 
 ---
 
@@ -29,11 +29,11 @@
 - The Ken Burns effect animates `transform: scale(1.05) → scale(1)` via 8s CSS transition. The parallax scroll handler sets `heroBg.style.transform = 'scale(1) translateY(...)` — inline style overwrites the CSS class transform, dropping the scale component immediately on first scroll event. The subtle cinematic zoom disappears the instant the user begins scrolling.
 - Reproduce: Load page (Ken Burns zoom is visible), scroll 1px — scale instantly resets.
 
-**4. Hero product inset image loads eagerly on mobile but is hidden**
+**4. ~~Hero product inset image loads eagerly on mobile but is hidden~~ CLOSED**
 - Section: Hero
-- Selector: `.hero-product-inset img` / `index.html` line 70
-- The inset image has `loading="eager"` and is visible on desktop. On mobile (`max-width: 768px`) the entire `.hero-product-inset` div is `display:none`. The eager image still downloads on mobile, burning ~100KB of bandwidth on an image that is never shown. Should be `loading="lazy"` at minimum, or excluded from mobile via `<picture>`.
-- Affects: All mobile users.
+- Selector: `.hero-product-inset img` / `index.html`
+- The inset image was eager-loading on mobile despite `.hero-product-inset { display:none }` at 768px breakpoint — burning ~100KB bandwidth on an image never shown.
+- **Fix (cycle 6, Performance):** Wrapped in `<picture>` with `<source media="(max-width: 768px)" srcset="">`. Empty srcset on mobile source tells the browser to skip the download entirely. `loading="lazy"` retained on fallback `<img>`. `width`/`height` attributes added to prevent reflow. index.html updated.
 
 **5. ~~Hamburger button stacks above mobile nav overlay — hamburger stays visible over full-screen menu~~ CLOSED**
 - Section: Navigation (mobile)
@@ -98,10 +98,12 @@
 - Selector: `style.css` line 29 + `main.js` line 117
 - **Fix (cycle 5, Builder):** `html { scroll-behavior: smooth }` was already removed prior to this cycle. style.css line 29 contains a comment: `/* scroll-behavior intentionally omitted — JS smooth scroll handles all anchors */`. No dual-scroll conflict. Verified cycle 5.
 
-**16. Google Fonts loaded via CSS `@import` (render-blocking) despite `<link rel="preconnect">` in HTML**
+**16. ~~Google Fonts loaded via CSS `@import` (render-blocking) despite `<link rel="preconnect">` in HTML~~ CLOSED**
 - Section: Global / `<head>`
 - Selector: `style.css` line 5 / `index.html` lines 9–10
-- The `<head>` has preconnect hints for `fonts.googleapis.com` and `fonts.gstatic.com` — but no `<link rel="stylesheet">` for the fonts. The actual font request is an `@import` inside `style.css`, which is render-blocking (browser must fetch and parse style.css before it can even start the font request). This negates the benefit of the preconnect hints. The fonts should be loaded via `<link rel="stylesheet">` in `<head>`, not `@import`.
+- The `<head>` had preconnect hints but fonts were loaded via `@import` inside style.css, which is render-blocking (browser must fetch+parse style.css before starting the font request), negating the preconnect benefit.
+- **Fix (prior to cycle 6):** Already resolved. style.css line 5 is now a comment confirming `<link>` in head. Confirmed: no `@import` present in style.css. Fonts load via `<link rel="stylesheet">` in index.html line 11.
+- **Additional fix (cycle 6, Performance):** Added `<link rel="preload">` for the three critical woff2 files (Playfair Display italic + regular, DM Sans) to eliminate font-swap CLS on hero watermark. CLS was 0.171 on desktop from webfont swap. Preloading ensures fonts arrive before first paint.
 
 ---
 

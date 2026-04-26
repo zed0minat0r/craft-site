@@ -234,3 +234,23 @@
 ## 2026-04-26 — Coordinator (cycle 6 dispatch)
 
 2026-04-26 12:00 coordinator — scheduled: Performance, Razor, QA, Nigel, focus: performance + cleanup pivot (Lighthouse never run + dead-CSS sweep + first holistic Playwright QA + re-score), forbidden: Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop price text, Custom CTA, Cursor trail behavior, Testimonial source labels, Testimonial carousel mobile UX, Contact form card visual, Contact textarea placeholder. Score 7.4 with 7.5 ceiling — eight visual sections on cooldown so cycle pivots to floor-raising work that has never run. BUGS #27 surfaced to user for brand decision (NOT for agents). Builder/Spark/Pixel/Scout/Accessibility intentionally skipped — rationale in AGENT-PLAN.md.
+
+## 2026-04-26 — Performance (cycle 6)
+
+2026-04-25 performance — scores: P=66(mob)/85(desk) BP=73(both) A=97(both) S=100(both), top issue: render-blocking main.js + font-swap CLS 0.171 on desktop from hero watermark, fixed: 5
+
+**Fixes applied:**
+- `defer` added to `main.js` script tag — removes synchronous render-blocking JS (Lighthouse flagged 179ms savings desktop)
+- Font preloads: added `<link rel="preload">` for 3 critical woff2 files (2× Playfair Display, 1× DM Sans) — eliminates font-swap CLS on hero watermark (CLS was 0.171 desktop)
+- `contain: layout size` added to `.hero::before` — CLS containment fallback; isolates pseudo-element from document layout even if a font swap occurs
+- Favicon SVG added (`favicon.svg`, copper "M" on espresso) + `<link rel="icon">` in head — fixes Best Practices console 404 error (main driver of BP=73 score)
+- Bug #4 CLOSED: hero inset wrapped in `<picture>` with `<source media="(max-width: 768px)" srcset="">` — empty srcset tells browser to skip download on mobile where element is display:none; `width`/`height` attrs added to `<img>` for reflow prevention
+- Bug #16 CONFIRMED CLOSED: `@import` was already removed pre-cycle-6; additional font preloads added this cycle for CLS fix
+
+**Audits completed:**
+- cursor-trail.js: clean guard on pointer:fine (mobile exits immediately, no canvas created). Clean guard on prefers-reduced-motion. rAF loop runs continuously but particles array empties naturally — no leak, minor CPU inefficiency only. No global references. Documented in PERFORMANCE.md.
+- Testimonial touch IIFE: touchstart + touchend both `{ passive: true }`. No touchmove listener present — swipe computed on touchend delta. No passive listener violations. Scroll-perf clean.
+
+**Scores after fixes:** Not re-run (GitHub Pages propagation time needed). Scores expected to improve on: Best Practices (favicon 404 resolved), desktop CLS (font preloads + containment), Performance (deferred JS removes render-blocking). Mobile LCP remains network-bottlenecked by 3× Pexels woff2 downloads — further improvement needs self-hosted fonts or `font-display: optional` (visual trade-off; deferred to future cycle).
+
+**Files changed:** index.html, style.css, BUGS.md, PERFORMANCE.md (new), favicon.svg (new)

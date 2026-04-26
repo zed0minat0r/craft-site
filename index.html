@@ -5,10 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Made by Molly — Handmade Bags &amp; Art Quilts from Pennsylvania</title>
   <meta name="description" content="Handcrafted bags, totes, and art quilts made with intention in Pennsylvania. Custom orders welcome." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" />
+  <!-- Preload critical woff2 files to eliminate font-swap CLS on hero watermark -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFkD-vYSZviVYUb_rj3ij__anPXDTnogkk7yRZrPA.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2" />
 </head>
 <body>
 
@@ -69,11 +74,17 @@
       </div>
     </div>
     <div class="hero-product-inset">
-      <img
-        src="https://images.pexels.com/photos/15337117/pexels-photo-15337117.jpeg?auto=compress&cs=tinysrgb&w=500"
-        alt="Handmade patchwork art quilt — Made by Molly"
-        loading="lazy"
-      />
+      <!-- Bug #4: picture element skips download on mobile where inset is display:none -->
+      <picture>
+        <source media="(max-width: 768px)" srcset="" />
+        <img
+          src="https://images.pexels.com/photos/15337117/pexels-photo-15337117.jpeg?auto=compress&cs=tinysrgb&w=500"
+          alt="Handmade patchwork art quilt — Made by Molly"
+          loading="lazy"
+          width="500"
+          height="600"
+        />
+      </picture>
     </div>
     <div class="hero-scroll-hint">
       <span>Scroll</span>
@@ -639,7 +650,7 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script defer src="main.js"></script>
   <script defer src="js/cursor-trail.js"></script>
 </body>
 </html>
