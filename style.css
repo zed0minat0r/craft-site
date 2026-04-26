@@ -1597,6 +1597,68 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   quotes: none;
 }
 
+/* ---- Form success state — cycle 9 Frame A ---- */
+/* Outer container — sits inside .contact-card, below the form button */
+#form-success {
+  margin-top: 32px;
+}
+.success-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 36px 24px 32px;
+  border-top: 1px solid rgba(207,139,103,0.5);
+  border-bottom: 1px solid rgba(207,139,103,0.5);
+  position: relative;
+}
+/* Copper check-mark — small, honest, not a celebration burst */
+.success-mark {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(207,139,103,0.65);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+/* Oversized serif heading — Frame A dramatic scale */
+.success-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--espresso);
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+/* Serif-italic trust note — same voice as contact pull-quote */
+.success-note {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  color: var(--walnut);
+  line-height: 1.7;
+  max-width: 360px;
+  margin-bottom: 28px;
+}
+/* Soft CTA — copper, no urgency */
+.success-cta {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(207,139,103,0.4);
+  padding-bottom: 2px;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+.success-cta:hover {
+  opacity: 0.7;
+  border-bottom-color: rgba(207,139,103,0.8);
+}
+
 /* Testimonial dot indicators — mobile only, hidden on desktop */
 .testimonial-dots {
   display: none;
@@ -1745,6 +1807,12 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .contact-card::before { top: 10px; left: 10px; width: 16px; height: 16px; }
   .contact-card::after { bottom: 10px; right: 10px; width: 16px; height: 16px; }
   .contact-trust-pull { font-size: 0.875rem; padding: 18px 0 0 16px; }
+
+  /* Success state mobile — heading stays dramatic, note wraps cleanly at 375px */
+  .success-inner { padding: 28px 16px 24px; }
+  .success-heading { font-size: clamp(2.2rem, 10vw, 3rem); }
+  .success-note { max-width: 100%; font-size: 0.9rem; margin-bottom: 24px; }
+  .success-cta { min-height: 44px; display: inline-flex; align-items: center; }
 
   .footer-inner { grid-template-columns: 1fr; gap: 36px; text-align: center; }
   .footer-brand-desc { max-width: 100%; margin-left: auto; margin-right: auto; }

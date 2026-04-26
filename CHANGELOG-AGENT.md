@@ -433,3 +433,7 @@
 **Lazy-load audit:** All below-fold images confirmed `loading="lazy"`. Hero inset has `fetchpriority="high"` (correct). No additions needed.
 
 **Note on mobile score variance:** Cycle 8 run returned P=84; cycle 9 pre-fix runs returned P=72-73. Delta is Pexels CDN cold-cache jitter on simulated throttled 4G — LCP candidate switches to quilts mood-row image (213KB, above critical path on slow network). CSS minification and rAF fix will show on the next post-push run.
+
+## 2026-04-26 — Spark (cycle 9)
+
+2026-04-26 spark — Frame A: success state dramatic serif heading (clamp 2.6–4rem italic), copper top/bottom hairline frame, check-mark anchor mark, ref SCOUT Finding 4 (warm trust block clarity pattern), replaced inline-styled bland text line (blank moment becomes confident maker-voice close)
