@@ -414,3 +414,7 @@
 1. P1 CRITICAL: Real photography — pexels-7998221 in About + closing Process panel is unchanged across all 8 cycles. Hard cap at 7.5 until original imagery lands.
 2. P2 HIGH: Mobile Performance 84→90 — self-hosted fonts + srcset done; remaining gains: cursor-trail rAF idle-exit (loop runs even when particle array is empty), testimonial carousel IIFE overhead audit, below-fold lazy-load verification.
 3. P3 MEDIUM: Contact form success state — buyer has no confirmation experience after submit; partially scaffolded in main.js; final step of the purchase funnel has no designed close.
+
+## 2026-04-26 — Coordinator (cycle 9 dispatch)
+
+2026-04-26 coordinator — scheduled: Performance, Spark, Pixel, Nigel, focus: funnel-close + JS perf push (Mobile P 84→90, Contact success state Frame B), forbidden: Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop, Custom CTA, Cursor-trail behavior (perf-only exception), Testimonial source labels, Contact card, Contact textarea, Testimonial carousel mechanics, Header/nav, Footer

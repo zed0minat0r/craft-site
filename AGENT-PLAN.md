@@ -1,172 +1,143 @@
-# AGENT-PLAN — Made by Molly
-**Cycle:** 8
-**Date:** 2026-04-26
-**Coordinator:** dispatch-only (no code work)
-**Score state:** 7.5 (photography ceiling — hard cap until original imagery lands)
-**User input pending:** pause/continue/pivot reply (not yet received) + Bug #27 brand decision + photography source
+# AGENT-PLAN — Cycle 9
+**Coordinator:** scheduled 2026-04-26
+**Project:** Made by Molly (craft-site)
+**Live:** https://zed0minat0r.github.io/craft-site/
+**Score trajectory:** 6.8 → 7.0 → 7.2 → 7.3 → 7.4 → 7.4 → 7.5 → 7.5 (held twice)
+**Focus axis this cycle:** funnel-close + JS perf push (no new content; brand-cohesion ceiling acknowledged)
 
 ---
 
-## Dispatch Decision
+## Decision rationale
 
-**One-line rationale:** Score is at the photography ceiling (7.5) and won't move without user input, but Mobile Performance 74 → 90 is real measurable buyer-experience work that has not yet been attempted — Performance + targeted image-attribute work is the cycle 8 backbone, with Spark/Pixel cleanup on never-touched zones (header/nav, footer).
+Score has held at 7.5 for two consecutive cycles. The hard ceiling is photography (`pexels-7998221` in About + closing Process panel) — agents cannot break that without real assets the user must supply. Builder/Spark/Refiner do NOT enter polish-only mode here because Nigel's score is exactly at the gate (8.5 threshold rule), and there are two real gaps left that don't require photography:
 
-**Cycle 8 is NOT auto-paused.** Two genuine work items exist: (1) the 530ms Google Fonts render-blocking CSS swap is concrete, mobile-LCP-relevant, and untouched; (2) header/nav has never been a focus area in any of seven cycles, footer was audited cycle 4 but never visually refined. There is real cycle 8 work that does not require the user.
+1. **Contact form success state** — never been designed. P3 in AUDIT, partially scaffolded in main.js (`?submitted=1` reveal exists but reveals a plain hidden div). Buyer's final funnel step has no designed close. Eligible Spark Frame B candidate (NEW surface — not the contact card cooldown).
+2. **Mobile Performance 84 → 90** — three discrete JS optimizations identified in AUDIT P2 with bounded scope.
 
-**However:** if cycle 9 produces no Nigel score movement AND the user has still not replied on photography, the loop should auto-pause per memory rule (auto-pause idle loops after 2 no-change cycles). Cycle 8 is the second-to-last allowed before a self-pause prompt to user.
+Bug #21 (process arrow) is intentionally NOT scheduled — the element does not exist in HTML and adding it for a hover refinement is feature-creep, not a fix. Recommend closing as no-fix-needed in next QA pass.
+
+Razor was last run cycle 6 (3 cycles ago). Eligible but not high-leverage right now — defer one more cycle to focus impact.
+
+**Cooldown enforcement:** Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop price text, Custom CTA, Cursor trail behavior, Testimonial source labels, Contact CARD visual, Contact textarea placeholder, Testimonial carousel mechanics, Header/nav, Footer — ALL FORBIDDEN this cycle for visual changes. Performance MAY touch `cursor-trail.js` for rAF idle-exit only (tactical perf exception, not behavior change).
 
 ---
 
-## Scheduled Agents (in run order)
+## Scheduled agents (ordered)
 
-### 1. Performance — Google Fonts + image srcset push (BACKBONE)
+### 1. Performance — JS overhead push (Mobile P 84 → 90 target)
 
-**Why:** Mobile Performance 74 against a floor of 90. The two named issues in PERFORMANCE.md cycle 7 are concrete and unattempted: render-blocking Google Fonts CSS (530ms savings) and oversized mood-row Pexels images (276KB savings). Together these should move Mobile Performance from 74 toward 90 — measurable cellular-load improvement for a buyer arriving from a craft-show postcard QR code. This is the highest-value real work available this cycle.
+**Why:** Self-hosted fonts and srcset are done. AUDIT P2 identifies three remaining JS-side optimizations. This is the realistic 84→90 path — Best Practices is locked at 77 by Pexels cookies (unaddressable without photography).
 
 **Instructions:**
-1. **Google Fonts swap (priority 1):** Replace `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?...">` in `index.html` `<head>` with one of two patterns:
-   - **Preferred:** Self-host the three woff2 files locally (Playfair Display italic, Playfair Display regular, DM Sans). Inline `@font-face` declarations directly in a `<style>` block in `<head>` pointing to local paths (e.g. `/fonts/playfair-italic.woff2`). Keep `font-display: swap`. Delete the Google Fonts `<link rel="stylesheet">` and the `<link rel="preload">` lines that point at fonts.gstatic.com (now self-hosted, those preloads should point at the local paths).
-   - **Fallback if self-hosting is too invasive in one pass:** Convert the existing `<link rel="stylesheet">` to the `<link rel="preload" as="style" onload="this.rel='stylesheet'">` async pattern with a `<noscript>` fallback. Less ideal (still a network round-trip) but eliminates render-blocking parser stall.
-2. **Mood-row image srcset (priority 2):** On the three `.mood-photo img` elements in `index.html` (Bags row, Quilts row, Custom row), add `srcset` and `sizes` attributes. Pexels supports URL parameters like `?auto=compress&cs=tinysrgb&w=450` for mobile and `?w=900` for desktop. Example: `srcset="https://images.pexels.com/.../pexels.jpg?w=450 450w, https://images.pexels.com/.../pexels.jpg?w=900 900w" sizes="(max-width: 768px) 450px, 900px"`. Do NOT change the visual rendering, layout, aspect ratio, or `loading`/`decoding` attributes. Do NOT change which image is referenced. This is a pure delivery optimization.
-3. **Re-run Lighthouse mobile + desktop** after both changes land. Update PERFORMANCE.md with the new numbers in a new "Cycle 8" section. Goal: Mobile Performance 74 → 85+.
+- (a) **Cursor-trail rAF idle-exit:** `cursor-trail.js` runs `requestAnimationFrame` continuously even when the particle array is empty. Add `cancelAnimationFrame` when array becomes empty; restart on next `mousemove`. This is a tactical perf-only edit, NOT a behavior change.
+- (b) **Testimonial carousel IIFE audit:** Inspect for unnecessary work on idle frames (e.g., reading layout values per-frame, listeners that should be passive, mutation observers that fire too often). Document findings even if no edit; this is diagnostic.
+- (c) **Below-fold lazy-load verification:** Audit ALL non-LCP `<img>` tags. Confirm `loading="lazy"` is set on every image outside the top viewport. The hero LCP image must NOT be lazy. List exceptions with rationale.
+- Run a fresh Lighthouse mobile pass before AND after to confirm 84 → 90 trajectory (or document why it didn't move). Save as `lighthouse-cycle9-mobile.json`.
 
 **Guardrails:**
-- Do NOT touch Studio Strip, Hero Ken Burns, Mood-rows visual layout, About, Process panels visual, Shop price text, Custom CTA, Cursor trail, Testimonial source labels, Contact form card visual, Contact textarea placeholder.
-- The mood-row srcset edit is a tactical exception per memory rule: image *attributes* only (srcset/sizes), no change to clip-path, accent bars, copy, alignment, or any visual treatment. Confirm rendered output is pixel-identical at 375/414/768/1440px.
-- No change to `.mood-photo` CSS rules.
-- Do NOT swap the actual image files — `pexels-7998221` etc. stay as-is. Photography decision is user-blocked.
-- Memory: apps must NOT look AI-generated — do not regress the cream/espresso/copper artisan identity. Do not introduce visible loading flashes (use `font-display: swap` with preloaded woff2 to keep the FOIT/FOUT minimal).
+- DO NOT change cursor-trail visual behavior (particle count, color, opacity, decay rate). Idle-exit only.
+- DO NOT touch testimonial carousel mechanics (cooldown). Audit only — file findings in PERFORMANCE.md.
+- DO NOT touch header/nav, footer, or any cooldown section.
+- Respect [Simplicity over polish](feedback_simplicity_over_polish.md) — if you add an event listener, don't leave the old rAF loop running.
+- Respect [No content in agent loops](feedback_no_news_in_loops.md) — perf only, no content edits.
 
-**Exit criteria:**
-- Google Fonts CSS no longer flagged as render-blocking in Lighthouse mobile audit.
-- Mood-row images deliver `w=450` on mobile (verifiable via DevTools Network tab @ 375px viewport).
-- Mobile Performance score ≥ 80 (stretch: 85+).
-- Zero new Lighthouse issues introduced.
-- PERFORMANCE.md cycle 8 section appended with before/after numbers.
+**Exit criteria:** Mobile Performance score change documented (target 90, accept 88+). At least one of (a)/(b)/(c) shipped or rigorously documented as no-op-needed. PERFORMANCE.md cycle 9 entry. Single commit.
 
 ---
 
-### 2. Spark — Header/nav Frame B (NEVER TOUCHED)
+### 2. Spark — Frame B: Contact form success state (NEW SURFACE)
 
-**Why:** Across seven cycles, header/nav has never been a Spark focus area. Pixel touched tap-target sizing (cycle 4, Bugs #9/#10/#5 — all closed) but no editorial/typographic refinement has run. Footer was audited cycle 4 but only for alignment — never visually refined. With every other section on cooldown, this is the only eligible Spark territory. Frame B = refine the existing nav, no new nav components, no piling on.
+**Why:** AUDIT cycle 8 P3. The `#form-success` div in index.html is hidden; revealed by main.js when `?submitted=1` is detected; the revealed content is undesigned. Buyer submits → Formspree redirects → buyer sees a plain unstyled block. The final step of a 7.7-rated contact section has no designed close. This is the only NEW surface eligible (every other surface is in cooldown).
 
 **Instructions:**
-1. Audit current nav state at 1440px and 375px. Note: spacing rhythm of nav-logo / nav-links / nav-cta, letter-spacing on nav-links, the visual treatment of the nav-cta vs the rest of the link row.
-2. **Frame B refinements (pick 2-3, ship them all together):**
-   - Letter-spacing tightening or loosening on nav-links to match the editorial typography family used in section labels (currently 0.2em on labels, 0.25em on the cycle 3 about-eyebrow). Aim for visual coherence.
-   - Subtle hover treatment on nav-links — copper underline that slides in from left, or weight shift, or letter-spacing breath. Pick ONE refinement, not all three.
-   - Nav-cta visual hierarchy: the "Custom Order" button should read as the primary call rather than a peer of "Shop / Process / About / Contact". Consider a tiny copper rule above/below or a sharper border than the link row.
-   - Logo: if "Made by Molly" wordmark in the nav has any visual rule worth tightening (kerning, italic vs regular Playfair pairing), flag and refine.
-3. Mobile (375/414): nav-hamburger affordance is functional but the closed-state hamburger lines could match the L-bracket motif used in About / Contact (thin copper strokes instead of generic horizontal bars). If feasible without rewriting the open/close JS, ship it.
+- Frame B refinement on the success state div: typography, spacing, hierarchy, copper accent treatment that matches the existing form card quality.
+- Real, honest copy: "Got it. Molly will be in touch within 2 business days." or similar — no fake urgency, no fabricated guarantees.
+- Optional: subtle reveal animation (fade + rise, matching `.reveal.from-bottom` system). Keep under 600ms. Respect `prefers-reduced-motion`.
+- This is NOT the contact card itself (cycle 5 cooldown). This is the success-state surface that replaces the form card after submit, or sits below it. Confirm scope before editing.
 
 **Guardrails:**
-- **MUST respect:** "Spark replaces when adding — no piling on" (memory). Every refinement must replace or refine an existing element. Do NOT add a new sub-nav, new "shop" mega-menu, new mobile drawer features, or new buttons.
-- **MUST respect:** "Apps must NOT look AI-generated. Break Claude's default patterns. Each project needs a distinct visual identity." (memory). Avoid generic dark-bar-with-rounded-button conventions. Lean into the cream/espresso/copper artisan editorial palette.
-- **MUST respect:** "Frame B keeps content count" (memory). 4 link items + 1 logo + 1 CTA + 1 hamburger. No additions, no removals.
-- Do NOT change nav z-index relationships (Bug #5 fix relies on overlay z:1002 > hamburger z:1001).
-- Do NOT touch tap-target heights — `min-height: 44px` on `.nav-cta` was a Pixel cycle 4 fix.
-- Do NOT touch nav functional JS (hamburger toggle, scroll-direction hide/show, smooth-scroll href guard).
-- FORBIDDEN sections (do NOT touch): Studio Strip, Hero Ken Burns, Mood rows visual, About, Process panels visual, Shop price text, Custom CTA, Cursor trail, Testimonial source labels, Contact form card visual, Contact textarea placeholder, Testimonial carousel mechanics, Footer (Pixel handles this cycle).
+- [Frame B keeps content count](feedback_frame_b_richness.md) — refining type/spacing/hierarchy on this surface, not stripping. Since this is a new surface, the rule is: don't strip the existing main.js scaffolding either.
+- [Simplicity over polish](feedback_simplicity_over_polish.md) — when adding the success state, REPLACE the plain hidden div, don't pile a second one on top.
+- [No invented fight data / no fabricated content](feedback_no_invented_fight_data.md) applies in spirit — no fake testimonial in the success state, no invented promises (no "We respond within 1 hour!" if that's not committed). Use language Molly would actually say.
+- [No dev content on sites](feedback_no_dev_content.md) — buyer-facing copy only, no template marketplace language.
+- [Unique design](feedback_unique_design.md) — must NOT look AI-generated. Cream/espresso/copper palette. Lean editorial, not "thank you for your submission!" generic SaaS.
+- [Always send live link](feedback_always_send_link.md) reminder — your final commit message and any text should include the live URL.
+- DO NOT touch the contact CARD itself (cooldown from cycle 5).
+- DO NOT touch contact textarea placeholder (cooldown).
+- DO NOT touch any other cooldown section (full list above).
 
-**Exit criteria:**
-- 2–3 refinements shipped to header/nav, all replacements/refinements of existing elements.
-- Mobile + desktop visual verification at 375/414/768/1440px.
-- Zero functional regressions (nav still scrolls, hamburger still toggles, smooth-scroll still works).
-- Section content count unchanged.
+**Exit criteria:** `#form-success` div has designed Frame B treatment in HTML + CSS. Reveal flow tested with `?submitted=1` URL param. main.js scaffolding either kept or upgraded (don't break the existing reveal). Single commit. Changelog entry references SCOUT finding if applicable.
 
 ---
 
-### 3. Pixel — Footer visual refinement + center-alignment audit (NEVER TOUCHED VISUALLY)
+### 3. Pixel — Mobile alignment sweep + form success state verification
 
-**Why:** Footer was alignment-audited cycle 4 (passed) but never visually refined. With Spark on header/nav this cycle, the symmetry is intentional: the two never-refined navigational bookends of the page get one polish pass each. Pixel handles the footer because Pixel owns alignment + small typographic polish, and this is closer to Pixel's territory than Spark's editorial refinement.
+**Why:** Standard rotation. Pixel must verify Spark's new success-state surface aligns at 375/414/768. Memory rule: [Pixel alignment focus](feedback_pixel_alignment.md) — center-alignment audit on mobile is non-negotiable.
 
 **Instructions:**
-1. **Center-alignment sweep at 375/414** per memory rule ("Pixel must always audit center-alignment consistency on mobile"). Check:
-   - Header/nav (after Spark's pass — verify nothing broke)
-   - Hero, mood rows, Process, About, Studio Strip, Custom CTA, Testimonials, Contact, Footer at 375 and 414.
-   - Document any drift in BUGS.md.
-2. **Footer visual refinement** (this is Pixel's primary deliverable this cycle):
-   - Footer was audited cycle 4 (`.footer-inner grid 1fr text-align:center` etc. — alignment pass). It was never given an editorial/typographic refinement. Apply the same level of polish that About got in cycle 3 and Custom CTA got in cycle 4.
-   - Specific candidate refinements: footer-col-title letter-spacing + size hierarchy, copper hairline rule between footer rows, footer-bottom typography (currently 12px — flagged in Bug #17), social-link affordance (hover state, sizing), footer-made attribution treatment.
-   - Bug #17 connection: footer-copy + footer-made + footer-col-title are 12px. Pixel may bump 1-2 of these to 13-14px IF it does not break the editorial hierarchy. This is a tactical exception that addresses an open bug while polishing the footer.
-3. **Bug #21** (process arrow snap): if Pixel has bandwidth, fix the hover-state animation snap on `.process-fp-closing-arrow`. The arrow IS in the closing process panel — current open. Pure CSS transition fix (don't kill the bob animation, just smooth the hand-off).
+- After Spark commits, audit the new success state at 375 / 414 / 768 / 1440. Verify center-alignment, tap targets if any interactive elements (44px min), reflow at narrow viewport, no text overflow.
+- Sweep ALL sections at 375/414 (standard pass) — confirm no regressions from Performance's lazy-load audit (lazy images can shift layout if `width`/`height` are missing).
+- Open Bug #14 verification: AUDIT lists "mood-time italic walnut at 13px remains the least legible element" — but that's a Nigel readability concern, not a Pixel alignment scope. Skip.
+- Bug #21 (process arrow): recommend closing as no-fix-needed in BUGS.md (element absent by design; adding it is feature-creep, not bug-fix). Document the close rationale.
+- Bug #20 (form submit "Sending..." stuck on error): related to the success-state work. If Spark's success state implies error-state handling, file a follow-up note; otherwise leave for a future cycle.
 
 **Guardrails:**
-- **MUST respect:** Pixel must always audit center-alignment 375/414 (memory).
-- **MUST respect:** No ghost numbers / faded background numerals (memory) — do NOT add giant faded section numbers to footer.
-- **MUST respect:** "Apps must NOT look AI-generated" — avoid generic three-column footer with social icons + newsletter. Lean into the Made by Molly editorial palette.
-- **MUST respect:** "Frame B keeps content count" — no new footer columns, no new newsletter signup, no new contact info. Refine what's there.
-- Do NOT touch any of the cooled sections listed in the Spark guardrails.
-- Bug #21 fix is OK because the arrow is on the Process closing panel — Process *visual* is on cooldown, but a hover-animation hand-off micro-fix is mechanical, not visual refinement of the panel itself. Tactical exception. If unsure, defer.
+- [Pixel alignment focus](feedback_pixel_alignment.md) — center-alignment 375/414 is required.
+- [No ghost numbers on therapist](feedback_no_ghost_numbers.md) — does not apply here (different project) but the principle (no large faded background numerals) is reinforced if Spark added any decorative numerals on the success surface.
+- [Nigel never removes quality](feedback_nigel_no_removal.md) — same applies to Pixel: do not remove glows, animations, or effects in your sweep. Alignment fixes only.
+- DO NOT touch footer (cooldown from cycle 8).
+- DO NOT touch header/nav (cooldown from cycle 8).
+- DO NOT touch any cooldown section visually — alignment-fix-only edits to non-cooldown sections.
 
-**Exit criteria:**
-- Footer has 2–3 visual refinements that elevate it above the alignment-only state.
-- Mobile center-alignment sweep documented at 375/414 across all sections.
-- Bug #17 partially or fully addressed if footer typography work touches it.
-- Bug #21 closed if attempted.
-- BUGS.md updated.
+**Exit criteria:** Alignment sweep documented for 375/414. Spark's success state verified. Bug #21 closed in BUGS.md if recommended. Single commit. Changelog entry.
 
 ---
 
-### 4. Nigel — re-score cycle 8
+### 4. Nigel — Re-score cycle 9
 
-**Why:** Required at the end of every cycle. Validates cycle 8 work and re-anchors the score.
+**Why:** Standard rotation closes the cycle. Three real changes shipped (Performance JS, Spark success state, Pixel alignment) — score recalibration needed.
 
 **Instructions:**
-1. Read AGENT-PLAN.md and the cycle 8 changelog entries from the three preceding agents.
-2. Live-audit the site post-cycle-8.
-3. Score sections affected this cycle: Mobile UX (perf), Header/Nav, Footer. Other sections untouched — sub-scores hold.
-4. Update AUDIT.md with cycle 8 entry.
-5. Append new SCORES.log line.
-6. **Score expectation:** Cycle 8 is unlikely to break 7.5. Mobile Performance gains are buyer-relevant but the photography ceiling is unchanged. The trajectory (6.8 → 7.0 → 7.2 → 7.3 → 7.4 → 7.4 → 7.5) shows the asymptote. Score may move 7.5 → 7.5 (held) or 7.5 → 7.6 IF the perf gain is meaningful AND header/nav + footer refinements register as buyer-perceptible quality. **Do NOT inflate above 7.6.** Memory rule: "Nigel scores stricter — sits 5.5–7.5".
-7. **If the perf push fails to land** (no Mobile Perf score gain) and header/nav + footer refinements feel like polish without conversion impact, score should hold at 7.5. That's honest.
-8. Re-state the photography ceiling and Bug #27 brand decision as user-blocked items in the cycle 9 priorities.
+- Score from a real buyer's perspective. AUDIT cycle 8 verdict: 7.5 ceiling holds without photography.
+- Sub-score the Contact / Form section specifically — does the success state change the conversion-funnel grade? (Currently 7.7.)
+- Sub-score Mobile Performance / UX — if mobile P landed at 88+, how does that affect the holistic mobile sub-score (currently 7.5)?
+- Update AUDIT.md with cycle 9 entry. Maintain Audit History table.
+- Top 3 priorities for cycle 10.
 
 **Guardrails:**
-- **MUST respect:** "Nigel never removes quality" (memory) — never recommend removing glows, animations, effects, cursor trail, or any decorative element. Only add or improve.
-- **MUST respect:** "Nigel scores stricter" — do NOT push past 7.5 without real photography movement.
-- **MUST respect:** "No invented fight data / no fabricated content" (memory, generalized) — do NOT hallucinate buyer testimonials, fictional shop traffic stats, made-up review counts, or fabricated data points.
-- **MUST respect:** Respectful tone (memory) — never frame the user as a bottleneck on the photography decision. Frame collaboratively: "this site is pre-launch quality and waiting on the maker's photo shoot to unlock the next ceiling."
-- Re-state cycle 9 priorities including the photography ceiling.
+- [Nigel must score stricter](feedback_nigel_stricter.md) — score from a real buyer's perspective. Performance gains are buyer-invisible at the immediate scan level; don't inflate. The ceiling is photography. If you push past 7.6 without photography landing, justify rigorously.
+- [Nigel never removes quality](feedback_nigel_no_removal.md) — recommendations may add or improve, never strip glows / animations / effects. Photography swap recommendations are addition, not removal.
+- [Respectful tone](feedback_respectful_tone.md) — frame the photography blocker collaboratively with the user. Never frame the user as a bottleneck.
+- [Nigel scores 5.5–7.5 ceiling without real photography](feedback_nigel_stricter.md) — DO NOT inflate.
+- DO NOT recommend Studio Strip removal, Custom CTA stripping, or any cooldown section changes as scoring rationale.
 
-**Exit criteria:**
-- AUDIT.md cycle 8 entry written.
-- SCORES.log appended.
-- Cycle 9 top-3 priorities listed.
-- Photography ceiling and Bug #27 surfaced as user-blocked.
+**Exit criteria:** AUDIT.md cycle 9 entry. SCORES.log appended. Top 3 priorities documented. Single commit. iMessage to user (per always-text-back rule) with: score, delta, what moved, live link.
 
 ---
 
-## Cycle 8 Forbidden Sections (apply to Spark + Pixel agents above)
+## Cycle 9 forbidden sections (cooldown enforcement)
 
-Studio Strip, Hero Ken Burns, Mood rows visual layout, About, Process panels visual, Shop price text, Custom CTA, Cursor trail, Testimonial source labels, Contact form card visual, Contact textarea placeholder, Testimonial carousel mechanics. Mood-row image *attributes* are a tactical Performance exception only — NOT a visual touch.
+Studio Strip · Hero Ken Burns · Mood rows visual · About · Process panels visual · Shop price text · Custom CTA · Cursor trail behavior (rAF perf-only exception for Performance agent) · Testimonial source labels · Contact form CARD visual · Contact textarea placeholder · Testimonial carousel mechanics · Header/nav · Footer
 
----
-
-## Memory Guardrails Reinforced This Cycle
-
-Every agent MUST respect:
-- Apps must NOT look AI-generated. Cream/espresso/copper artisan identity. Each project needs a distinct visual identity.
-- Spark replaces when adding — no piling on.
-- Frame B keeps content count.
-- Pixel always audits center-alignment 375/414.
-- Nigel never removes quality.
-- Nigel scores stricter — 5.5–7.5 range. Do NOT inflate above 7.5 without real photography.
-- No ghost numbers / faded background numerals.
-- No fabricated content / fake testimonials / invented data.
-- Respectful tone — never call user a bottleneck.
-- Performance fixes for image attributes (srcset/sizes) on cooled visual sections are OK as long as visual rendering does not change. This is a tactical exception.
+**Eligible new surface:** Contact form success state (NEW — never designed before).
 
 ---
 
-## User-Blocked Items (carried forward, NOT dispatched)
+## Memory guardrails (encoded across all 4 briefs)
 
-1. **Original photography** — `pexels-7998221` in About + Process closing panel. Hard ceiling at 7.5. No agent can move this.
-2. **Bug #27** — Copper section-label contrast (2.50:1, fails WCAG AA). Three options for user: darken copper for label-only use, bump label font-size to 14px+, or accept as conscious brand choice.
-3. **User reply on pause/continue/pivot** — score has plateaued, user was asked, no reply yet. Cycle 8 proceeds because real perf work exists. If cycle 9 finds nothing left, auto-pause prompt fires.
+- Cream/espresso/copper palette only — apps must NOT look AI-generated [unique-design].
+- No fabricated content — no fake testimonials, no invented promises in the success state copy [no-invented-data].
+- No ghost numbers / faded background numerals on any new surface [no-ghost-numbers].
+- No dev / template-marketplace content [no-dev-content].
+- Pixel always audits center-alignment 375/414 [pixel-alignment].
+- Frame B keeps content count — refines spacing/typography on rich sections [frame-b-richness].
+- Spark replaces when adding [simplicity-over-polish].
+- Nigel scores 5.5–7.5 ceiling without real photography [nigel-stricter].
+- Nigel never recommends removing glows/animations/effects [nigel-no-removal].
+- Always send live link in agent text [always-send-link].
+- Always text back via iMessage on completion [always-text-back, always-imessage].
+- Respectful tone — never frame the user as a bottleneck [respectful-tone].
 
 ---
 
-## Why This Cycle Is Not Auto-Paused
-
-Memory rule: "Auto-pause idle loops — pause after 2 no-change cycles." Cycle 6 → 7 was +0.1 (not no-change). Cycle 7 → 8 expected ~0 to +0.1. If cycle 8 → 9 is also flat AND mobile perf goal is met (no remaining concrete work), THEN auto-pause prompt fires to user. Cycle 8 has the perf push as concrete, never-attempted, score-floor-relevant work — running it is the right call.
+*Coordinator decision: not in polish-only mode (score = 8.5 gate, not >= 8.5). Builder is NOT scheduled — no targeted bug needs Builder hands this cycle (Bug #21 should be closed-as-designed; Bug #20 deferred). Razor deferred one cycle. Spark Frame B uses the only eligible new surface. Performance executes the bounded JS push from AUDIT P2. Pixel + Nigel close the cycle.*
