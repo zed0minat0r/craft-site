@@ -254,3 +254,27 @@
 **Scores after fixes:** Not re-run (GitHub Pages propagation time needed). Scores expected to improve on: Best Practices (favicon 404 resolved), desktop CLS (font preloads + containment), Performance (deferred JS removes render-blocking). Mobile LCP remains network-bottlenecked by 3× Pexels woff2 downloads — further improvement needs self-hosted fonts or `font-display: optional` (visual trade-off; deferred to future cycle).
 
 **Files changed:** index.html, style.css, BUGS.md, PERFORMANCE.md (new), favicon.svg (new)
+
+## 2026-04-26 — Razor (cycle 6)
+
+**Dead-CSS audit — full sweep of style.css against index.html + main.js + cursor-trail.js**
+
+**Selectors removed:**
+- `.studio-strip-caption { display: none; }` (base rule, ~32 bytes) — element not present in HTML or JS; caption text never shipped, rule is fully orphaned
+- `.studio-strip-caption { display: none; }` (mobile override inside `@media (max-width: 768px)`, ~34 bytes) — same orphaned element, double-redundant override
+
+**Byte delta:** 45719 → 45633 bytes (-86 bytes)
+
+**Known suspects — findings:**
+- `.contact-trust` outer div: no rule with this selector exists in style.css; already absent before this cycle — confirmed clean
+- `.testimonial-source` pill border: selector exists at line 990 but contains only display/font/color rules; border/padding/border-radius already removed in Builder cycle 4 — no orphan
+- `.custom-cta::before` watermark: not present in style.css — removed in Spark cycle 4 as reported — confirmed clean
+- `.process-fp-content` bottom anchor: no `bottom:` declaration on this selector — replaced with `top:50%/translateY(-50%)` in Pixel cycle 3 — confirmed clean
+- `html { scroll-behavior: smooth }`: not present — only comment marker at line 29 — confirmed clean
+
+**Bug #23 closed (will not fix):**
+- `.studio-pull-quote` `margin-left/right: auto` — audit found these are NOT redundant. `.studio-pull-quote` is a `<blockquote>` (block element); parent `text-align: center` centers inline content within it, not the block itself. `margin: auto` is the functional centering mechanism for the `max-width: 600px` constraint. Removing would left-align the element — visual regression. Closed as will-not-fix with analysis in BUGS.md.
+
+**Visual diff verdict:** Zero rendered change. Two `display: none` rules on a never-rendered element removed. No visual section affected.
+
+2026-04-26 razor — .studio-strip-caption dead rule removed (base + mobile override, element never in HTML/JS), -86 bytes; Bug #23 closed will-not-fix (margins functional on block element)

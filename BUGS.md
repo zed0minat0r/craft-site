@@ -136,10 +136,10 @@
 - Selectors: `.contact-trust.reveal.from-bottom` and `.contact-inner.reveal.from-bottom`
 - **Fix (cycle 4, Pixel):** Added `transition-delay: 0.2s` on `.contact-inner.reveal` inside `@media (max-width: 768px)`. Trust strip animates first, form card follows 200ms later — intentional stagger, no longer looks like a double-stutter. style.css mobile block.
 
-**23. Studio strip pull-quote: redundant `margin-left: auto; margin-right: auto` inside a `text-align: center` parent**
+**23. Studio strip pull-quote: redundant `margin-left: auto; margin-right: auto` inside a `text-align: center` parent — CLOSED (will not fix)**
 - Section: Studio Strip header
-- Selector: `.studio-pull-quote` / `style.css` line 1255
-- Minor CSS redundancy. The `margin-left/right: auto` on an inline element inside a centered parent has no effect. Harmless but noisy.
+- Selector: `.studio-pull-quote` / `style.css`
+- Razor cycle 6 analysis: `.studio-pull-quote` is a `<blockquote>` (block-level element). `text-align: center` on the parent `.studio-strip-header` centers inline content within the blockquote — it does NOT center the blockquote block itself. The `margin-left: auto; margin-right: auto` is the actual mechanism centering the constrained `max-width: 600px` block within its full-width parent. Removing it would left-align the element. Margins are functional — not redundant. Closing as will-not-fix.
 
 **24. No `<main>` landmark — page content not wrapped in semantic main element (WCAG 2.4.1) CLOSED**
 - Section: Global

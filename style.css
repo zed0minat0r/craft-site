@@ -1390,9 +1390,6 @@ footer {
   padding: 0 16px;
   letter-spacing: 0.04em;
 }
-.studio-strip-caption {
-  display: none;
-}
 /* Touch devices: show captions always since hover never fires */
 @media (hover: none) {
   .studio-strip-hover-overlay {
@@ -1711,7 +1708,6 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   }
   .studio-strip-item img { width: 100%; height: 260px; }
   .studio-strip-hover-overlay { height: 260px; }
-  .studio-strip-caption { display: none; }
   /* Hide duplicate items on mobile — animation is off, they just dead-end the scroll */
   .studio-strip-item[aria-hidden="true"] { display: none; }
 
