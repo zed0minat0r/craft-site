@@ -128,22 +128,22 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
   });
 });
 
-/* ---- Process Sticky Pin & Fade ---- */
+/* ---- Process Sticky Pin & Horizontal Slide ----
+   Vertical scroll into the runway is mapped to horizontal translateX on
+   the track, so the viewport "locks" and panels slide sideways through it. */
 (function() {
   var runway = document.getElementById('process-runway');
+  var track  = document.getElementById('process-track');
   var panels = document.querySelectorAll('.process-fp');
   var dots   = document.querySelectorAll('.process-dot');
-  if (!runway || !panels.length) return;
+  if (!runway || !track || !panels.length) return;
 
   var numPanels = panels.length;
   var currentIndex = -1;
 
-  function setPanel(idx) {
+  function setActiveDot(idx) {
     if (idx === currentIndex) return;
     currentIndex = idx;
-    panels.forEach(function(p, i) {
-      p.classList.toggle('is-active', i === idx);
-    });
     dots.forEach(function(d, i) {
       d.classList.toggle('is-active', i === idx);
     });
@@ -154,17 +154,25 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     var runwayH = runway.offsetHeight;
     var vh = window.innerHeight;
 
-    // scrolled distance into the runway (clamped)
     var scrolled = -rect.top;
     if (scrolled < 0) scrolled = 0;
-    // total scroll budget = runwayH - vh (when sticky container exits)
     var budget = runwayH - vh;
-    if (budget <= 0) { setPanel(0); return; }
+    if (budget <= 0) {
+      track.style.transform = 'translateX(0)';
+      setActiveDot(0);
+      return;
+    }
 
     var progress = scrolled / budget; // 0 → 1
-    var idx = Math.floor(progress * numPanels);
+    if (progress > 1) progress = 1;
+
+    // 4 panels need 3 transitions of 100vw each
+    var translatePct = -progress * (numPanels - 1) * 100;
+    track.style.transform = 'translate3d(' + translatePct + 'vw, 0, 0)';
+
+    var idx = Math.round(progress * (numPanels - 1));
     if (idx >= numPanels) idx = numPanels - 1;
-    setPanel(idx);
+    setActiveDot(idx);
   }
 
   // Dot click: jump scroll to that panel's segment
@@ -172,12 +180,16 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     dot.addEventListener('click', function() {
       var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
       var budget = runway.offsetHeight - window.innerHeight;
-      var target = runwayTop + (budget / numPanels) * i + 2;
+      var segments = numPanels - 1;
+      var target = segments > 0
+        ? runwayTop + (budget / segments) * i + 2
+        : runwayTop + 2;
       window.scrollTo({ top: target, behavior: 'smooth' });
     });
   });
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 })();
 

@@ -542,17 +542,20 @@ nav.scrolled .nav-cta {
   overflow: hidden;
 }
 
+/* ---- Horizontal track: 4 panels in a row, translated by JS on scroll ---- */
+.process-track {
+  display: flex;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+}
+
 /* ---- Each full-viewport panel ---- */
 .process-fp {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-.process-fp.is-active {
-  opacity: 1;
-  pointer-events: auto;
+  position: relative;
+  flex: 0 0 100vw;
+  height: 100%;
+  overflow: hidden;
 }
 
 .process-fp-bg {
