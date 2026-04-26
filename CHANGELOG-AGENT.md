@@ -11,3 +11,7 @@
 ## 2026-04-25 — Nigel (smoke test, cycle 1)
 
 - nigel — focus axis: conversion-friction, top issue: disclaimered block of five perfect ratings actively destroys trust at the testimonials section
+
+## 2026-04-25 — Coordinator (cycle 2 dispatch)
+
+- 2026-04-25 coordinator — scheduled: Builder, Spark, Pixel, Nigel, focus: conversion-friction (kill criticals + Frame B testimonial refinement + mobile alignment + re-score), forbidden: Studio Strip, About section, new sections, testimonial copy edits
