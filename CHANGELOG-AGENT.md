@@ -396,3 +396,21 @@
 **Files:** style.css (5 edits), BUGS.md (#17 closed, #21 rationale added)
 
 2026-04-26 pixel — footer copper hairlines + brand-name weight 700 + col-title 14px; Bug #17 closed (section-label/hero-eyebrow/footer-col-title bumped); Bug #21 left open (arrow element absent from HTML); alignment sweep 375+414px PASS all sections
+
+## 2026-04-26 — Nigel (cycle 8)
+
+2026-04-26 06:30 nigel — focus axis: brand-cohesion, top issue: pexels-7998221 unchanged in About + Process closing panel; mobile LCP 6.4s→3.4s is the most buyer-relevant improvement across 8 cycles but photography hard-caps the score at 7.5
+
+**Score: held at 7.5**
+
+**What moved:**
+- Mobile UX sub-score 7.3→7.5: Mobile LCP 6.4s→3.4s (-47%) is real and buyer-visible on cellular. Self-hosted fonts (530ms render-block eliminated) + hero inset fetchpriority fix together account for this. At 3.4s the site sits just above the bounce threshold rather than well above it. This is the most buyer-relevant single improvement in eight cycles.
+- Brand cohesion sub-score 5.7→6.0: Nav logo 1.5rem/700 weight + copper center-expand hover underline + footer border-top copper hairline at matching spec + footer brand-name 700 weight form a continuous identity thread from nav to footer. The squared CTA border-radius is a small but correct choice for a craft aesthetic. Bug #17 (12px labels across section-label/hero-eyebrow/footer-col-title) closed — all now at 14px, above the a11y floor.
+
+**What held the score:**
+- pexels-7998221 is unchanged in About (maker's face) and closing Process panel. Hard ceiling at 7.5.
+
+**Top 3 — Cycle 9:**
+1. P1 CRITICAL: Real photography — pexels-7998221 in About + closing Process panel is unchanged across all 8 cycles. Hard cap at 7.5 until original imagery lands.
+2. P2 HIGH: Mobile Performance 84→90 — self-hosted fonts + srcset done; remaining gains: cursor-trail rAF idle-exit (loop runs even when particle array is empty), testimonial carousel IIFE overhead audit, below-fold lazy-load verification.
+3. P3 MEDIUM: Contact form success state — buyer has no confirmation experience after submit; partially scaffolded in main.js; final step of the purchase funnel has no designed close.

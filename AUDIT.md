@@ -1,7 +1,7 @@
 # AUDIT — Made by Molly
 **Auditor:** Nigel
-**Date:** 2026-04-26 (cycle 7)
-**Focus axis:** Conversion friction
+**Date:** 2026-04-26 (cycle 8)
+**Focus axis:** Brand cohesion
 **Score:** 7.5 / 10
 
 ---
@@ -16,15 +16,15 @@
 
 ## Overall Verdict
 
-Cycle 7 closed two genuine conversion-friction items that were measurable in prior cycles: the testimonial loop stutter (Bug #28) and confirmed mobile LCP reduction. The score ticks from 7.4 to 7.5 — the cap.
+Cycle 8 delivered two genuinely meaningful improvements and one that is real but buyer-invisible. The score holds at 7.5. Not because the work was poor — the mobile LCP reduction is the single most buyer-relevant change in eight cycles — but because the hard ceiling rule is correct and the photography gap remains unchanged.
 
-**Bug #28 closed.** The testimonials carousel had a visible 12px seam on every loop cycle at all four viewports. A buyer reading trust content was watching the band glitch every few seconds. QA verified scrollWidth now lands exactly at the card boundary (delta = 0px across 375/414/768/1440). This is conversion-relevant: trust sections that visibly malfunction undermine the signal they are supposed to send. The stutter is gone.
+**Mobile LCP 6.4s to 3.4s (-47%).** This is not a small number. The 3.4s mark sits just above the cellular bounce threshold. A buyer arriving via craft fair QR code, on a mid-range Android with variable signal, previously waited 6.4 seconds to see meaningful content. That buyer is now waiting 3.4 seconds. The self-hosted font work (eliminating a 530ms render-blocking Google Fonts CSS request) and the hero inset preload fix together account for a meaningful share of that gain. Mobile FCP dropped from 1.5s to 1.1s as a secondary win. This is conversion work. It simply cannot be read in the score because photography is the harder ceiling.
 
-**Mobile LCP confirmed: 8.1s to 6.4s (-21%).** Cycle 6 shipped the performance fixes but could not re-run Lighthouse. Cycle 7 confirmed the numbers. A 1.7s LCP reduction on mobile is material — the bounce threshold on cellular is approximately 3–5 seconds, and a buyer arriving from a craft-show postcard QR code is on a phone. 6.4s is still above the 3s ideal but the trajectory is correct and the improvement is real. Desktop LCP halved (1.6s to 0.8s). Desktop CLS eliminated (0.171 to 0.009).
+**Header/footer brand identity unification.** The nav logo is now 1.5rem at 700 weight — it reads as a deliberate editorial anchor rather than filler. The copper expand-from-center underline on nav links is the first hover state that feels like a choice rather than a default. The footer border-top switching from a faint cream hairline to a copper line at the same spec as the scrolled-nav hairline closes the brand loop top to bottom. The footer brand name at 700 weight now matches the nav logo weight — same family, same heft, same person. These are details a buyer does not consciously notice but would register as absent if missing. Brand cohesion sub-score moves from 5.7 to 6.0.
 
-**Score still caps at 7.5.** Mobile Performance at 74 means the cold cellular load is still sluggish — Google Fonts CSS is render-blocking (530ms flagged) and Pexels mood-row images are oversized on mobile (276KB flagged). These are live friction points for a buyer arriving on a budget phone with variable signal. Photography is still the single largest trust gap. `pexels-7998221` appears in the About section and the closing Process panel across all seven cycles without change.
+**Bug #17 closed.** The 12px label floor was the most widespread small-type problem on the site — it touched section labels, hero eyebrow, and footer column titles simultaneously. At 0.875rem (14px) these elements now sit above the accessibility floor and read as intentional typographic choices rather than afterthoughts.
 
-This is the photography ceiling. Until original maker or product photography lands, this site cannot cross 7.5 from a real buyer's perspective. A bespoke artisan textile site using stock photography of a person who is not the maker is a credibility gap no amount of performance tuning can paper over.
+**Score ceiling holds at 7.5.** The repeated `pexels-7998221` is unchanged in the About section and the closing Process panel. This is not a technicality — it is the face the buyer associates with the maker. A bespoke artisan textile site that shows a stock photograph where the maker should appear cannot cross 7.5 from a real buyer's perspective. No amount of correct typography or copper hairline work papers over this. Photography is the single unlock.
 
 ---
 
@@ -32,13 +32,13 @@ This is the photography ceiling. Until original maker or product photography lan
 
 ### 1. Hero (7.5/10)
 
-Desktop CLS eliminated — first-load watermark text-swap jump is gone. Ken Burns + copper breathe holds. Sub-copy still leads with negatives. Two near-equal CTAs still split buyer intent. No change from cycle 6.
+No change. Ken Burns, copper breathe, desktop CLS eliminated. Sub-copy still leads with negatives. Two near-equal CTAs still split buyer intent. Nav logo now reads as an editorial anchor (1.5rem 700 weight, cycle 8 Spark) — subtle improvement to the first impression above the fold.
 
 ---
 
 ### 2. Shop by Mood / Collection (7.0/10)
 
-No change. Price ranges hold. `mood-time` italic walnut at 13px remains the least legible element in the section. Mood-row images flagged as oversized on mobile (P2 for cycle 8).
+No change from cycle 7 on visual treatment. srcset added to mood-row images (Performance cycle 8) — mobile download sizes correct. `mood-time` italic walnut at 13px remains the least legible element in the section but is not a new regression.
 
 ---
 
@@ -50,13 +50,13 @@ No change. Vertical centering consistent. Closing panel still a dead-end with no
 
 ### 4. About the Maker (7.8/10)
 
-No change. "Pennsylvania Studio" caption strip, L-bracket corner marks, 2.1rem signature all hold. Image is still `pexels-7998221`. Stock image in About remains the single most trust-damaging element on the page — this is the face buyers associate with the maker.
+No change. Caption strip, L-bracket corner marks, 2.1rem signature all hold. Image is still `pexels-7998221`. Stock image in About remains the single most trust-damaging element on the page — this is the face buyers associate with the maker.
 
 ---
 
 ### 5. Studio Strip (6.0/10)
 
-No change. All stock imagery. No finished product visible. Pull quote unattributed. Mobile horizontal scroll is a conversion dead zone.
+No change. All stock imagery. No finished product visible. Pull quote unattributed.
 
 ---
 
@@ -68,51 +68,51 @@ No change. Trust strip has no shipping or returns commitment. "Hand-finished in 
 
 ### 7. Testimonials (7.4/10)
 
-Bug #28 closed. The 12px loop seam is gone — QA verified delta = 0px at all four viewports across two full loop cycles each. Dot indicators tracking correctly post-fix. Center alignment at 375px holds. Touch UX (pause/resume, 50px swipe, dot tracking) unaffected by the padding-right change. Section ticks from 7.3 to 7.4. Honest attribution still holds from cycle 4.
+No change from cycle 7 close. Bug #28 (12px stutter) remains closed. Dot indicators, touch UX, honest attribution all hold.
 
 ---
 
 ### 8. Contact / Form (7.7/10)
 
-No change. Blockquote trust note, directive placeholder, L-bracket marks all hold. No form success state — confirmation experience is still absent.
+No change. Blockquote trust note, directive placeholder, L-bracket marks all hold. No form success state — confirmation experience still absent.
 
 ---
 
-### 9. Mobile UX — Holistic (7.3/10)
+### 9. Mobile UX — Holistic (7.5/10)
 
-Confirmed Mobile LCP 8.1s to 6.4s (-21%), Mobile FCP 2.8s to 1.5s (-46%). These are real buyer-perception improvements on cellular. However, Mobile Performance score 74 (floor target: 90) means Google Fonts CSS render-blocking and Pexels image sizing are still live friction. Section ticks from 7.2 to 7.3 on confirmed numbers. Does not reach 7.5 because cold cellular load is still sluggish above the bounce threshold.
-
----
-
-### 10. Brand Cohesion / Photography (5.7/10)
-
-No change. `pexels-7998221` unchanged. Cursor trail holds. Photography ceiling unchanged. This section score does not move without original imagery.
+Mobile LCP 6.4s to 3.4s (-47%) is the most buyer-relevant improvement across eight cycles. At 3.4s the site is now within range of the cellular bounce threshold rather than above it. Mobile FCP 1.5s to 1.1s. Mobile Performance score 74 to 84 (+10 points). The score does not yet reach 90 — Pexels third-party cookies hold Best Practices at 77 (unaddressable without real photography), and further mobile performance gains require JS analysis on the testimonial IIFE and cursor-trail rAF overhead. Sub-score ticks 7.3 to 7.5 on the strength of the LCP gain alone.
 
 ---
 
-## Priority List — Top 3 (Cycle 8)
+### 10. Brand Cohesion / Photography (6.0/10)
+
+This is the cycle 8 focus axis and the only sub-score that moves. The nav logo (1.5rem 700 weight Playfair Display), copper expand-from-center hover underline, scrolled-nav copper hairline, and footer border-top at matching copper spec now form a continuous identity thread from nav to footer. The footer brand name at 700 matches the nav logo — same typeface, same weight. This is what brand cohesion looks like at the component level: the same decision, made consistently. The copper CTA border-radius squared to 0 is a small but correct move — a craft-stamp square fits the aesthetic better than a soft pill. Sub-score moves 5.7 to 6.0. It does not go higher because the Studio Strip remains all-stock and `pexels-7998221` in About is the maker's face.
+
+---
+
+## Priority List — Top 3 (Cycle 9)
 
 ### Priority 1 — CRITICAL: Real photography is the score ceiling
 
-`pexels-7998221` in the About section and closing Process panel is unchanged across seven cycles. Hard cap at 7.5 until original photography lands. One authentic image of the maker at work — or a finished product — is the single highest-leverage change available to this site. When ready, this unlocks Scout's Layered Telescope-Zoom sequence and moves the score trajectory toward 8.0.
+`pexels-7998221` in the About section and closing Process panel is unchanged across all eight cycles. Hard cap at 7.5. One authentic image of the maker at work — or a finished product shot — is the single highest-leverage change available. When it lands, it unlocks: About sub-score 7.8 to 9.0+ (maker credibility restored), Process closing panel (currently a dead-end with stock image), and Scout's Layered Telescope-Zoom sequence. Score trajectory moves toward 8.0+ immediately.
 
-### Priority 2 — HIGH: Mobile performance push (Google Fonts render-blocking + mood-row image sizing)
+### Priority 2 — HIGH: Mobile Performance 84 to 90+ (JS overhead)
 
-Google Fonts CSS is render-blocking 530ms on mobile. Mood-row images are 276KB each on mobile — flagged as oversized. These two changes together would push Mobile Performance from 74 toward 90 (the stated floor). Concrete paths: inline critical font-face declarations and preload swap (eliminates render-blocking CSS request), and add `srcset` / `sizes` on mood-row `<img>` elements to serve appropriately sized images on mobile. Neither touches a cooled visual section. Builder work.
+Self-hosted fonts and srcset are done. The next mobile performance gains require: (a) audit the testimonial carousel IIFE for unnecessary work on idle frames, (b) audit cursor-trail.js rAF — the rAF loop runs continuously even when the particle array is empty, which is minor CPU overhead but real on budget Android; adding an idle-exit (cancel rAF when array is empty, restart on next mousemove) eliminates the background cost, (c) below-fold image lazy-loading audit — confirm all images outside the top viewport have `loading="lazy"` to defer decoding on first paint. These changes together have a realistic path to Mobile Performance 84 to 90.
 
-### Priority 3 — MEDIUM: Bug #27 — Copper section-label contrast (user brand decision needed)
+### Priority 3 — MEDIUM: Contact form success state
 
-Copper section-labels on cream background measure 2.50:1, failing WCAG AA for small text (0.8rem, 12.8px). Three options for the user to choose: (a) darken copper slightly for label use only (e.g. `#b87040`), (b) bump label font-size to 14px or higher, (c) accept as a conscious brand choice. Agents cannot resolve this without a user decision — surfacing it as an input-needed item for cycle 8 planning.
+The form has no confirmation experience. After submit, a buyer has no signal that their commission inquiry landed — they see a URL parameter change but no designed success moment. This is a conversion-friction gap at the final step of the purchase funnel. A simple, well-designed success state (already partially scaffolded in main.js) that matches the existing card quality would close the loop and reduce duplicate submissions.
 
 ---
 
 ## What Would Move This to 8.0
 
-1. One real original product or maker photograph replacing `pexels-7998221` in About and the closing Process panel (unlocks 7.5 ceiling and trajectory toward 8.0).
-2. Mobile Performance 74 to 90+ (Google Fonts inlining + mood-row srcset).
-3. Contact form success state — a confirmation experience that matches the existing form quality.
-4. Back-to-top affordance for mobile — the page is 12–14 viewport lengths on a 375px screen.
-5. Bug #27 copper contrast resolved (user brand decision needed).
+1. One real original product or maker photograph replacing `pexels-7998221` in About and the closing Process panel (unlocks the 7.5 ceiling immediately).
+2. Mobile Performance 84 to 90+ (JS overhead reduction — rAF idle-exit, testimonial IIFE audit, lazy-load verification).
+3. Contact form success state that matches the existing form quality.
+4. Bug #27 copper section-label contrast resolved (user brand decision: darken copper for labels, bump to 14px+, or accept as conscious choice).
+5. Studio Strip real product photography — the horizontal strip is the only section buyers can browse after the mood rows, and it shows nothing real.
 
 ---
 
@@ -125,9 +125,10 @@ Copper section-labels on cream background measure 2.50:1, failing WCAG AA for sm
 | 2026-04-25 | 3 | 7.2 | conversion-friction | Repeated pexels-7998221 across About + Process is the remaining primary trust blocker |
 | 2026-04-26 | 4 | 7.3 | conversion-friction | pexels-7998221 unchanged; testimonial honest-attribution pass resolves credibility dissonance |
 | 2026-04-26 | 5 | 7.4 | conversion-friction | testimonials mobile touch UX + contact card trust-note relocation earned +0.1; pexels-7998221 still score ceiling |
-| 2026-04-26 | 6 | 7.4 | conversion-friction | floor-raising cycle (perf/razor/QA) mostly invisible to buyer scan; mobile LCP improvement real but unconfirmed in magnitude; Bug #28 newly surfaced (12px testimonial stutter, fix cycle 7) |
+| 2026-04-26 | 6 | 7.4 | conversion-friction | floor-raising cycle (perf/razor/QA) mostly invisible to buyer scan; mobile LCP improvement real but unconfirmed in magnitude; Bug #28 newly surfaced |
 | 2026-04-26 | 7 | 7.5 | conversion-friction | Bug #28 closed (testimonial stutter gone) + mobile LCP 8.1s→6.4s confirmed; photography ceiling reached at 7.5 |
+| 2026-04-26 | 8 | 7.5 | brand-cohesion | pexels-7998221 unchanged; mobile LCP 6.4s→3.4s is the most buyer-relevant improvement across 8 cycles but photography hard-caps the score |
 
 ---
 
-*Score: 7.5 — Photography ceiling reached. Bug #28 (visible testimonial stutter on trust section) closed; mobile LCP 8.1s→6.4s confirmed via Lighthouse re-run. Mobile Performance 74 and pexels-7998221 in About+Process are the two remaining live conversion-friction blockers. Score cannot advance past 7.5 without original photography.*
+*Score: 7.5 — Photography ceiling holds. Mobile LCP 6.4s→3.4s (-47%) is the most buyer-relevant single improvement across eight cycles. Header/footer copper identity unified (brand cohesion 5.7→6.0). Bug #17 closed (12px labels resolved). Score cannot advance past 7.5 without original photography replacing pexels-7998221 in About + closing Process panel.*
