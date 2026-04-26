@@ -166,23 +166,31 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link) {
     var progress = scrolled / budget; // 0 → 1
     if (progress > 1) progress = 1;
 
-    // 4 panels need 3 transitions of 100vw each
-    var translatePct = -progress * (numPanels - 1) * 100;
+    // First 75% of the budget drives the slide; last 25% is dwell on panel 4
+    // so the closing panel actually has time to be read.
+    var SLIDE_FRACTION = 0.75;
+    var slideProgress = progress / SLIDE_FRACTION;
+    if (slideProgress > 1) slideProgress = 1;
+
+    var translatePct = -slideProgress * (numPanels - 1) * 100;
     track.style.transform = 'translate3d(' + translatePct + 'vw, 0, 0)';
 
-    var idx = Math.round(progress * (numPanels - 1));
+    var idx = Math.round(slideProgress * (numPanels - 1));
     if (idx >= numPanels) idx = numPanels - 1;
     setActiveDot(idx);
   }
 
-  // Dot click: jump scroll to that panel's segment
+  // Dot click: jump scroll to where the dot's panel becomes active.
+  // Last 25% of the budget is dwell on panel 4, so use SLIDE_FRACTION when
+  // mapping segments back to scroll positions.
   dots.forEach(function(dot, i) {
     dot.addEventListener('click', function() {
       var runwayTop = runway.getBoundingClientRect().top + window.scrollY;
       var budget = runway.offsetHeight - window.innerHeight;
       var segments = numPanels - 1;
+      var SLIDE_FRACTION = 0.75;
       var target = segments > 0
-        ? runwayTop + (budget / segments) * i + 2
+        ? runwayTop + (budget * SLIDE_FRACTION / segments) * i + 2
         : runwayTop + 2;
       window.scrollTo({ top: target, behavior: 'smooth' });
     });

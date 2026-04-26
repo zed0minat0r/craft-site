@@ -532,7 +532,7 @@ nav.scrolled .nav-cta {
 /* ---- Sticky runway ---- */
 .process-runway {
   position: relative;
-  height: 300vh; /* scroll budget: 4 panels x 75vh each */
+  height: 400vh; /* slide takes 75% of budget; last 25% is dwell on panel 4 */
 }
 
 .process-sticky {
@@ -632,21 +632,40 @@ nav.scrolled .nav-cta {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 24px;
   padding: 0 40px;
   z-index: 2;
 }
 
+.process-fp-closing-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-align: center;
+}
+
 .process-fp-closing-quote {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-size: clamp(2.4rem, 6vw, 5rem);
   font-weight: 400;
   font-style: italic;
   color: var(--cream);
-  line-height: 1.25;
+  line-height: 1.15;
   max-width: 900px;
   text-align: center;
   text-shadow: 0 2px 40px rgba(48, 40, 36, 0.4);
+  margin: 0;
+}
+
+.process-fp-closing-sub {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: rgba(247, 242, 236, 0.85);
+  line-height: 1.7;
+  max-width: 620px;
+  text-align: center;
+  font-weight: 300;
 }
 
 .process-fp-closing-arrow {
@@ -1624,7 +1643,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .studio-strip-item[aria-hidden="true"] { display: none; }
 
   /* Shorter process runway on mobile — panels change more responsively */
-  .process-runway { height: 200vh; }
+  .process-runway { height: 300vh; }
 
   /* Suppress large watermarks on mobile to avoid overflow artifacts */
   .hero::before { display: none; }
