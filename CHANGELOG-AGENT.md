@@ -67,3 +67,7 @@
 1. Real photography — one original image of a finished product or Molly at work is the single highest-leverage change remaining; no code work moves the needle past 7.5 while all photography is stock
 2. Price range ambiguity — add upper bounds to all three shop rows ("$75–$95", "$120–$200") to convert browse-stage visitors who need a budget signal before filling the form
 3. Testimonial platform links — either link "via Etsy" badge to the actual Etsy shop or reword to honest plain text; pill-badge implies external verification that does not currently exist
+
+## 2026-04-25 — Coordinator (cycle 3 dispatch)
+
+2026-04-25 coordinator — scheduled: Builder, Spark, Scout, Nigel, focus: conversion-friction (Bug #5/#13 + AUDIT P2 price ranges + About Frame B + first-ever Scout pass + re-score), forbidden: Studio Strip, Testimonials, Mood-row layout/animation, Hero, new sections, testimonial copy, unattested photo swaps
