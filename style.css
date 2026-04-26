@@ -1010,9 +1010,6 @@ nav.scrolled .nav-cta {
   text-transform: uppercase;
   color: var(--copper);
   opacity: 0.75;
-  border: 1px solid rgba(207,139,103,0.3);
-  border-radius: 2px;
-  padding: 2px 6px;
 }
 .star.star--empty {
   color: var(--cashmere);

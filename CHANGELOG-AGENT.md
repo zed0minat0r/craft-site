@@ -129,3 +129,7 @@
 ## 2026-04-25 — Coordinator (cycle 4 dispatch)
 
 2026-04-25 coordinator — scheduled: Builder, Spark, Pixel, Nigel, focus: conversion-friction + first wow-layer (AUDIT P2 honest source labels + AUDIT P3 trust-strip commitment + SCOUT cursor-trail + Custom CTA Frame B + tap-target fixes + re-score), forbidden: Studio Strip, About, Process panels, Hero, Mood rows, Shop price text, fabricated Etsy URL, fabricated guarantees
+
+## 2026-04-26 — Builder (cycle 4)
+
+2026-04-26 builder — AUDIT P2: re-labeled 3 "via Etsy" + 1 "via Instagram" pills to "past commission client" across primary + duplicate testimonial cards (index.html lines 407/449/470/505/515/520); removed pill border from .testimonial-source in style.css (lines 1005-1016); AUDIT P3: replaced "Bags, quilts & commissions welcome" with "Hand-finished in Pennsylvania" (index.html line 378); SCOUT Candidate C: copper-glow cursor trail shipped as new file js/cursor-trail.js (42 lines, pointer:fine + prefers-reduced-motion guards, rgba(207,139,103) decay 0.025/frame), loaded via defer script tag at end of body (index.html line 632). AUDIT source: AGENT-PLAN.md cycle 4 Agent 1. SCOUT source: SCOUT.md Candidate C. (per PLAN.md)
