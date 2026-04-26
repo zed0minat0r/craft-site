@@ -1,107 +1,114 @@
 # PERFORMANCE.md — Made by Molly
-**Last updated:** 2026-04-25 (cycle 6 — first Performance pass)
+**Last updated:** 2026-04-26 (cycle 7 re-run — verification pass)
 **Live URL:** https://zed0minat0r.github.io/craft-site/
 
 ---
 
-## Lighthouse Scores — Cycle 6 (pre-fix baseline)
+## Lighthouse Scores — Cycle 7 Re-run (post cycle-6 fixes)
 
-| Metric | Mobile | Desktop |
-|--------|--------|---------|
-| Performance | 66 | 85 |
-| Accessibility | 97 | 97 |
-| Best Practices | 73 | 73 |
-| SEO | 100 | 100 |
+| Metric | Mobile | Desktop | Floor |
+|--------|--------|---------|-------|
+| Performance | 74 | 100 | ≥ 90 |
+| Accessibility | 97 | 97 | — |
+| Best Practices | 77 | 77 | ≥ 95 |
+| SEO | 100 | 100 | ≥ 95 |
 
-Hard floors: Perf ≥ 90, Best Practices ≥ 95, SEO ≥ 95.
-**Status before fixes:** FAILING (Perf + BP on both form factors)
-
----
-
-## Core Web Vitals
-
-| Metric | Mobile | Desktop |
-|--------|--------|---------|
-| LCP | 8.1 s | 1.6 s |
-| CLS | 0 | 0.171 |
-| INP | N/A | N/A |
-| TBT | 0 ms | 0 ms |
-| FCP | 2.8 s | 0.8 s |
-| Speed Index | 6.1 s | 1.0 s |
-
-**CLS on desktop (0.171):** Confirmed culprit is `section#hero > ::before` (the giant "Handmade" watermark text, 18rem Playfair Display). All three Google Fonts woff2 files (2× Playfair Display, 1× DM Sans) trigger CLS when they swap in via `font-display: swap`. The element is `position: absolute` inside `overflow: hidden` hero, but the font-swap still causes Lighthouse to record a layout shift score.
-
-**LCP on mobile (8.1s):** LCP element is the `nav-logo` anchor text ("Made by Molly") — not an image. "Element render delay" is 2.89s. Root cause: Google Fonts CSS request + 3 woff2 downloads form a 378ms dependency chain that blocks first text paint. `main.js` is also render-blocking (loaded synchronously before body completes).
+**Status:** Mobile Performance and Best Practices are next-cycle candidates. Desktop Performance hit 100. SEO and Accessibility at target.
 
 ---
 
-## Root Causes Identified
+## Core Web Vitals — Cycle 7
 
-### 1. Render-blocking `main.js` (HIGH IMPACT)
-- `<script src="main.js">` in `index.html` line 642 (before fix) was synchronous — blocks HTML parsing.
-- `cursor-trail.js` already had `defer` but `main.js` did not.
-- **Fix applied:** Added `defer` to `main.js` script tag.
+| Metric | Mobile | Desktop | Cycle 6 Mobile | Cycle 6 Desktop |
+|--------|--------|---------|----------------|-----------------|
+| LCP | 6.4 s | 0.8 s | 8.1 s | 1.6 s |
+| CLS | 0 | 0.009 | 0 | 0.171 |
+| TBT | 90 ms | 0 ms | 0 ms | 0 ms |
+| FCP | 1.5 s | 0.4 s | 2.8 s | 0.8 s |
+| Speed Index | 4.2 s | 0.5 s | 6.1 s | 1.0 s |
 
-### 2. Font-swap CLS on hero watermark (HIGH IMPACT — desktop)
-- `::before { content: 'Handmade'; font-size: clamp(6rem, 18vw, 18rem); font-family: var(--font-display) }` at 18rem uses Playfair Display.
-- Preconnect hints are present but fonts load after CSS parse — woff2 files arrive late, triggering swap.
-- **Fix applied (two-part):**
-  - Added `<link rel="preload" as="font" type="font/woff2" crossorigin>` for all 3 woff2 files in `<head>`. Preloads ensure fonts arrive at/before first paint, eliminating the swap.
-  - Added `contain: layout size` to `.hero::before` in style.css. This isolates the pseudo-element from document layout so even if a swap occurs, it cannot propagate CLS to surrounding elements.
-
-### 3. Missing favicon (MEDIUM IMPACT — Best Practices 73)
-- Browser auto-requests `/favicon.ico` which returns 404. This fires a console error, triggering Best Practices penalty.
-- **Fix applied:** Added `favicon.svg` (espresso background, copper italic "M") + `<link rel="icon" href="favicon.svg" type="image/svg+xml">` in `<head>`.
-
-### 4. Bug #4 — Hero inset image downloads on mobile despite display:none (LOW IMPACT — bandwidth)
-- `.hero-product-inset { display:none }` on mobile, but `<img src="...">` still pre-fetched by browser.
-- `loading="lazy"` is insufficient — browser may still preload images in the LCP zone.
-- **Fix applied:** Wrapped in `<picture>` with `<source media="(max-width: 768px)" srcset="">`. Empty srcset on mobile source tells the browser to skip the download entirely.
-
-### 5. Bug #16 — Google Fonts @import (ALREADY FIXED pre-cycle 6)
-- `@import` in style.css was confirmed removed prior to this cycle. style.css line 5 is a comment confirming the fix. Fonts loaded via `<link rel="stylesheet">` in index.html.
-- Additional improvement this cycle: font preloads added (see item 2 above).
+**Key deltas from cycle 6 baseline:**
+- Mobile LCP: 8.1s → 6.4s (-1.7s, -21%) — defer on main.js + font preloads confirmed effective
+- Desktop LCP: 1.6s → 0.8s (-0.8s, -50%) — font preloads pulled critical text earlier
+- Desktop CLS: 0.171 → 0.009 (-98%) — `contain: layout size` on `.hero::before` + font preloads eliminated the watermark text-swap jump
+- Mobile FCP: 2.8s → 1.5s (-1.3s, -46%) — significant improvement; main.js defer unblocked the parser
+- Mobile Performance score: 66 → 74 (+8 points)
+- Desktop Performance score: 85 → 100 (+15 points)
 
 ---
 
-## Cursor Trail — Leak Check
+## Cycle 6 Fix Confirmation
 
-`/js/cursor-trail.js` audit:
-
-- **Mobile guard (line 3):** `if (!window.matchMedia('(pointer:fine)').matches) return;` — clean exit on touch/coarse pointer. Canvas is never created. No rAF scheduled. PASS.
-- **Reduced-motion guard (line 6):** `if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;` — clean exit before canvas creation. PASS.
-- **rAF disposal on pointer leave:** The rAF loop (`tick()`) runs unconditionally once started. There is NO explicit pause when the pointer leaves the window. The `particles` array empties naturally as each particle's `life` decrement reaches 0 (life starts at 1.0, decrements by 0.025 per frame → ~40 frames to clear). After the last particle is filtered out, `ctx.clearRect` runs on each tick with nothing to draw. **The rAF continues running even with no particles.** This is a minor CPU inefficiency (one `clearRect` call + `requestAnimationFrame` per frame) but not a memory leak. The canvas, particles array, and ctx are all local to the IIFE scope — no global references. No leak.
-- **Verdict:** No leak. The always-on rAF is cosmetically wasteful on a tab left open with no mouse activity. A `mouseleave/mouseenter` gate on `document` could pause/resume the loop — flagged as a future low-priority optimization. Not a bug.
-
----
-
-## Testimonial Touch IIFE — Passive Listener Audit
-
-`main.js` testimonial carousel (lines ~280–398):
-
-- **`touchstart`** listener: `{ passive: true }` — PASS. Does not call `preventDefault()`. Records `touchStartX` and pauses animation. Safe as passive.
-- **`touchend`** listener: `{ passive: true }` — PASS. Does not call `preventDefault()`. Computes swipe delta and schedules resume. Safe as passive since it reads `e.changedTouches[0].clientX` (read-only) and does not need to cancel scroll.
-- **`touchmove`** listener: **NOT PRESENT.** No touchmove listener exists in the testimonial IIFE. Swipe direction is computed entirely on touchend from the delta between touchstart and touchend positions. This means mid-swipe scroll is never blocked — the browser handles scroll freely during the swipe. The trade-off: diagonal swipes (more common on mobile) may trigger a page scroll AND a card swipe simultaneously. However, since swipe detection fires on touchend only, the UX is acceptable and no passive listener violation exists.
-- **Verdict:** All existing touch listeners are correctly passive. No passive listener violations. No scroll-perf issues.
+| Fix | Expected Impact | Confirmed |
+|-----|----------------|-----------|
+| `defer` on main.js | Unblock HTML parse, improve FCP/LCP | YES — FCP -1.3s mobile |
+| 3x woff2 font preloads | Reduce LCP, eliminate desktop CLS | YES — LCP -1.7s mobile, CLS 0.171→0.009 desktop |
+| `contain: layout size` on `.hero::before` | CLS containment | YES — desktop CLS near-zero |
+| favicon.svg | Best Practices 404 fix | Partial — BP still at 77 (third-party cookies dominate) |
+| `<picture>` empty mobile srcset | Prevent hidden image download | Cannot isolate in score; mobile bandwidth improved |
+| Bug #28 padding-right (cycle 7 Builder) | Negligible perf impact | Confirmed negligible |
 
 ---
 
-## Fixes Applied This Cycle
+## Remaining Issues — Next-Cycle Candidates
+
+### 1. Best Practices 77 — Third-party Pexels cookies (HIGH IMPACT, UNADDRESSABLE)
+- `_cfuvid` and `__cf_bm` Cloudflare cookies from `images.pexels.com` flagged by Chrome DevTools Issues panel.
+- Favicon fix landed but BP still at 77 — Pexels cookies are the dominant penalizer.
+- **Resolution:** Requires self-hosting images (real photography from user). Out of scope until then.
+
+### 2. Mobile Performance 74 — LCP 6.4s still outside floor
+- Top remaining mobile perf issues:
+  - **Render-blocking Google Fonts CSS** (est. 530ms savings) — `fonts.googleapis.com/css2?...` link tag in head is parser-blocking. Mitigation: `rel="preload"` + injecting via JS, or use `@font-face` directly with self-hosted fonts.
+  - **Image delivery (276KB savings)** — Pexels mood-row images at `w=900` served to 412px mobile viewports. Responsive srcset on mood-row `<img>` tags (adding `w=450` for mobile) is the fix.
+  - **Unminified CSS (3KB savings)** — minor.
+
+### 3. Render-blocking Google Fonts CSS — 530ms (MEDIUM IMPACT, ACTIONABLE)
+- URL: `fonts.googleapis.com/css2?family=Playfair+Display...`
+- The `<link rel="stylesheet">` for Google Fonts is still parser-blocking. The preload links added in cycle 6 preload the woff2 binaries but not the CSS.
+- Candidate fix: swap `<link rel="stylesheet">` for a `<link rel="preload" as="style" onload>` pattern.
+
+### 4. Image delivery — mood-row images oversized on mobile (MEDIUM IMPACT, ACTIONABLE)
+- `w=900` Pexels parameter → 412px display width. Correct fix: add `srcset` pointing to `w=450` for mobile breakpoints.
+- Estimated 276KB savings across the Shop section images.
+
+---
+
+## Root Causes (Cycle 6 — retained for reference)
+
+### 1. Render-blocking `main.js` — CLOSED
+Fixed with `defer`. FCP improvement confirmed.
+
+### 2. Font-swap CLS on hero watermark — CLOSED
+Font preloads + `contain: layout size` on `.hero::before`. Desktop CLS dropped from 0.171 to 0.009.
+
+### 3. Missing favicon (Best Practices 404) — PARTIALLY CLOSED
+Favicon landed. BP went from 73 → 77. Pexels third-party cookies are the remaining BP penalizer.
+
+### 4. Bug #4 — Hero inset hidden image download on mobile — CLOSED
+`<picture>` with empty mobile srcset in place.
+
+---
+
+## Cursor Trail — Leak Check (from cycle 6)
+`/js/cursor-trail.js` exits clean on touch/coarse pointer and prefers-reduced-motion. No memory leak. Minor CPU note: rAF runs continuously even with no particles — cosmetic inefficiency, not a bug. Low-priority future optimization.
+
+---
+
+## Fixes Applied Cycle 6 (confirmed effective this run)
 
 | Fix | File | Impact |
 |-----|------|--------|
-| `defer` added to main.js | index.html | Removes render-blocking JS |
-| Font preloads (3 woff2) | index.html | Eliminates font-swap CLS |
-| `contain: layout size` on `.hero::before` | style.css | CLS containment fallback |
-| Favicon SVG + link tag | favicon.svg + index.html | Fixes Best Practices 404 |
-| `<picture>` mobile empty source | index.html (Bug #4) | Prevents hidden image download |
-| `width`/`height` on inset img | index.html | Prevents inset reflow |
+| `defer` added to main.js | index.html | FCP -1.3s mobile |
+| Font preloads (3 woff2) | index.html | LCP -1.7s mobile; desktop CLS -98% |
+| `contain: layout size` on `.hero::before` | style.css | CLS containment |
+| Favicon SVG + link tag | favicon.svg + index.html | Partial BP recovery |
+| `<picture>` mobile empty source (Bug #4) | index.html | Prevents hidden image download |
 
 ---
 
-## Not Fixed This Cycle (out of scope)
+## Fixes Applied Cycle 7 (Builder)
 
-- **Third-party cookies (Pexels):** 2 cookies found from images.pexels.com. This is a Pexels CDN behavior; not addressable without self-hosting images. Would require real photography.
-- **CSS minification (3KB savings):** Low priority for a GitHub Pages static site. Minification would require a build step.
-- **Image responsive sizes (276KB savings mobile):** Pexels images at `w=900` served to 412px viewports. Correct fix is `w=450` parameter on mobile Pexels URLs via `<picture>/<srcset>`. Planned for cycle 7 if performance still failing after this cycle's fixes.
-- **Studio strip loop 20px jump (Bug #6):** Belongs to Builder after QA verifies math.
+| Fix | File | Impact |
+|-----|------|--------|
+| `padding-right: 24px` on `.testimonials-track` (Bug #28) | style.css | Negligible perf impact, confirmed |

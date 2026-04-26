@@ -329,3 +329,7 @@
 ## 2026-04-26 — Builder (cycle 7)
 
 2026-04-26 builder — Bug #28 CLOSED: added `padding-right: 24px` to `.testimonials-track` (style.css line 919) + mirrored in mobile override (line 1684); scrollWidth 3216→3240, translateX(-50%)=-1620px = exact card[0]→card[5] distance, loop seam closed (per PLAN.md)
+
+## 2026-04-26 — Performance (cycle 7 re-run)
+
+2026-04-26 04:20 performance — scores: Mobile P=74 BP=77 A=97 S=100 | Desktop P=100 BP=77 A=97 S=100, top issue: mobile LCP 6.4s (Google Fonts CSS render-blocking 530ms + Pexels image oversizing 276KB), fixed: 0 (verification only — cycle 6 fixes confirmed effective: LCP -1.7s mobile, FCP -1.3s mobile, desktop CLS 0.171→0.009, mobile perf score +8pts, desktop perf score +15pts; BP floor not met due to unaddressable Pexels third-party cookies)
