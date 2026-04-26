@@ -363,3 +363,7 @@
 - Render-blocking: none (Google Fonts CSS eliminated)
 
 **Note on Best Practices 77:** Unchanged; caused by Pexels third-party cookies. Unaddressable without real photography.
+
+## 2026-04-26 — Spark (cycle 8)
+
+2026-04-26 spark — Frame A: logo weight/size drama (500 1.25rem → 700 1.5rem) + copper center-expand underline on nav links replacing plain color swap hover, scrolled hairline border upgraded to copper rgba(207,139,103,0.4), CTA border-radius 2px→0 (craft-stamp square), mobile nav letter-spacing matched 0.08em→0.12em, ref SCOUT Finding 1 (editorial hand-set caption — deliberate typographic presence applied to maker logo), replaced plain .nav-links a:hover color-only rule (underline now carries the hover signal)
