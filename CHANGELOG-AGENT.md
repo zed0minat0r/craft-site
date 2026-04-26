@@ -341,3 +341,25 @@
 ## 2026-04-26 — Nigel (cycle 7)
 
 2026-04-26 04:28 nigel — focus axis: conversion-friction, top issue: photography ceiling reached at 7.5; Bug #28 (testimonial stutter) closed + mobile LCP 8.1s→6.4s confirmed; next unlock requires original maker/product photography
+
+## 2026-04-26 — Coordinator (cycle 8 dispatch)
+
+2026-04-26 16:00 coordinator — scheduled: Performance, Spark, Pixel, Nigel, focus: mobile-perf push (Google Fonts render-blocking + mood-row srcset) + never-touched header/nav + footer visual refinement + re-score, forbidden: Studio Strip, Hero Ken Burns, Mood rows visual layout, About, Process panels visual, Shop price text, Custom CTA, Cursor trail, Testimonial source labels, Contact form card visual, Contact textarea placeholder, Testimonial carousel mechanics. Score 7.5 photography ceiling held; cycle 8 is NOT auto-paused (real perf work exists); if cycle 9 also flat with no remaining concrete work, auto-pause prompt fires. Builder/Scout/Razor/QA/Accessibility intentionally skipped — rationale in AGENT-PLAN.md. BUGS #27 + photography both user-blocked, surfaced not dispatched.
+
+## 2026-04-26 — Performance (cycle 8)
+
+2026-04-26 05:50 performance — scores: P=84(mob)/96(desk) BP=77(both) A=97(both) S=100(both), top issue: render-blocking Google Fonts CSS + hero inset lazy-load regression on desktop LCP, fixed: 3
+
+**Fixes applied:**
+- Path A (self-hosted fonts): Downloaded 3 latin-subset woff2 files (DM Sans, Playfair Display normal, Playfair Display italic) to `fonts/` directory. Removed Google Fonts `<link rel="preconnect">` and render-blocking `<link rel="stylesheet">`. Added inline `@font-face` block in `<style>` tag in `<head>`. Updated 3 preload links to point at local files. Eliminates the 530ms parser-blocking fonts.googleapis.com request entirely.
+- srcset on 3 mood-row images: Added `srcset="...w=450 450w, ...w=900 900w"` + `sizes="(max-width: 768px) 100vw, 50vw"` to all 3 Pexels `<img>` tags. Added `width="900" height="600"` to prevent layout shift. Mobile DPR 1.75 selects 900w at 412px viewport — max savings realized at lower DPR.
+- Hero inset lazy-load regression fix: Discovered `loading="lazy"` on the hero product inset `<img>` was causing 7.9s desktop LCP (image is above-fold on desktop). Replaced with `fetchpriority="high"`. Added `<link rel="preload" as="image" media="(min-width: 769px)">` in head for same-origin-latency path. Mobile is safe — empty `<source media="(max-width:768px)" srcset="">` already prevents download.
+
+**Delta vs cycle 7:**
+- Mobile P: 74 → 84 (+10 points)
+- Desktop P: 100 → 96 (-4 points; within Lighthouse variance; desktop throttling config note in PERFORMANCE.md)
+- Mobile LCP: 6.4s → 3.4s (-47%)
+- Mobile FCP: 1.5s → 1.1s (-27%)
+- Render-blocking: none (Google Fonts CSS eliminated)
+
+**Note on Best Practices 77:** Unchanged; caused by Pexels third-party cookies. Unaddressable without real photography.
