@@ -35,11 +35,11 @@
 - The inset image has `loading="eager"` and is visible on desktop. On mobile (`max-width: 768px`) the entire `.hero-product-inset` div is `display:none`. The eager image still downloads on mobile, burning ~100KB of bandwidth on an image that is never shown. Should be `loading="lazy"` at minimum, or excluded from mobile via `<picture>`.
 - Affects: All mobile users.
 
-**5. Hamburger button stacks above mobile nav overlay — hamburger stays visible over full-screen menu**
+**5. ~~Hamburger button stacks above mobile nav overlay — hamburger stays visible over full-screen menu~~ CLOSED**
 - Section: Navigation (mobile)
 - Selector: `.nav-hamburger` z-index 1001 vs `.mobile-nav-overlay` z-index 999
-- When the mobile nav overlay opens (full-screen menu), the hamburger button (`z-index: 1001`) renders on top of the overlay (`z-index: 999`). The hamburger is still visible and clickable over the open menu. Clicking it calls `openMenu()` again (no-op since already open), but the visual glitch of seeing a hamburger icon on top of the full-screen menu is jarring. The close button (X) is inside the overlay and also present, creating two competing close affordances.
-- Reproduce: At 375px, tap hamburger — the three-bar icon is still visible over the open nav overlay.
+- **Fix (cycle 3):** Raised `.mobile-nav-overlay` z-index from 999 to 1002 in style.css. Overlay now sits definitively above the hamburger button. The existing `.nav-hidden` opacity:0 treatment on hamburger is now backed by a stacking-order guarantee.
+- **Verified:** style.css updated; overlay z-index 1002 confirmed in HEAD. At 375px the overlay covers the full screen including the nav layer.
 
 **6. Studio strip scroll loop has a 20px visible jump on every cycle**
 - Section: Studio Strip
@@ -83,10 +83,11 @@
 - Selector: `.testimonials-track` / `style.css` line 929
 - The loop uses `translateX(-50%)` on a `width: max-content` track with 10 cards (5 + 5 duplicates). The card width is `clamp(300px, 35vw, 440px)`. At 375px: `35vw = 131.25px`, clamped to 300px. For -50% to create a seamless loop, the total track width must be exactly double the first 5 cards. With flex gap 24px: 5-card block = `5×300 + 4×24 = 1596px`. Total track with padding = not exactly 2× the 5-card block due to padding asymmetry. A visible jump occurs on loop reset on narrow viewports.
 
-**13. `reveal-glow` observer fires at 20% threshold; `reveal` fires at 12% with -40px root margin — race condition on mobile**
+**13. ~~`reveal-glow` observer fires at 20% threshold; `reveal` fires at 12% with -40px root margin — race condition on mobile~~ CLOSED**
 - Section: Shop by Mood
 - Selector: `.mood-text` / `main.js` lines 63, 191
-- `.mood-text` has both `.reveal` (parent opacity controlled by `IntersectionObserver` at 12% threshold, -40px rootMargin) and `.mood-row` has `.reveal-glow` (child stagger via observer at 20% threshold, no margin). On mobile viewports, the effective trigger point for `reveal-glow` (20%, no margin) can precede `reveal` (12%, -40px shinkage). Children animate (stagger from opacity:0→1) while the parent `.mood-text` is still `opacity:0`. Result: animated content invisible to user during the transition.
+- **Fix (prior cycle, verified cycle 3):** The `reveal-glow` IntersectionObserver in main.js already uses `{ threshold: 0.12, rootMargin: '0px 0px -40px 0px' }` — matching `.reveal` exactly (main.js line 249). The race condition was eliminated in a prior pass.
+- **Verified cycle 3:** main.js line 249 confirms matching thresholds. No parent-invisible / child-animating race possible with identical trigger settings.
 
 **14. Mobile reversed mood-rows have accent bar on the right; normal rows on the left — inconsistent on single-column layout**
 - Section: Shop by Mood (Row 02 "Art quilts")

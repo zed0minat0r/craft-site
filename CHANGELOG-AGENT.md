@@ -71,3 +71,11 @@
 ## 2026-04-25 — Coordinator (cycle 3 dispatch)
 
 2026-04-25 coordinator — scheduled: Builder, Spark, Scout, Nigel, focus: conversion-friction (Bug #5/#13 + AUDIT P2 price ranges + About Frame B + first-ever Scout pass + re-score), forbidden: Studio Strip, Testimonials, Mood-row layout/animation, Hero, new sections, testimonial copy, unattested photo swaps
+
+## 2026-04-25 — Builder (cycle 3)
+
+- **Bug #5 (HIGH):** `.mobile-nav-overlay` z-index raised from 999 → 1002 in style.css line 1411. Overlay now stacks above `.nav-hamburger` (z-index 1001) unconditionally. The existing JS `.nav-hidden` treatment (opacity:0, pointer-events:none) remains as a UX complement. Source: BUGS.md #5.
+- **Bug #13 (MEDIUM):** Verified already resolved in HEAD — main.js line 249 `reveal-glow` observer uses `{ threshold: 0.12, rootMargin: '0px 0px -40px 0px' }` matching `.reveal` exactly. No race condition possible. Marked closed in BUGS.md. Source: BUGS.md #13.
+- **AUDIT P2:** Price upper bounds added to all three mood-row `.mood-price` elements in index.html. Bags: `$75–$220` (6–10 hr range); Quilts: `$120–$480` (15–30 hr range); Custom commissions: `$95+` (open-ended). Inherited existing `.mood-price` span/strong markup — no new component. Source: AUDIT P2 / AGENT-PLAN.md.
+- **Files:** style.css (1 edit, line 1411), index.html (3 edits, lines 108/133/158), BUGS.md (#5/#13 closed), PLAN.md updated.
+2026-04-25 builder — Bug #5 overlay z-index fixed (999→1002), Bug #13 verified resolved, AUDIT P2 price ranges shipped (per PLAN.md)
