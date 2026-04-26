@@ -7,13 +7,40 @@
   <meta name="description" content="Handcrafted bags, totes, and art quilts made with intention in Pennsylvania. Custom orders welcome." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" />
-  <!-- Preload critical woff2 files to eliminate font-swap CLS on hero watermark -->
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFkD-vYSZviVYUb_rj3ij__anPXDTnogkk7yRZrPA.woff2" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2" />
+  <!-- Self-hosted fonts — eliminates 530ms Google Fonts render-blocking CSS (cycle 8) -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/playfair-display-normal-latin.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/playfair-display-italic-latin.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/dm-sans-latin.woff2" />
+  <style>
+    /* Self-hosted font-face declarations — latin subset only (English content) */
+    /* DM Sans — all weights share the same latin woff2 file */
+    @font-face {
+      font-family: 'DM Sans';
+      font-style: normal;
+      font-weight: 300 600;
+      font-display: swap;
+      src: url('fonts/dm-sans-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* Playfair Display — normal (400/500/700 share same latin file) */
+    @font-face {
+      font-family: 'Playfair Display';
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url('fonts/playfair-display-normal-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* Playfair Display — italic (400/500 share same latin file) */
+    @font-face {
+      font-family: 'Playfair Display';
+      font-style: italic;
+      font-weight: 400 500;
+      font-display: swap;
+      src: url('fonts/playfair-display-italic-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+  </style>
 </head>
 <body>
 
@@ -106,7 +133,11 @@
       <div class="mood-photo">
         <img
           src="https://images.pexels.com/photos/4937323/pexels-photo-4937323.jpeg?auto=compress&cs=tinysrgb&w=900"
+          srcset="https://images.pexels.com/photos/4937323/pexels-photo-4937323.jpeg?auto=compress&cs=tinysrgb&w=450 450w,
+                  https://images.pexels.com/photos/4937323/pexels-photo-4937323.jpeg?auto=compress&cs=tinysrgb&w=900 900w"
+          sizes="(max-width: 768px) 100vw, 50vw"
           alt="Handmade canvas and leather tote bag"
+          width="900" height="600"
           loading="lazy"
         />
         <div class="mood-photo-overlay"></div>
@@ -131,7 +162,11 @@
       <div class="mood-photo">
         <img
           src="https://images.pexels.com/photos/15337117/pexels-photo-15337117.jpeg?auto=compress&cs=tinysrgb&w=900"
+          srcset="https://images.pexels.com/photos/15337117/pexels-photo-15337117.jpeg?auto=compress&cs=tinysrgb&w=450 450w,
+                  https://images.pexels.com/photos/15337117/pexels-photo-15337117.jpeg?auto=compress&cs=tinysrgb&w=900 900w"
+          sizes="(max-width: 768px) 100vw, 50vw"
           alt="Handmade patchwork art quilt close-up"
+          width="900" height="600"
           loading="lazy"
         />
         <div class="mood-photo-overlay"></div>
@@ -156,7 +191,11 @@
       <div class="mood-photo">
         <img
           src="https://images.pexels.com/photos/8266835/pexels-photo-8266835.jpeg?auto=compress&cs=tinysrgb&w=900"
+          srcset="https://images.pexels.com/photos/8266835/pexels-photo-8266835.jpeg?auto=compress&cs=tinysrgb&w=450 450w,
+                  https://images.pexels.com/photos/8266835/pexels-photo-8266835.jpeg?auto=compress&cs=tinysrgb&w=900 900w"
+          sizes="(max-width: 768px) 100vw, 50vw"
           alt="Custom patchwork quilt with personal fabric choices"
+          width="900" height="600"
           loading="lazy"
         />
         <div class="mood-photo-overlay"></div>
