@@ -593,57 +593,74 @@
   <section class="contact" id="contact">
     <div class="contact-inner reveal from-bottom">
       <div class="contact-card">
-        <div class="contact-header">
-          <div class="section-label">Let's Connect</div>
-          <h2 class="section-title">Get in Touch</h2>
-          <p class="contact-sub">
-            Tell me what you're dreaming up. I read every message myself and usually reply same day.
-          </p>
-          <p class="contact-email-fallback">
-            Or email directly: <a href="mailto:hello@madebymolly.com">hello@madebymolly.com</a>
-          </p>
-        </div>
-        <form id="contact-form" action="https://formspree.io/f/xpznqkdl" method="POST">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Your Name</label>
-              <input type="text" id="name" name="name" placeholder="First Last" required />
+        <div class="contact-grid">
+
+          <!-- LEFT: personal warmth — photo + invitation + promise -->
+          <aside class="contact-personal">
+            <div class="contact-photo">
+              <img src="assets/photos/molly-portrait.jpg" alt="Molly at her Mollita Makes craft fair booth" loading="lazy" />
             </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="you@email.com" required />
-            </div>
+            <p class="section-label">Let's Make Something</p>
+            <h2 class="contact-headline">Tell me what<br />you&rsquo;re <em>dreaming&nbsp;up.</em></h2>
+            <p class="contact-personal-note">
+              I read every message myself and usually reply the same day. No pressure &mdash; even if you&rsquo;re just curious about timing, fabric, or whether an idea is doable, I&rsquo;d love to hear from you.
+            </p>
+            <blockquote class="contact-promise">
+              <p>&ldquo;If you&rsquo;re not happy with what arrives, message me&nbsp;&mdash;&nbsp;I&rsquo;ll make it right. I stand behind every piece I make.&rdquo;</p>
+              <cite>&mdash; Molly</cite>
+            </blockquote>
+            <p class="contact-email-fallback">
+              Email direct: <a href="mailto:hello@madebymolly.com">hello@madebymolly.com</a>
+            </p>
+          </aside>
+
+          <!-- RIGHT: form -->
+          <div class="contact-form-side">
+            <form id="contact-form" action="https://formspree.io/f/xpznqkdl" method="POST">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your Name</label>
+                  <input type="text" id="name" name="name" placeholder="First Last" required autocomplete="name" />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" name="email" placeholder="you@email.com" required autocomplete="email" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inquiry">What can I help with?</label>
+                <select id="inquiry" name="inquiry" required>
+                  <option value="" disabled selected>Select one&hellip;</option>
+                  <option value="bag">Bag or Tote Order</option>
+                  <option value="quilt">Art Quilt Order</option>
+                  <option value="custom">Custom Commission</option>
+                  <option value="question">General Question</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" placeholder="e.g. a market tote in olive linen, roughly 14 inches wide, gift in 6 weeks &mdash; happy to send a sketch first" required></textarea>
+              </div>
+              <input type="hidden" name="_next" value="https://zed0minat0r.github.io/craft-site/?submitted=1" />
+              <button type="submit" class="form-submit" id="submit-btn">
+                Send Message
+                <svg class="form-submit-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <p class="contact-shipping-note">Custom orders ship within 3&ndash;6 weeks via USPS Priority Mail.</p>
+              <div id="form-success" style="display:none;">
+                <div class="success-inner">
+                  <div class="success-mark" aria-hidden="true">&#10003;</div>
+                  <h3 class="success-heading">Got it.</h3>
+                  <p class="success-note">I&rsquo;ll read your message today and reply with a sketch and a fair quote.</p>
+                  <a href="#shop" class="success-cta">Browse the shop while you wait</a>
+                </div>
+              </div>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="inquiry">Inquiry Type</label>
-            <select id="inquiry" name="inquiry" required>
-              <option value="" disabled selected>Select one...</option>
-              <option value="bag">Bag or Tote Order</option>
-              <option value="quilt">Art Quilt Order</option>
-              <option value="custom">Custom Commission</option>
-              <option value="question">General Question</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Your Message</label>
-            <textarea id="message" name="message" placeholder="e.g. a market tote in olive linen, roughly 14 inches wide, gift in 6 weeks — happy to send a sketch first" required></textarea>
-          </div>
-          <input type="hidden" name="_next" value="https://zed0minat0r.github.io/craft-site/?submitted=1" />
-          <button type="submit" class="form-submit" id="submit-btn">
-            Send Message
-          </button>
-          <div id="form-success" style="display:none;">
-            <div class="success-inner">
-              <div class="success-mark" aria-hidden="true">&#10003;</div>
-              <h3 class="success-heading">Got it.</h3>
-              <p class="success-note">I'll read your message today and reply with a sketch and a fair quote.</p>
-              <a href="#shop" class="success-cta">Browse the shop while you wait</a>
-            </div>
-          </div>
-        </form>
-        <blockquote class="contact-trust-pull">
-          Custom orders ship within 3&ndash;6 weeks via USPS Priority Mail. If you're not happy with what arrives, message me &mdash; I'll make it right. I stand behind every piece I make.
-        </blockquote>
+
+        </div><!-- /contact-grid -->
       </div>
     </div>
   </section>
