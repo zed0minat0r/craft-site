@@ -1,0 +1,338 @@
+[
+  {
+    "viewport": "375",
+    "scenario": "Page load",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #28 — padding-right fix applied (24px)",
+    "status": "PASS",
+    "notes": "paddingRight=24px paddingLeft=0px"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #28 — scrollWidth half == card0→card5 distance",
+    "status": "PASS",
+    "notes": "scrollW=3240px halfW=1620px exact=1620px delta=0px cardW=300px gap=24px cards=10"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #28 — keyframe translateX",
+    "status": "INFO",
+    "notes": "keyframe=\"translateX(-50%)\" anim=\"testimonial-scroll\" dur=\"50s\""
+  },
+  {
+    "viewport": "375",
+    "scenario": "Testimonial dots on mobile",
+    "status": "PASS",
+    "notes": "present=true visible=true activeDot=false"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #28 — card[0]→card[5] measured offset",
+    "status": "INFO",
+    "notes": "card0.left=-143px card5.left=1477px diff=1620px (rel: card0=0px card5=1620px)"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #8 mood-row wipe direction check",
+    "status": "INFO",
+    "notes": "mobileClip=\"inset(0px)\" computed=\"inset(0px 0px 0.00057534%)\" photos=3 rules=[{\"sel\":\".mood-photo\",\"clip\":\"\"},{\"sel\":\".mood-photo img\",\"clip\":\"\"},{\"sel\":\".mood-row:hover .mood-photo img\",\"clip\":\"\"},{\"sel\":\".mood-photo-overlay\",\"clip\":\"\"},{\"sel\":\".mood-row:hover .mood-photo-overlay\",\"clip\":\"\"},{\"sel\":\"@media (max-width: 768px) { .mood-photo }\",\"clip\":\"inset(0px 0px 100%)\"},{\"sel\":\"@media (max-width: 768px) { .mood-row.reveal-glow .mood-photo }\",\"clip\":\"inset(0px)\"},{\"sel\":\"@media (prefers-reduced-motion: reduce) { .mood-photo img, .about-photo-frame img }\",\"clip\":\"\"},{\"sel\":\"@media (prefers-reduced-motion: reduce) { .mood-photo }\",\"clip\":\"none\"}]"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #8 wipe direction uncertain",
+    "status": "WARN",
+    "notes": "clip=\"inset(0px)\" — could not determine direction"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #17 — elements below 13px",
+    "status": "FAIL",
+    "notes": "section-label=12.8px opacity=1 | hero-eyebrow=12px opacity=1 | testimonials-disclaimer=12px opacity=0.8 | footer-col-title=12px opacity=1"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #19 — duplicate studio items exposed on mobile",
+    "status": "OPEN",
+    "notes": "total=10 ariaHidden=5 animNone=true firstHiddenDisplay=none"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Bug #21 — process arrow element",
+    "status": "SKIP",
+    "notes": "arrow element not found"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: testimonials-header",
+    "status": "PASS",
+    "notes": "textAlign=center left=0px right=0px centerDelta=0px w=375px"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: testimonials-heading",
+    "status": "SKIP",
+    "notes": "not found"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: contact-inner",
+    "status": "PASS",
+    "notes": "textAlign=start left=20px right=20px centerDelta=0px w=335px"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: footer-inner",
+    "status": "PASS",
+    "notes": "textAlign=center left=24px right=24px centerDelta=0px w=327px"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Center alignment: footer-copy",
+    "status": "PASS",
+    "notes": "textAlign=center left=77px right=77px centerDelta=0px w=221px"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Console errors — full session",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "375",
+    "scenario": "Horizontal overflow",
+    "status": "FAIL",
+    "notes": "body.scrollWidth=391 > viewport=375"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Page load",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #28 — padding-right fix applied (24px)",
+    "status": "PASS",
+    "notes": "paddingRight=24px paddingLeft=0px"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #28 — scrollWidth half == card0→card5 distance",
+    "status": "PASS",
+    "notes": "scrollW=3240px halfW=1620px exact=1620px delta=0px cardW=300px gap=24px cards=10"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #28 — keyframe translateX",
+    "status": "INFO",
+    "notes": "keyframe=\"translateX(-50%)\" anim=\"testimonial-scroll\" dur=\"50s\""
+  },
+  {
+    "viewport": "414",
+    "scenario": "Testimonial dots on mobile",
+    "status": "PASS",
+    "notes": "present=true visible=true activeDot=false"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #28 — card[0]→card[5] measured offset",
+    "status": "INFO",
+    "notes": "card0.left=-144px card5.left=1476px diff=1620px (rel: card0=0px card5=1620px)"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #8 mood-row wipe direction check",
+    "status": "INFO",
+    "notes": "mobileClip=\"inset(0px)\" computed=\"inset(0px 0px 0.000571728%)\" photos=3 rules=[{\"sel\":\".mood-photo\",\"clip\":\"\"},{\"sel\":\".mood-photo img\",\"clip\":\"\"},{\"sel\":\".mood-row:hover .mood-photo img\",\"clip\":\"\"},{\"sel\":\".mood-photo-overlay\",\"clip\":\"\"},{\"sel\":\".mood-row:hover .mood-photo-overlay\",\"clip\":\"\"},{\"sel\":\"@media (max-width: 768px) { .mood-photo }\",\"clip\":\"inset(0px 0px 100%)\"},{\"sel\":\"@media (max-width: 768px) { .mood-row.reveal-glow .mood-photo }\",\"clip\":\"inset(0px)\"},{\"sel\":\"@media (prefers-reduced-motion: reduce) { .mood-photo img, .about-photo-frame img }\",\"clip\":\"\"},{\"sel\":\"@media (prefers-reduced-motion: reduce) { .mood-photo }\",\"clip\":\"none\"}]"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #8 wipe direction uncertain",
+    "status": "WARN",
+    "notes": "clip=\"inset(0px)\" — could not determine direction"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #17 — elements below 13px",
+    "status": "FAIL",
+    "notes": "section-label=12.8px opacity=1 | hero-eyebrow=12px opacity=1 | testimonials-disclaimer=12px opacity=0.8 | footer-col-title=12px opacity=1"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #19 — duplicate studio items exposed on mobile",
+    "status": "OPEN",
+    "notes": "total=10 ariaHidden=5 animNone=true firstHiddenDisplay=none"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Bug #21 — process arrow element",
+    "status": "SKIP",
+    "notes": "arrow element not found"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: testimonials-header",
+    "status": "PASS",
+    "notes": "textAlign=center left=0px right=0px centerDelta=0px w=414px"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: testimonials-heading",
+    "status": "SKIP",
+    "notes": "not found"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: contact-inner",
+    "status": "PASS",
+    "notes": "textAlign=start left=20px right=20px centerDelta=0px w=374px"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: footer-inner",
+    "status": "PASS",
+    "notes": "textAlign=center left=24px right=24px centerDelta=0px w=366px"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Center alignment: footer-copy",
+    "status": "PASS",
+    "notes": "textAlign=center left=30px right=163px centerDelta=66px w=221px"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Console errors — full session",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "414",
+    "scenario": "Horizontal overflow",
+    "status": "FAIL",
+    "notes": "body.scrollWidth=430 > viewport=414"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Page load",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "768",
+    "scenario": "Bug #28 — padding-right fix applied (24px)",
+    "status": "PASS",
+    "notes": "paddingRight=24px paddingLeft=0px"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Bug #28 — scrollWidth half == card0→card5 distance",
+    "status": "PASS",
+    "notes": "scrollW=3240px halfW=1620px exact=1620px delta=0px cardW=300px gap=24px cards=10"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Bug #28 — keyframe translateX",
+    "status": "INFO",
+    "notes": "keyframe=\"translateX(-50%)\" anim=\"testimonial-scroll\" dur=\"50s\""
+  },
+  {
+    "viewport": "768",
+    "scenario": "Testimonial dots on mobile",
+    "status": "PASS",
+    "notes": "present=true visible=true activeDot=false"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Bug #28 — card[0]→card[5] measured offset",
+    "status": "INFO",
+    "notes": "card0.left=-148px card5.left=1472px diff=1620px (rel: card0=0px card5=1620px)"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Bug #8 mood-row wipe direction check",
+    "status": "INFO",
+    "notes": "mobileClip=\"inset(0px)\" computed=\"inset(0px)\" photos=3 rules=[{\"sel\":\".mood-photo\",\"clip\":\"\"},{\"sel\":\".mood-photo img\",\"clip\":\"\"},{\"sel\":\".mood-row:hover .mood-photo img\",\"clip\":\"\"},{\"sel\":\".mood-photo-overlay\",\"clip\":\"\"},{\"sel\":\".mood-row:hover .mood-photo-overlay\",\"clip\":\"\"},{\"sel\":\"@media (max-width: 768px) { .mood-photo }\",\"clip\":\"inset(0px 0px 100%)\"},{\"sel\":\"@media (max-width: 768px) { .mood-row.reveal-glow .mood-photo }\",\"clip\":\"inset(0px)\"},{\"sel\":\"@media (prefers-reduced-motion: reduce) { .mood-photo img, .about-photo-frame img }\",\"clip\":\"\"},{\"sel\":\"@media (prefers-reduced-motion: reduce) { .mood-photo }\",\"clip\":\"none\"}]"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Bug #8 wipe direction uncertain",
+    "status": "WARN",
+    "notes": "clip=\"inset(0px)\" — could not determine direction"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Bug #17 — elements below 13px",
+    "status": "FAIL",
+    "notes": "section-label=12.8px opacity=1 | hero-eyebrow=12px opacity=1 | testimonials-disclaimer=12px opacity=0.8 | footer-col-title=12px opacity=1"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Console errors — full session",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "768",
+    "scenario": "Horizontal overflow",
+    "status": "FAIL",
+    "notes": "body.scrollWidth=784 > viewport=768"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Page load",
+    "status": "PASS",
+    "notes": null
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Bug #28 — padding-right fix applied (24px)",
+    "status": "PASS",
+    "notes": "paddingRight=24px paddingLeft=0px"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Bug #28 — scrollWidth half == card0→card5 distance",
+    "status": "PASS",
+    "notes": "scrollW=4640px halfW=2320px exact=2320px delta=0px cardW=440px gap=24px cards=10"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Bug #28 — keyframe translateX",
+    "status": "INFO",
+    "notes": "keyframe=\"translateX(-50%)\" anim=\"testimonial-scroll\" dur=\"50s\""
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Bug #28 — card[0]→card[5] measured offset",
+    "status": "INFO",
+    "notes": "card0.left=-220px card5.left=2100px diff=2320px (rel: card0=0px card5=2320px)"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Bug #8 mood-row wipe direction check",
+    "status": "INFO",
+    "notes": "mobileClip=\"inset(0px)\" computed=\"none\" photos=3 rules=[{\"sel\":\".mood-photo\",\"clip\":\"\"},{\"sel\":\".mood-photo img\",\"clip\":\"\"},{\"sel\":\".mood-row:hover .mood-photo img\",\"clip\":\"\"},{\"sel\":\".mood-photo-overlay\",\"clip\":\"\"},{\"sel\":\".mood-row:hover .mood-photo-overlay\",\"clip\":\"\"},{\"sel\":\"@media (max-width: 768px) { .mood-photo }\",\"clip\":\"inset(0px 0px 100%)\"},{\"sel\":\"@media (max-width: 768px) { .mood-row.reveal-glow .mood-photo }\",\"clip\":\"inset(0px)\"},{\"sel\":\"@media (prefers-reduced-motion: reduce) { .mood-photo img, .about-photo-frame img }\",\"clip\":\"\"},{\"sel\":\"@media (prefers-reduced-motion: reduce) { .mood-photo }\",\"clip\":\"none\"}]"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Bug #17 — elements below 13px",
+    "status": "FAIL",
+    "notes": "section-label=12.8px opacity=1 | hero-eyebrow=12px opacity=1 | testimonials-disclaimer=12px opacity=0.8 | footer-col-title=12px opacity=1"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Console errors — full session",
+    "status": "PASS",
+    "notes": "zero errors"
+  },
+  {
+    "viewport": "1440",
+    "scenario": "Horizontal overflow",
+    "status": "PASS",
+    "notes": null
+  }
+]
