@@ -417,10 +417,15 @@ nav.scrolled .nav-cta {
 .mood-photo img {
   width: 100%; height: 100%;
   object-fit: cover;
-  /* phone photos are portrait — keep faces/products in frame by anchoring center-top */
-  object-position: center 30%;
+  object-position: center center;
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+/* Per-row object-position overrides — anchor each photo's important content
+   inside the cover-cropped frame. Note: .mood-row is nth-of-type 2,3,4 within
+   .shop-mood because .shop-mood-header is the first div sibling. */
+.shop-mood .mood-row:nth-of-type(2) .mood-photo img { object-position: center 18%; }
+.shop-mood .mood-row:nth-of-type(3) .mood-photo img { object-position: center 50%; }
+.shop-mood .mood-row:nth-of-type(4) .mood-photo img { object-position: center 60%; }
 .mood-row:hover .mood-photo img { transform: scale(1.04); }
 .mood-photo-overlay {
   position: absolute;
@@ -1754,7 +1759,7 @@ nav.scrolled .nav-hamburger span { background: var(--espresso); }
   .mood-row.reverse { direction: ltr; }
   /* Bug #8: mobile wipe-in rises upward — inset clips from bottom, scroll direction match */
   .mood-photo {
-    height: 280px;
+    height: 460px;
     clip-path: inset(0 0 100% 0);
     transition:
       opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
