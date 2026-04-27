@@ -304,7 +304,14 @@ nav.scrolled .nav-cta {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   z-index: 2;
-  animation: fadeUp 1s 1.5s both;
+  opacity: 0;
+  /* dedicated keyframe preserves translateX(-50%) centering through the fade — the
+     shared fadeUp keyframe ends at translateY(0) which would drop the centering. */
+  animation: fadeUp-centered 1s 1.5s both;
+}
+@keyframes fadeUp-centered {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 .scroll-line {
   width: 1px;
